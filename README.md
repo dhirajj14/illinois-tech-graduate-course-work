@@ -1,7 +1,5 @@
 # Dhiraj Prakash Jain
-<img src="images/formal.jpg"
-     alt="Dhiraj Jain"
-     style="width:500px;height:500px;"/>
+![My_Picture](images/formal.jpg "Dhiraj Jain")
 ![Description_pictue](images/Describes_me.jpg "This is me!!")
 ___
 ## Mahad, Raigad, India
