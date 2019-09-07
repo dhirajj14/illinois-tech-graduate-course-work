@@ -1,0 +1,5 @@
+#packer 
+*.vdi
+*.box
+.vagrant/
+*console.log
