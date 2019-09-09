@@ -50,7 +50,7 @@ ___
 ![free giga command for ubuntu/bionic64](screenshots/part_3_bionic.PNG "free --giga command")
 ___
 &nbsp;&nbsp;&nbsp;&nbsp;
-## part 4
+## Part 4
 
 #### sudo systemctl status apache2 command after installing apache2 on bionic64 and ubuntu-vanilla
 
