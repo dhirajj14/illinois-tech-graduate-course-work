@@ -1,5 +1,6 @@
 # Vagrant and Packer Lab
 
+
 ## Part 1
 
 #### Vagrant up Command for Centos/7
@@ -16,6 +17,9 @@ ___
 
 ![vagrant box list command](screenshots/Part_1_Vagrant_list.PNG "vagrant box list command")
 ___
+
+
+
 
 ## Part 2
 
@@ -35,6 +39,8 @@ ___
 ___
 
 
+
+
 ## Part 3
 
 #### Vagrant Boxes centos/7 and bionic64 memory adjustment to run at RAM(2048 MB)
@@ -49,6 +55,8 @@ ___
 
 ![free giga command for ubuntu/bionic64](screenshots/part_3_bionic.PNG "free --giga command")
 ___
+
+
 
 ## part 4
 
