@@ -42,7 +42,7 @@ ___
 
 #### centos/7
 
-![free giga command for centos/7](screenshots/part_3_centos.PNGg "free --giga command")
+![free giga command for centos/7](screenshots/part_3_centos.PNG "free --giga command")
 ___
 
 #### ubuntu/bionic64
@@ -54,39 +54,39 @@ ___
 
 #### sudo systemctl status apache2 command after installing apache2 on bionic64 and ubuntu-vanilla
 
-![Command for bionic64](screenshots/part_4_1.PNG "sudo systemctl status apache2 for bionic64")
+![Command for bionic64](screenshots/Part_4_1.PNG "sudo systemctl status apache2 for bionic64")
 
-![Command for ubuntu-18043-vanilla](screenshots/part_4_2.PNG "sudo systemctl status apache2 for ubuntu-18043-vanilla")
+![Command for ubuntu-18043-vanilla](screenshots/Part_4_2.PNG "sudo systemctl status apache2 for ubuntu-18043-vanilla")
 ___
 
 #### sudo systemctl status httpd command after installing httpd on centos/7 and centos-1810-vanilla
 
 ![Command for centos/7](screenshots/part_4_3.PNG "sudo systemctl status httpd for centos/7")
 
-![Command for centos-1810-vanilla](screenshots/part_4_4.PNG "sudo systemctl status httpd for centos-1810-vanilla")
+![Command for centos-1810-vanilla](screenshotsPpart_4_4.PNG "sudo systemctl status httpd for centos-1810-vanilla")
 ___
 
 #### Vagrant destroy command on all four Boxes
 
-![vagrant destroy on all boxes](screenshots/part_4_5.PNG "vagrant destroy")
+![vagrant destroy on all boxes](screenshots/Part_4_5.PNG "vagrant destroy")
 ___
 
 #### vagrant up command on all four Boxes
 
-![vagrant up on all boxes](screenshots/part_4_6.png "vagrant up")
+![vagrant up on all boxes](screenshots/Part_4_6.PNG "vagrant up")
 ___
 
 #### vagrant ssh command on all four Boxes 
 
-![vagrant ssh on all boxes](screenshots/part_4_7.png "vagrant ssh")
+![vagrant ssh on all boxes](screenshots/Part_4_7.png "vagrant ssh")
 ___
 
 #### sudo systemctl status apache2 command on bionic64 and ubuntu-vanilla after vagrant destroy command
 
-![sudo systemctl status apache2 command on bionic64 and ubuntu-vanilla after vagrant destroy command](screenshots/part_4_8.png "sudo systemctl status apache2")
+![sudo systemctl status apache2 command on bionic64 and ubuntu-vanilla after vagrant destroy command](screenshots/Part_4_8.png "sudo systemctl status apache2")
 ___
 
 #### sudo systemctl status httpd command on centos/7 and centos-1810-vanilla after vagrant destroy command
 
-![sudo systemctl status httpd command on centos/7 and centos-1810-vanilla after vagrant destroy command](screenshots/part_4_9.png "sudo systemctl status httpd")
+![sudo systemctl status httpd command on centos/7 and centos-1810-vanilla after vagrant destroy command](screenshots/Part_4_9.png "sudo systemctl status httpd")
 ___
