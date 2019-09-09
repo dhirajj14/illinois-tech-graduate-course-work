@@ -78,15 +78,15 @@ ___
 
 #### vagrant ssh command on all four Boxes 
 
-![vagrant ssh on all boxes](screenshots/Part_4_7.png "vagrant ssh")
+![vagrant ssh on all boxes](screenshots/Part_4_7.PNG "vagrant ssh")
 ___
 
 #### sudo systemctl status apache2 command on bionic64 and ubuntu-vanilla after vagrant destroy command
 
-![sudo systemctl status apache2 command on bionic64 and ubuntu-vanilla after vagrant destroy command](screenshots/Part_4_8.png "sudo systemctl status apache2")
+![sudo systemctl status apache2 command on bionic64 and ubuntu-vanilla after vagrant destroy command](screenshots/Part_4_8.PNG "sudo systemctl status apache2")
 ___
 
 #### sudo systemctl status httpd command on centos/7 and centos-1810-vanilla after vagrant destroy command
 
-![sudo systemctl status httpd command on centos/7 and centos-1810-vanilla after vagrant destroy command](screenshots/Part_4_9.png "sudo systemctl status httpd")
+![sudo systemctl status httpd command on centos/7 and centos-1810-vanilla after vagrant destroy command](screenshots/Part_4_9.PNG "sudo systemctl status httpd")
 ___
