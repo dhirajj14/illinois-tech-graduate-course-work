@@ -61,9 +61,9 @@ ___
 
 #### sudo systemctl status httpd command after installing httpd on centos/7 and centos-1810-vanilla
 
-![Command for centos/7](screenshots/part_4_3.PNG "sudo systemctl status httpd for centos/7")
+![Command for centos/7](screenshots/Part_4_3.PNG "sudo systemctl status httpd for centos/7")
 
-![Command for centos-1810-vanilla](screenshotsPpart_4_4.PNG "sudo systemctl status httpd for centos-1810-vanilla")
+![Command for centos-1810-vanilla](screenshots/Part_4_4.PNG "sudo systemctl status httpd for centos-1810-vanilla")
 ___
 
 #### Vagrant destroy command on all four Boxes
