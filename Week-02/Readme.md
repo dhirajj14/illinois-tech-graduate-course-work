@@ -18,9 +18,7 @@ ___
 ![vagrant box list command](screenshots/Part_1_Vagrant_list.PNG "vagrant box list command")
 ___
 
-
-
-
+&nbsp;&nbsp;&nbsp;
 ## Part 2
 
 #### free --giga command for centos-1810-vanilla
