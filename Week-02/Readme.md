@@ -1,6 +1,5 @@
 # Vagrant and Packer Lab
-
-
+&nbsp;&nbsp;
 ## Part 1
 
 #### Vagrant up Command for Centos/7
@@ -18,7 +17,7 @@ ___
 ![vagrant box list command](screenshots/Part_1_Vagrant_list.PNG "vagrant box list command")
 ___
 
-&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
 ## Part 2
 
 #### free --giga command for centos-1810-vanilla
@@ -35,10 +34,7 @@ ___
 
 ![Vagrant box list command](screenshots/Part_2_Vagrant_box_list.PNG "vagrant box list command")
 ___
-
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;
 ## Part 3
 
 #### Vagrant Boxes centos/7 and bionic64 memory adjustment to run at RAM(2048 MB)
@@ -53,9 +49,7 @@ ___
 
 ![free giga command for ubuntu/bionic64](screenshots/part_3_bionic.PNG "free --giga command")
 ___
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;
 ## part 4
 
 #### sudo systemctl status apache2 command after installing apache2 on bionic64 and ubuntu-vanilla
