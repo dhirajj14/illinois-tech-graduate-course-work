@@ -41,3 +41,7 @@ EOF
 
 sudo gem install riemann-tools
 
+sudo git clone https://github.com/illinoistech-itm/djain14.git
+cd djain14/Week-03/packer-vagrant-samples/packer-build-templates/Rieman-config/
+sudo cp riemann.config /etc/riemann/riemann.config
+sudo  systemctl reload riemann
