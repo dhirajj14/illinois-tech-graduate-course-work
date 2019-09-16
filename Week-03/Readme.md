@@ -7,13 +7,13 @@
 ![riemannb](screenshots/riemanna.PNG "tail /var/log/riemann/riemann.log")
 ___
 
-## riemanna
+## riemannb
 
-#### Screenshot for riemannc
+#### Screenshot for riemannb
 
 ![riemannb](screenshots/riemannb.PNG "tail /var/log/riemann/riemann.log")
 ___
-## riemanna
+## riemannc
 
 #### Screenshot for riemannc
 
