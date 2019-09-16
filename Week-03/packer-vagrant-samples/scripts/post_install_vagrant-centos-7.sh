@@ -41,3 +41,29 @@ sudo yum install -y kernel-devel-`uname -r` gcc binutils make perl bzip2
 
 
 echo "All Done!"
+
+sudo yum install -y java-1.8.0-openjdk
+sudo yum -y install ruby ruby-dev build-essential zlib1g-dev
+wget https://rpmfind.net/linux/epel/6/x86_64/Packages/d/daemonize-1.7.3-1.el6.x86_64.rpm
+sudo rpm -Uvh daemonize-1.7.3-1.el6.x86_64.rpm
+
+wget https://github.com/riemann/riemann/releases/download/0.3.2/riemann-0.3.2-1.noarch.rpm
+sudo rpm -Uvh riemann-0.3.2-1.noarch.rpm
+
+sudo cat << EOF >> /etc/hosts
+192.168.0.110 riemanna riemanna.example.com
+192.168.0.120 riemannb riemannb.example.com
+192.168.0.100 riemannmc riemannmc.example.com
+EOF
+
+#gem install riemann-tools daemonize
+#sudo gem install --no-ri --no-rdoc riemann-tools
+cd djain14/Week-03/packer-vagrant-samples/packer-build-templates/Rieman-config/
+sudo cp riemann.config /etc/riemann/riemann.config
+#systemctl reload riemann
+
+#sudo hostnamectl set-hostname riemannc
+
+ufw allow 60000:61000/tcp
+
+#systemctl reload riemann

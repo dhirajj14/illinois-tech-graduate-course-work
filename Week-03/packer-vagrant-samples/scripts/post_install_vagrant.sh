@@ -29,7 +29,7 @@ sudo service fail2ban restart
 ##################################################
 
 sudo apt-get install -y openjdk-8-jre
-sudo apt-get -y install ruby ruby-dev build-essential zlib1gdev
+sudo apt-get -y install ruby ruby-dev build-essential zlib1g-dev
 sudo wget https://github.com/riemann/riemann/releases/download/0.3.2/riemann_0.3.2_all.deb
 sudo dpkg -i riemann_0.3.2_all.deb
 
@@ -40,8 +40,12 @@ sudo cat << EOF >> /etc/hosts
 EOF
 
 sudo gem install riemann-tools
-
-sudo git clone https://github.com/illinoistech-itm/djain14.git
 cd djain14/Week-03/packer-vagrant-samples/packer-build-templates/Rieman-config/
 sudo cp riemann.config /etc/riemann/riemann.config
 sudo  systemctl reload riemann
+
+sudo hostnamectl set-hostname riemannc
+
+ufw allow 60000:61000/tcp
+
+systemctl reload riemann
