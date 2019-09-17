@@ -1,8 +1,8 @@
 {
   "builders": [
     {
-      "name": "riemannc",
-      "vm_name": "riemannc",
+      "name": "riemannmc",
+      "vm_name": "riemannmc",
       "type": "virtualbox-iso",
       "boot_command": [
         "<esc><wait>",
