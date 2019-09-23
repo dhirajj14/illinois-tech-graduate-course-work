@@ -10,7 +10,7 @@ set -v
 # https://github.com/mitchellh/vagrant/issues/1482
 #echo "Defaults requiretty" | sudo tee -a /etc/sudoers.d/init-users
 # Need to add this first as wget not part of the base package...
-sudo yum install -y wget
+
 #################################################################################################################
 # code needed to allow for vagrant to function seamlessly
 #################################################################################################################
@@ -34,7 +34,6 @@ sudo chown -R vagrant:vagrant /home/vagrant/.ssh/authorized_keys
 sudo yum install -y epel-release 
 
 # Install base dependencies -  Centos 7 mininal needs the EPEL repo in the line above and the package daemonize
-sudo yum update -y
 sudo yum install -y wget unzip vim git python-setuptools curl
 # Due to needing a tty to run sudo, this install command adds all the pre-reqs to build the virtualbox additions
 sudo yum install -y kernel-devel-`uname -r` gcc binutils make perl bzip2
@@ -59,7 +58,6 @@ sudo cat << EOF >> /etc/hosts
 192.168.0.200 graphitemc graphitemc.example.com
 EOF
 
-sudo yum install -y epel-release
 sudo yum install -y python-setuptools
 sudo yum install -y python-whisper python-carbon
 
