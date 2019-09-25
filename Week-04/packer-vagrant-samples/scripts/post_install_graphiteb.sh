@@ -10,7 +10,7 @@ set -v
 # https://github.com/mitchellh/vagrant/issues/1482
 #echo "Defaults requiretty" | sudo tee -a /etc/sudoers.d/init-users
 # Need to add this first as wget not part of the base package...
-
+sudo yum install -y wget
 #################################################################################################################
 # code needed to allow for vagrant to function seamlessly
 #################################################################################################################
@@ -34,6 +34,7 @@ sudo chown -R vagrant:vagrant /home/vagrant/.ssh/authorized_keys
 sudo yum install -y epel-release 
 
 # Install base dependencies -  Centos 7 mininal needs the EPEL repo in the line above and the package daemonize
+sudo yum update -y
 sudo yum install -y wget unzip vim git python-setuptools curl
 # Due to needing a tty to run sudo, this install command adds all the pre-reqs to build the virtualbox additions
 sudo yum install -y kernel-devel-`uname -r` gcc binutils make perl bzip2
@@ -47,8 +48,14 @@ wget https://rpmfind.net/linux/epel/6/x86_64/Packages/d/daemonize-1.7.3-1.el6.x8
 sudo rpm -Uvh daemonize-1.7.3-1.el6.x86_64.rpm
 
 wget https://dl.grafana.com/oss/release/grafana-6.3.5-1.x86_64.rpm
-sudo yum localinstall grafana-6.3.5-1.x86_64.rpm
-
+sudo yum -y localinstall grafana-6.3.5-1.x86_64.rpm
+sudo yum groupinstall -y “Developent Tools”
+sudo yum install gcc openssl-devel bzip2-devel libffi libffi-devel
+wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz
+sudo tar xzf Python-3.7.3.tgz
+cd Python-3.7.3
+sudo ./configure --enable-optimizations
+sudo make altinstall
 sudo cat << EOF >> /etc/hosts
 192.168.0.110 riemanna riemanna.example.com
 192.168.0.120 riemannb riemannb.example.com
@@ -58,13 +65,15 @@ sudo cat << EOF >> /etc/hosts
 192.168.0.200 graphitemc graphitemc.example.com
 EOF
 
+sudo yum install -y epel-release
 sudo yum install -y python-setuptools
 sudo yum install -y python-whisper python-carbon
 
 sudo yum install -y python-pip gcc libffi-devel cairo-devel libtool libyaml-devel python-devel
 
+sudo pip install --upgrade pip
 sudo pip install -U six pyparsing websocket urllib3
-sudo pip install graphite-api gunicorn
+sudo pip install graphite-api gunicorn3
 sudo yum install grafana
 
 sudo hostnamectl set-hostname graphiteb
