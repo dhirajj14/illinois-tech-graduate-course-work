@@ -54,7 +54,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get -y install graphite-carbon
 sudo apt-get -y install graphite-api
 cd ~
 sudo hostnamectl set-hostname graphitea
-sudo cp /tmp/configs/graphite/carbon.conf /etc/carbon/
+sudo cp /tmp/configs/graphite/carbona.conf /etc/carbon/
 sudo cp /tmp/configs/graphite/storageschemas.conf /etc/carbon/
 sudo touch /etc/carbon/storage-aggregation.conf
 
