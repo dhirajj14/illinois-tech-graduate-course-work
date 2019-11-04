@@ -59,16 +59,17 @@
       }],
       
   "provisioners": [
+    {
+      "type": "file",
+      "source": "../configs",
+      "destination": "/tmp/configs"
+    },
   {
     "type": "shell",
     "execute_command" : "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'", 
-    "script": "../scripts/install_riemann.sh"
-  },
-  {
-    "type": "file",
-    "source": "../configs",
-    "destination": "/tmp/configs"
+    "script": "../scripts/install_riemanna.sh"
   }
+  
 ],
   "post-processors": [
  {

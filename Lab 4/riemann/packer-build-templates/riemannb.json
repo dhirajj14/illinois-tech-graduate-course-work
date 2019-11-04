@@ -34,15 +34,16 @@
 
   "provisioners": [
     {
-      "type": "shell",
-      "execute_command" : "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'", 
-      "script": "../scripts/gitclone.sh"
+      "type": "file",
+      "source": "../configs",
+      "destination": "/tmp/configs"
     },
     {
     "type": "shell",
   "execute_command" : "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'", 
     "script": "../scripts/post_install_vagrant-centos-7.sh"
   }
+ 
 ],
   "post-processors": [
  {

@@ -33,16 +33,37 @@ sudo apt-get -y install ruby ruby-dev build-essential zlib1g-dev
 sudo wget https://github.com/riemann/riemann/releases/download/0.3.2/riemann_0.3.2_all.deb
 sudo dpkg -i riemann_0.3.2_all.deb
 
+sudo apt-get -y install leiningen
+sudo git clone https://github.com/samn/riemann-syntax-check.git
+cd riemann-syntax-check
+sudo lein uberjar
+
+cd ~
+sudo git clone git://github.com/riemann/riemann.git
+cd riemann
+lein repl :connect 127.0.0.1:5557
+
+
 sudo cat << EOF >> /etc/hosts
 192.168.1.110 riemanna riemanna.example.com
 192.168.1.120 riemannb riemannb.example.com
 192.168.1.100 riemannmc riemannmc.example.com
+192.168.1.210 graphitea graphitea.example.com
+192.168.1.220 graphiteb graphiteb.example.com
+192.168.1.200 graphitemc graphitemc.example.com
+192.168.1.310 hosta hosta.example.com
+192.168.1.320 hostb hostb.example.com
+192.168.1.300 hostmc hostmc.example.com
 EOF
 
 sudo gem install riemann-tools
+
+sudo cp /tmp/configs/riemann/riemann.config /etc/riemann/riemann.config
+sudo cp -r /tmp/configs/riemann/ /etc/
+
 sudo  systemctl reload riemann
 
-sudo hostnamectl set-hostname riemannmc
+sudo hostnamectl set-hostname riemanna
 
 ufw allow 60000:61000/tcp
 
