@@ -69,31 +69,31 @@ RELAY_INSTANCES=1
 CACHE_INSTANCES=2
 EOF
 
-sudo service carbon-relay start
-sudo service carbon-cache start
+#sudo service carbon-relay start
+#sudo service carbon-cache start
 sudo cp /tmp/configs/graphite/carbon-cache@.service /lib/systemd/system/
 sudo cp /tmp/configs/graphite/carbon-relay@.service /lib/systemd/system/
 
 sudo systemctl enable carbon-cache@1.service
 sudo systemctl enable carbon-cache@2.service
-sudo systemctl start carbon-cache@1.service
-sudo systemctl start carbon-cache@2.service
+#sudo systemctl start carbon-cache@1.service
+#sudo systemctl start carbon-cache@2.service
 
 sudo systemctl enable carbon-relay@1.service
-sudo systemctl start carbon-relay@1.service
+#sudo systemctl start carbon-relay@1.service
 
-sudo rm -f /lib/systemd/system/carbon-relay.service
-sudo rm -f /lib/systemd/system/carbon-cache.service
+#sudo rm -f /lib/systemd/system/carbon-relay.service
+#sudo rm -f /lib/systemd/system/carbon-cache.service
 
 sudo cp /tmp/configs/graphite/graphite-api.yaml /etc/
 
 sudo touch /var/lib/graphite/api_search_index
 sudo chown _graphite:_graphite /var/lib/graphite/api_search_index
-sudo service graphite-api start
+#sudo service graphite-api start
 sudo cp /tmp/configs/graphite/graphite-api.service /lib/systemd/system/
 
 sudo systemctl enable graphite-api.service
-sudo systemctl start graphite-api.service
+#sudo systemctl start graphite-api.service
 
 sudo service grafana-server start
 ufw allow 60000:61000/tcp
