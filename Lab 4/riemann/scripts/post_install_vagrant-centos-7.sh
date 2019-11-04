@@ -57,7 +57,8 @@ sudo cat << EOF >> /etc/hosts
 EOF
 
 sudo gem install riemann-tools
-
+cd djain14/Week-03/packer-vagrant-samples/packer-build-templates/Rieman-config/
+sudo cp riemann.config /etc/riemann/riemann.config
 
 
 sudo hostnamectl set-hostname riemannb

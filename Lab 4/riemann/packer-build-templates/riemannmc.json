@@ -1,8 +1,8 @@
 {
   "builders": [
     {
-      "name": "graphitemc",
-      "vm_name": "graphitemc",
+      "name": "riemannmc",
+      "vm_name": "riemannmc",
       "type": "virtualbox-iso",
       "boot_command": [
         "<esc><wait>",
@@ -62,7 +62,12 @@
     {
       "type": "shell",
       "execute_command" : "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'", 
-      "script": "../scripts/post_install_graphitemc.sh"
+      "script": "../scripts/gitclone.sh"
+    },
+    {
+      "type": "shell",
+      "execute_command" : "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'", 
+      "script": "../scripts/post_install_vagrant.sh"
     }  
 ],
   "post-processors": [

@@ -1,8 +1,8 @@
 {
   "builders": [
     {
-      "name": "graphitemc",
-      "vm_name": "graphitemc",
+      "name": "riemanna",
+      "vm_name": "riemanna",
       "type": "virtualbox-iso",
       "boot_command": [
         "<esc><wait>",
@@ -59,11 +59,16 @@
       }],
       
   "provisioners": [
-    {
-      "type": "shell",
-      "execute_command" : "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'", 
-      "script": "../scripts/post_install_graphitemc.sh"
-    }  
+  {
+    "type": "shell",
+    "execute_command" : "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'", 
+    "script": "../scripts/install_riemann.sh"
+  },
+  {
+    "type": "file",
+    "source": "../configs",
+    "destination": "/tmp/configs"
+  }
 ],
   "post-processors": [
  {

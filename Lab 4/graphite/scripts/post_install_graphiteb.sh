@@ -47,24 +47,39 @@ sudo yum -y install ruby ruby-devel gcc libxml2-devel
 wget https://rpmfind.net/linux/epel/6/x86_64/Packages/d/daemonize-1.7.3-1.el6.x86_64.rpm
 sudo rpm -Uvh daemonize-1.7.3-1.el6.x86_64.rpm
 
-wget https://github.com/riemann/riemann/releases/download/0.3.2/riemann-0.3.2-1.noarch.rpm
-sudo rpm -Uvh riemann-0.3.2-1.noarch.rpm
-
+wget https://dl.grafana.com/oss/release/grafana-6.3.5-1.x86_64.rpm
+sudo yum -y localinstall grafana-6.3.5-1.x86_64.rpm
+sudo yum -y install gcc openssl-devel bzip2-devel libffi libffi-devel
+cd /usr/src
+wget https://www.python.org/ftp/python/3.6.9/Python-3.6.9.tgz
+sudo tar xzf Python-3.6.9.tgz
+cd Python-3.6.9
+sudo ./configure --enable-optimizations
+sudo make altinstall
+sudo rm /usr/src/Python-3.6.9.tgz
 sudo cat << EOF >> /etc/hosts
 192.168.0.110 riemanna riemanna.example.com
 192.168.0.120 riemannb riemannb.example.com
 192.168.0.100 riemannmc riemannmc.example.com
+192.168.0.210 graphitea graphitea.example.com
+192.168.0.220 graphiteb graphiteb.example.com
+192.168.0.200 graphitemc graphitemc.example.com
 EOF
 
-sudo gem install riemann-tools
 
+sudo yum install -y python-setuptools
+sudo yum install -y python-whisper python-carbon
 
+sudo yum install -y python-pip gcc libffi-devel cairo-devel libtool libyaml-devel python-devel
 
-sudo hostnamectl set-hostname riemannb
+sudo pip install --upgrade pip
+sudo pip install -U six pyparsing websocket urllib3
+sudo pip install graphite-api gunicorn3
+sudo yum install grafana
+
+sudo hostnamectl set-hostname graphiteb
 
 sudo systemctl start firewalld
 sudo firewall-cmd --permanent --add-port=5000-6000/tcp
 sudo firewall-cmd --reload
 
-sudo chkconfig riemann on
-sudo service riemann start
