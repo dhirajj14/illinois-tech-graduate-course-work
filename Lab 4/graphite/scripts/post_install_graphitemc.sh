@@ -39,6 +39,9 @@ sudo cat << EOF >> /etc/hosts
 192.168.1.210 graphitea graphitea.example.com
 192.168.1.220 graphiteb graphiteb.example.com
 192.168.1.200 graphitemc graphitemc.example.com
+192.168.1.310 hosta hosta.example.com
+192.168.1.320 hostb hostb.example.com
+192.168.1.300 hostmc hostmc.example.com
 EOF
 
 sudo apt-get update
@@ -49,7 +52,49 @@ sudo apt-get install -y apt-transport-https grafana
 
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install graphite-carbon
 sudo apt-get -y install graphite-api
-
+cd ~
 sudo hostnamectl set-hostname graphitemc
+sudo cp /tmp/configs/graphite/carbona.conf /etc/carbon/carbon.conf
+sudo cp /tmp/configs/graphite/storageschemas.conf /etc/carbon/
+sudo touch /etc/carbon/storage-aggregation.conf
 
+wget https://raw.githubusercontent.com/jamtur01/aom-code/master/4/graphite/carbon-cache-ubuntu.init
+sudo cp carbon-cache-ubuntu.init /etc/init.d/carbon-cache
+sudo chmod 0755 /etc/init.d/carbon-cache
+sudo update-rc.d carbon-cache defaults
+
+sudo cat << EOF >> /etc/default/graphite-carbon
+CARBON_CACHE_ENABLED=true
+RELAY_INSTANCES=1
+CACHE_INSTANCES=2
+EOF
+
+#sudo service carbon-relay start
+#sudo service carbon-cache start
+sudo cp /tmp/configs/graphite/carbon-cache@.service /lib/systemd/system/
+sudo cp /tmp/configs/graphite/carbon-relay@.service /lib/systemd/system/
+
+sudo systemctl enable carbon-cache@1.service
+sudo systemctl enable carbon-cache@2.service
+#sudo systemctl start carbon-cache@1.service
+#sudo systemctl start carbon-cache@2.service
+
+sudo systemctl enable carbon-relay@1.service
+#sudo systemctl start carbon-relay@1.service
+
+#sudo rm -f /lib/systemd/system/carbon-relay.service
+#sudo rm -f /lib/systemd/system/carbon-cache.service
+
+sudo cp /tmp/configs/graphite/graphite-api.yaml /etc/
+
+sudo apt-get -y install gunicorn3
+sudo touch /var/lib/graphite/api_search_index
+sudo chown _graphite:_graphite /var/lib/graphite/api_search_index
+#sudo service graphite-api start
+sudo cp /tmp/configs/graphite/graphite-api.service /lib/systemd/system/
+
+sudo systemctl enable graphite-api.service
+#sudo systemctl start graphite-api.service
+
+sudo service grafana-server start
 ufw allow 60000:61000/tcp

@@ -1,8 +1,8 @@
 {
   "builders": [
     {
-      "name": "graphitemc",
-      "vm_name": "graphitemc",
+      "name": "hosta",
+      "vm_name": "hosta",
       "type": "virtualbox-iso",
       "boot_command": [
         "<esc><wait>",
@@ -67,8 +67,9 @@
   {
     "type": "shell",
     "execute_command" : "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'", 
-    "script": "../scripts/post_install_graphitemc.sh"
+    "script": "../scripts/install_hosta.sh"
   }
+  
 ],
   "post-processors": [
  {

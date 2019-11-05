@@ -63,9 +63,14 @@ sudo cp riemann.config /etc/riemann/riemann.config
 
 sudo hostnamectl set-hostname riemannb
 
+sudo yum install -y epel-release
+sudo yum install collectd protobuf-c collectd-write_riemann
+sudo cp /tmp/configs/collectd/collectd.conf /etc/
+sudo cp /tmp/configs/collectd/collectd.d /etc/
+
+sudo systemctl enable collectd
+sudo service collectd start
+
 sudo systemctl start firewalld
 sudo firewall-cmd --permanent --add-port=5000-6000/tcp
 sudo firewall-cmd --reload
-
-sudo chkconfig riemann on
-sudo service riemann start

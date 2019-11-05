@@ -54,7 +54,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get -y install graphite-carbon
 sudo apt-get -y install graphite-api
 cd ~
 sudo hostnamectl set-hostname graphitea
-sudo cp /tmp/configs/graphite/carbona.conf /etc/carbon/
+sudo cp /tmp/configs/graphite/carbona.conf /etc/carbon/carbon.conf
 sudo cp /tmp/configs/graphite/storageschemas.conf /etc/carbon/
 sudo touch /etc/carbon/storage-aggregation.conf
 
@@ -87,6 +87,7 @@ sudo systemctl enable carbon-relay@1.service
 
 sudo cp /tmp/configs/graphite/graphite-api.yaml /etc/
 
+sudo apt-get -y gunicorn3
 sudo touch /var/lib/graphite/api_search_index
 sudo chown _graphite:_graphite /var/lib/graphite/api_search_index
 #sudo service graphite-api start

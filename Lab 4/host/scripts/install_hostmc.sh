@@ -56,15 +56,12 @@ sudo cat << EOF >> /etc/hosts
 192.168.1.101 hostmc hostmc.example.com
 EOF
 
-sudo gem install riemann-tools
+sudo apt-get -y install collectd
+sudo apt-get update
 
-sudo cp /tmp/configs/riemann/riemannmc.config /etc/riemann/riemann.config
-sudo cp -r /tmp/configs/riemann/ /etc/
-sudo cp /tmp/configs/riemann/examplecom/etc/graphiteb.clj /etc/riemann/examplecom/etc/graphite.clj
-sudo  systemctl reload riemann
+sudo hostnamectl set-hostname hostmc
+sudo cp /tmp/configs/collectd/collectd.conf /etc/collectd/
+sudo cp -r /tmp/configs/collectd/collectd.d /etc/
 
-sudo hostnamectl set-hostname riemannmc
-
-ufw allow 60000:61000/tcp
-
-systemctl reload riemann
+sudo update-rc.d collectd defaults
+sudo service collectd start

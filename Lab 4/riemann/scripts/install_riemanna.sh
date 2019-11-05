@@ -51,9 +51,9 @@ sudo cat << EOF >> /etc/hosts
 192.168.1.210 graphitea graphitea.example.com
 192.168.1.220 graphiteb graphiteb.example.com
 192.168.1.200 graphitemc graphitemc.example.com
-192.168.1.310 hosta hosta.example.com
-192.168.1.320 hostb hostb.example.com
-192.168.1.300 hostmc hostmc.example.com
+192.168.1.111 hosta hosta.example.com
+192.168.1.121 hostb hostb.example.com
+192.168.1.101 hostmc hostmc.example.com
 EOF
 
 sudo gem install riemann-tools
