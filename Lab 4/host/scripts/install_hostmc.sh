@@ -60,8 +60,9 @@ sudo apt-get -y install collectd
 sudo apt-get update
 
 sudo hostnamectl set-hostname hostmc
-sudo cp /tmp/configs/collectd/collectd.conf /etc/collectd/
-sudo cp -r /tmp/configs/collectd/collectd.d /etc/
+sudo cp /tmp/configs/collectd/carbon.conf /etc/collectd/
+sudo cp -r /tmp/configs/collectd.d/ /etc/
+sudo mv /etc/collectd.d/write_riemannmc.conf /etc/collectd.d/write_riemann.conf
 
 sudo update-rc.d collectd defaults
 sudo service collectd start

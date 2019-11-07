@@ -48,8 +48,14 @@ EOF
 
 
 sudo apt-get update
+sudo apt-get -y install collectd
 sudo hostnamectl set-hostname logstasha
 
+wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+sudo apt-get install apt-transport-https
+echo "deb https://artifacts.elastic.co/packages/7.4/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.4.list
+sudo apt-get update
+sudo apt-get install logstash
 ufw allow 60000:61000/tcp
 
 

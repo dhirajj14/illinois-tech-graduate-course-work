@@ -54,13 +54,20 @@ sudo cat << EOF >> /etc/hosts
 192.168.1.111 hosta hosta.example.com
 192.168.1.121 hostb hostb.example.com
 192.168.1.101 hostmc hostmc.example.com
+192.168.1.201 logstasha logstasha.example.com
+192.168.1.202 esa1 esa1.example.com
+192.168.1.203 esa2 esa2.example.com
+192.168.1.204 esa3 esa3.example.com
 EOF
 
 sudo gem install riemann-tools
 
 sudo cp /tmp/configs/riemann/riemannmc.config /etc/riemann/riemann.config
-sudo cp -r /tmp/configs/riemann/ /etc/
-sudo cp /tmp/configs/riemann/examplecom/etc/graphiteb.clj /etc/riemann/examplecom/etc/graphite.clj
+sudo cp /tmp/configs/riemann/examplecom/etc/email.clj /etc/riemann/examplecom/etc/
+sudo cp /tmp/configs/riemann/examplecom/etc/graphitemc.clj /etc/riemann/examplecom/etc/
+sudo cp /tmp/configs/riemann/examplecom/etc/checks.clj /etc/riemann/examplecom/etc/
+sudo cp /tmp/configs/riemann/examplecom/etc/collectd.clj /etc/riemann/examplecom/etc/
+
 sudo  systemctl reload riemann
 
 sudo hostnamectl set-hostname riemannmc

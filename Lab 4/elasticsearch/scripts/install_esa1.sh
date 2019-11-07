@@ -32,6 +32,7 @@ sudo apt-get install -y openjdk-8-jre
 sudo apt-get -y install ruby ruby-dev build-essential zlib1g-dev
 
 
+
 sudo cat << EOF >> /etc/hosts
 192.168.1.110 riemanna riemanna.example.com
 192.168.1.120 riemannb riemannb.example.com
@@ -42,20 +43,31 @@ sudo cat << EOF >> /etc/hosts
 192.168.1.111 hosta hosta.example.com
 192.168.1.121 hostb hostb.example.com
 192.168.1.101 hostmc hostmc.example.com
+192.168.1.201 logstasha logstasha.example.com
+192.168.1.202 esa1 esa1.example.com
+192.168.1.203 esa2 esa2.example.com
+192.168.1.204 esa3 esa3.example.com
 EOF
 
 
-sudo apt-get -y install collectd
 sudo apt-get update
+sudo apt-get -y install collectd
+sudo hostnamectl set-hostname esa1
 
-sudo hostnamectl set-hostname hosta
+#wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+#sudo apt-get install apt-transport-https
+#echo "deb https://artifacts.elastic.co/packages/7.4/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.4.list
+#sudo apt-get update
+#sudo apt-get install logstash
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+sudo apt-get install apt-transport-https
+echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
+sudo apt-get update && sudo apt-get install elasticsearch
 
-sudo cp /tmp/configs/collectd/carbon.conf /etc/collectd/
-sudo cp -r /tmp/configs/collectd.d/ /etc/
-sudo mv /etc/collectd.d/write_riemanna.conf /etc/collectd.d/write_riemann.conf
-sudo update-rc.d collectd defaults
- sudo service collectd start
-
+sudo -i service elasticsearch start
+sudo /bin/systemctl daemon-reload
+sudo /bin/systemctl enable elasticsearch.service
+sudo /bin/systemctl daemon-reload
 ufw allow 60000:61000/tcp
 
 

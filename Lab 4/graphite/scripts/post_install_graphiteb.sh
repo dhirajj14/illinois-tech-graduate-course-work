@@ -50,10 +50,12 @@ sudo rpm -Uvh daemonize-1.7.3-1.el6.x86_64.rpm
 wget https://dl.grafana.com/oss/release/grafana-6.3.5-1.x86_64.rpm
 sudo yum -y localinstall grafana-6.3.5-1.x86_64.rpm
 sudo yum -y install gcc openssl-devel bzip2-devel libffi libffi-devel
+
 cd /usr/src
 wget https://www.python.org/ftp/python/3.6.9/Python-3.6.9.tgz
 sudo tar xzf Python-3.6.9.tgz
 cd Python-3.6.9
+
 sudo ./configure --enable-optimizations
 sudo make altinstall
 sudo rm /usr/src/Python-3.6.9.tgz
@@ -75,9 +77,53 @@ sudo yum install -y python-pip gcc libffi-devel cairo-devel libtool libyaml-deve
 sudo pip install --upgrade pip
 sudo pip install -U six pyparsing websocket urllib3
 sudo pip install graphite-api gunicorn3
+sudo touch /etc/yum.repos.d/grafana.repo
+sudo cp /tmp/configs/graphite/grafana.repo /etc/yum.repos.d/grafana.repo
 sudo yum install grafana
-
 sudo hostnamectl set-hostname graphiteb
+
+
+sudo cp /tmp/configs/graphite/carbona.conf /etc/carbon/carbon.conf
+sudo cp /tmp/configs/graphite/storageschemas.conf /etc/carbon/
+sudo touch /etc/carbon/storage-aggregation.conf
+
+wget https://raw.githubusercontent.com/jamtur01/aom-code/master/4/graphite/carbon-cache-ubuntu.init
+sudo cp carbon-cache-ubuntu.init /etc/init.d/carbon-cache
+sudo chmod 0755 /etc/init.d/carbon-cache
+sudo update-rc.d carbon-cache defaults
+
+sudo cat << EOF >> /etc/default/graphite-carbon
+CARBON_CACHE_ENABLED=true
+RELAY_INSTANCES=1
+CACHE_INSTANCES=2
+EOF
+
+#sudo service carbon-relay start
+#sudo service carbon-cache start
+sudo cp /tmp/configs/graphite/carbon-cache@.service /lib/systemd/system/
+sudo cp /tmp/configs/graphite/carbon-relay@.service /lib/systemd/system/
+
+sudo systemctl enable carbon-cache@1.service
+sudo systemctl enable carbon-cache@2.service
+#sudo systemctl start carbon-cache@1.service
+#sudo systemctl start carbon-cache@2.service
+
+sudo systemctl enable carbon-relay@1.service
+#sudo systemctl start carbon-relay@1.service
+
+#sudo rm -f /lib/systemd/system/carbon-relay.service
+#sudo rm -f /lib/systemd/system/carbon-cache.service
+
+sudo cp /tmp/configs/graphite/graphite-api.yaml /etc/
+
+sudo apt-get -y install gunicorn3
+sudo touch /var/lib/graphite/api_search_index
+sudo chown _graphite:_graphite /var/lib/graphite/api_search_index
+#sudo service graphite-api start
+sudo cp /tmp/configs/graphite/graphite-api.service /lib/systemd/system/
+
+sudo systemctl enable graphite-api.service
+#sudo systemctl start graphite-api.service
 
 sudo systemctl start firewalld
 sudo firewall-cmd --permanent --add-port=5000-6000/tcp
