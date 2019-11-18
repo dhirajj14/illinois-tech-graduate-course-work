@@ -28,7 +28,7 @@ sudo service fail2ban restart
 # Add User customizations below here
 ##################################################
 
-sudo apt-get install -y openjdk-8-jre
+sudo apt-get install -y openjdk-11-jre
 sudo apt-get -y install ruby ruby-dev build-essential zlib1g-dev
 
 

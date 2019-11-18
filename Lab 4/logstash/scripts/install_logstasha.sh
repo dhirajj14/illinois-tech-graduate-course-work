@@ -53,7 +53,7 @@ sudo hostnamectl set-hostname logstasha
 
 wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 sudo apt-get install apt-transport-https
-echo "deb https://artifacts.elastic.co/packages/7.4/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.4.list
+echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
 sudo apt-get update
 sudo apt-get install logstash
 
