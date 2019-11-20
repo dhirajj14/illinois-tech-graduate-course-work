@@ -64,10 +64,10 @@ sudo gem install riemann-tools
 sudo hostnamectl set-hostname riemanna
 
 sudo cp /tmp/configs/riemann/riemann.config /etc/riemann/riemann.config
-sudo cp /tmp/configs/riemann/examplecom/etc/email.clj /etc/riemann/examplecom/etc/
-sudo cp /tmp/configs/riemann/examplecom/etc/graphitea.clj /etc/riemann/examplecom/etc/
-sudo cp /tmp/configs/riemann/examplecom/etc/checks.clj /etc/riemann/examplecom/etc/
-sudo cp /tmp/configs/riemann/examplecom/etc/collectd.clj /etc/riemann/examplecom/etc/
+sudo cp /tmp/configs/riemann/examplecom/etc/email.clj /etc/riemann/examplecom/etc/email.clj
+sudo cp /tmp/configs/riemann/examplecom/etc/graphitea.clj /etc/riemann/examplecom/etc/graphitea.clj
+sudo cp /tmp/configs/riemann/examplecom/etc/checks.clj /etc/riemann/examplecom/etc/checks.clj
+sudo cp /tmp/configs/riemann/examplecom/etc/collectd.clj /etc/riemann/examplecom/etc/collectd.clj
 
 sudo  systemctl reload riemann
 
