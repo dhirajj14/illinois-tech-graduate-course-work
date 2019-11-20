@@ -87,4 +87,3 @@ discovery.seed_hosts: [“esa1.example.com", “esa2.example.com“, “esa3.exa
 #
 #action.destructive_requires_name: true
 
-#delete all the data if tcluster status is red curl -X DELETE 'http://192.168.1.202:9200/_all'
