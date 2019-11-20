@@ -1,0 +1,1 @@
+#Delete all the data if the cluster status is red curl -X DELETE 'http://192.168.1.202:9200/_all'
