@@ -1,8 +1,8 @@
 {
   "builders": [
     {
-      "name": "graphitea",
-      "vm_name": "graphitea",
+      "name": "grafana",
+      "vm_name": "grafana",
       "type": "virtualbox-iso",
       "boot_command": [
         "<esc><wait>",
@@ -67,7 +67,7 @@
   {
     "type": "shell",
     "execute_command" : "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'", 
-    "script": "../scripts/post_install_graphitea.sh"
+    "script": "../scripts/post_install_grafana.sh"
   }
 
 ],

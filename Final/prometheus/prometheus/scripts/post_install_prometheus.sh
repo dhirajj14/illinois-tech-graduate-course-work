@@ -133,9 +133,9 @@ sudo systemctl restart prometheus
 
 sudo cat << EOF >> /etc/hosts
 192.168.2.100  prometheus prometheus.example.com
-192.168.1.200 grafana grafana.example.com
-192.168.1.310 hosta hosta.example.com
-192.168.1.320 hostb hostb.example.com
+192.168.2.200 grafana grafana.example.com
+192.168.2.310 hosta hosta.example.com
+192.168.2.320 hostb hostb.example.com
 EOF
 
 
