@@ -92,7 +92,11 @@ sudo systemctl enable node_exporter
 
 
 sudo systemctl start firewalld
-sudo firewall-cmd --permanent --add-port=5000-6000/tcp
+sudo firewall-cmd --zone=public --add-port=9100/tcp --permanent
+sudo firewall-cmd --zone=public --add-port=9090/tcp --permanent
+sudo firewall-cmd --zone=public --add-port=3000/tcp --permanent
+sudo firewall-cmd --zone=public --add-port=80/tcp --permanent
+sudo firewall-cmd --zone=public --add-port=443/tcp --permanent
 sudo firewall-cmd --reload
 
 
