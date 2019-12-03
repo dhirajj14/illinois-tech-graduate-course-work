@@ -34,13 +34,13 @@ sudo apt-get -y install ruby ruby-dev build-essential zlib1g-dev
 
 sudo cat << EOF >> /etc/hosts
 192.168.2.100  prometheus prometheus.example.com
-192.168.1.200 grafana grafana.example.com
-192.168.1.310 hosta hosta.example.com
-192.168.1.320 hostb hostb.example.com
+192.168.2.200 grafana grafana.example.com
+192.168.2.210 hosta hosta.example.com
+192.168.2.220 hostb hostb.example.com
 EOF
 
 cd ~
-sudo hostnamectl set-hostname prometheus
+sudo hostnamectl set-hostname grafana
 
 sudo apt-get update
 wget https://dl.grafana.com/oss/release/grafana_6.3.5_amd64.deb
@@ -48,5 +48,45 @@ sudo dpkg -i grafana_6.3.5_amd64.deb
 
 sudo apt-get install -y apt-transport-https grafana
 sudo service grafana-server start
+
+###### Node Exporter #######
+cd ~
+
+#creating Users
+sudo useradd --no-create-home --shell /bin/false node_exporter
+
+##Downloading Node Exporter
+curl -LO https://github.com/prometheus/node_exporter/releases/download/v0.15.1/node_exporter-0.15.1.linux-amd64.tar.gz
+
+#use the sha256sum command to generate a checksum of the downloaded file:
+sha256sum node_exporter-0.15.1.linux-amd64.tar.gz
+
+#unpacking downloadecd file
+tar xvf node_exporter-0.15.1.linux-amd64.tar.gz
+
+
+#coping unpack libraries to the local
+sudo cp node_exporter-0.15.1.linux-amd64/node_exporter /usr/local/bin
+sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
+
+#remove the leftover files from your home directory
+rm -rf node_exporter-0.15.1.linux-amd64.tar.gz node_exporter-0.15.1.linux-amd64
+
+#Configuring node exporter and setting permisiion to file#
+sudo cp /tmp/configs/node_exporter.service /etc/systemd/system/node_exporter.service
+
+#reloading daemon
+sudo systemctl daemon-reload
+
+#starting exporter
+sudo systemctl start node_exporter
+
+#enable service
+sudo systemctl enable node_exporter
+
+#restarting prometheus
+sudo systemctl restart grafana-server
+
+
 
 ufw allow 60000:61000/tcp

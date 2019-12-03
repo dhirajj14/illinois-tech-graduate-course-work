@@ -33,28 +33,52 @@ sudo apt-get -y install ruby ruby-dev build-essential zlib1g-dev
 
 
 sudo cat << EOF >> /etc/hosts
-192.168.1.110 riemanna riemanna.example.com
-192.168.1.120 riemannb riemannb.example.com
-192.168.1.100 riemannmc riemannmc.example.com
-192.168.1.210 graphitea graphitea.example.com
-192.168.1.220 graphiteb graphiteb.example.com
-192.168.1.200 graphitemc graphitemc.example.com
-192.168.1.111 hosta hosta.example.com
-192.168.1.121 hostb hostb.example.com
-192.168.1.101 hostmc hostmc.example.com
+192.168.2.100  prometheus prometheus.example.com
+192.168.2.200 grafana grafana.example.com
+192.168.2.210 hosta hosta.example.com
+192.168.2.220 hostb hostb.example.com
 EOF
 
 
-sudo apt-get -y install collectd
+
 sudo apt-get update
 
 sudo hostnamectl set-hostname hosta
 
-sudo cp /tmp/configs/collectd/carbon.conf /etc/collectd/
-sudo cp -r /tmp/configs/collectd.d/ /etc/
-sudo mv /etc/collectd.d/write_riemanna.conf /etc/collectd.d/write_riemann.conf
-sudo update-rc.d collectd defaults
- sudo service collectd start
+###### Node Exporter #######
+cd ~
+
+#creating Users
+sudo useradd --no-create-home --shell /bin/false node_exporter
+
+##Downloading Node Exporter
+curl -LO https://github.com/prometheus/node_exporter/releases/download/v0.15.1/node_exporter-0.15.1.linux-amd64.tar.gz
+
+#use the sha256sum command to generate a checksum of the downloaded file:
+sha256sum node_exporter-0.15.1.linux-amd64.tar.gz
+
+#unpacking downloadecd file
+tar xvf node_exporter-0.15.1.linux-amd64.tar.gz
+
+
+#coping unpack libraries to the local
+sudo cp node_exporter-0.15.1.linux-amd64/node_exporter /usr/local/bin
+sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
+
+#remove the leftover files from your home directory
+rm -rf node_exporter-0.15.1.linux-amd64.tar.gz node_exporter-0.15.1.linux-amd64
+
+#Configuring node exporter and setting permisiion to file#
+sudo cp /tmp/configs/node_exporter.service /etc/systemd/system/node_exporter.service
+
+#reloading daemon
+sudo systemctl daemon-reload
+
+#starting exporter
+sudo systemctl start node_exporter
+
+#enable service
+sudo systemctl enable node_exporter
 
 ufw allow 60000:61000/tcp
 

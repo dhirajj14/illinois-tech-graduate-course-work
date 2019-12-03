@@ -44,33 +44,55 @@ echo "All Done!"
 
 sudo yum install -y java-1.8.0-openjdk
 sudo yum -y install ruby ruby-devel gcc libxml2-devel
-wget https://rpmfind.net/linux/epel/6/x86_64/Packages/d/daemonize-1.7.3-1.el6.x86_64.rpm
-sudo rpm -Uvh daemonize-1.7.3-1.el6.x86_64.rpm
 
-wget https://github.com/riemann/riemann/releases/download/0.3.2/riemann-0.3.2-1.noarch.rpm
-sudo rpm -Uvh riemann-0.3.2-1.noarch.rpm
 
 sudo cat << EOF >> /etc/hosts
-192.168.0.110 riemanna riemanna.example.com
-192.168.0.120 riemannb riemannb.example.com
-192.168.0.100 riemannmc riemannmc.example.com
+192.168.2.100  prometheus prometheus.example.com
+192.168.2.200 grafana grafana.example.com
+192.168.2.210 hosta hosta.example.com
+192.168.2.220 hostb hostb.example.com
 EOF
 
-sudo gem install riemann-tools
-cd djain14/Week-03/packer-vagrant-samples/packer-build-templates/Rieman-config/
-sudo cp riemann.config /etc/riemann/riemann.config
+sudo hostnamectl set-hostname hostb
+
+###### Node Exporter #######
+cd ~
+
+#creating Users
+sudo useradd --no-create-home --shell /bin/false node_exporter
+
+##Downloading Node Exporter
+curl -LO https://github.com/prometheus/node_exporter/releases/download/v0.15.1/node_exporter-0.15.1.linux-amd64.tar.gz
+
+#use the sha256sum command to generate a checksum of the downloaded file:
+sha256sum node_exporter-0.15.1.linux-amd64.tar.gz
+
+#unpacking downloadecd file
+tar xvf node_exporter-0.15.1.linux-amd64.tar.gz
 
 
-sudo hostnamectl set-hostname riemannb
+#coping unpack libraries to the local
+sudo cp node_exporter-0.15.1.linux-amd64/node_exporter /usr/local/bin
+sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
 
-sudo yum install -y epel-release
-sudo yum install collectd protobuf-c collectd-write_riemann
-sudo cp /tmp/configs/collectd/collectd.conf /etc/
-sudo cp /tmp/configs/collectd/collectd.d /etc/
+#remove the leftover files from your home directory
+rm -rf node_exporter-0.15.1.linux-amd64.tar.gz node_exporter-0.15.1.linux-amd64
 
-sudo systemctl enable collectd
-sudo service collectd start
+#Configuring node exporter and setting permisiion to file#
+sudo cp /tmp/configs/node_exporter.service /etc/systemd/system/node_exporter.service
+
+#reloading daemon
+sudo systemctl daemon-reload
+
+#starting exporter
+sudo systemctl start node_exporter
+
+#enable service
+sudo systemctl enable node_exporter
+
 
 sudo systemctl start firewalld
 sudo firewall-cmd --permanent --add-port=5000-6000/tcp
 sudo firewall-cmd --reload
+
+
