@@ -21,3 +21,8 @@ scrape_configs:
      scrape_interval: 5s
      static_configs:
        - targets: ['192.168.2.210:9100']
+
+   - job_name: 'hostb'
+     scrape_interval: 5s
+     static_configs:
+       - targets: ['192.168.2.220:9100']
