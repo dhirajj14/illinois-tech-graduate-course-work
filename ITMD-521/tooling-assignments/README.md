@@ -6,11 +6,12 @@ ___
 Mahad is a small town located in Raigad District. Raigad was the capital of great Indian warrior king Shivaji Maharaj. Mahad is well known for its "Chavdar lake" where Dr. Babasaheb Ambedkar(Freedom Fighter) did water satyagraha.
 
 ___
-## Background 
+## Background and IT Interests 
 I have completed my Associate and Bachelor's Degree in Computer Engineering from India. With proven leadership capabilities and passionate about programming, Android and Web Application Development I have led multiple projects to completion. I did two internships, one at Aalborg university in Copenhagen, Denmark as leader for "Smart cities in India" project and second at Prompt Info Service in Pune, India as Netwrok Administrator.
+Recently, I participated in IIT Innovation Challenge, with an idea "Smart Accident Detection and Notification System". I stood at 4th place in the challenge. The technologies I used to make a prototype are Ardiuno, GPS module, LoRa Module and Android application. 
 
 ___
-## Additional Info
+## Something Intresting About Me
 I am very good at life hacks!! I can fix anything around me which is not working or broken. And Key to this uniqueness is I believe in :
 
 "I never lose, it's either I win or I learn"
