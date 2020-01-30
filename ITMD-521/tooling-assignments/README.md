@@ -24,6 +24,15 @@ ___
 ## Install IDE editor
 ![VSCode](images/VSCode.png "Installed VS Code Successfully!!")
 ___
+## Install VirtualBox
+![VSCode](images/virtualbox.png "Installed virtualbox Successfully!!")
+___
+## Install Vagrant
+![VSCode](images/vagrant.png "Installed VS vagrant and completed vagrant tutorial Successfully!!")
+___
+## Install Packer.io
+![VSCode](images/packer.png "Installed packer.io Successfully!!")
+___
 ## Badges
 Git Version
 ![Git_Version](images/git.png "Installed Git Successfully!!")
