@@ -9,6 +9,7 @@ const char* password = "nahidenge";
 String header;
 int buzzer = 16;
 long ran;
+int gameStart = 0;
 int buzzTone;
 String answerArray[3];
 String guessArray[3];
@@ -61,6 +62,7 @@ text-align: center;
   <span style="background-color:#66ff66;" id="Gled" class="dot"></span><span style="background-color:#FF6666;" id="Rled" class="dot"></span><span style="background-color:#6666ff;" id="Bled" class="dot"></span>
   <h3 >Score: <span id="score"></span></h3>
   <h3 >Win/Lose: <span id="wl"></span></h3>
+  <Button onClick="start();">start</Button>
   </div>
   </body>
   <script>
@@ -163,6 +165,13 @@ setInterval(function ( ) {
   xhttp.open("GET", "/score", true);
   xhttp.send();
 }, 50 ) ;
+
+function start(){
+   var xhttp = new XMLHttpRequest();
+  
+  xhttp.open("GET", "/start", true);
+  xhttp.send();
+  }
   </script>
   </html>
 )rawliteral";
@@ -215,11 +224,19 @@ pinMode(buzzer, OUTPUT); //pin 16 - Buzzer Pin
    server.on("/score", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send_P(200, "text/plain", String(score).c_str());
   });
+
+ server.on("/start", HTTP_GET, [](AsyncWebServerRequest *request){
+  startGame();
+});
   // Start server
   server.begin();
 }
 
+void startGame(){
+ gameStart = 1;
+ }
 void loop() {
+  if(gameStart == 1){
   // put your main code here, to run repeatedly:
   
   if(flag == 0){
@@ -274,6 +291,7 @@ for (int x = 0; x < 3; x++) {
         Status = "reset";
         Serial.println("you lose!");
         statusWL = "lose";
+        gameStart = 0 ;
         score=0;
         tone(buzzer,4000);
         delay(1000);
@@ -306,6 +324,7 @@ if (victoryFlag) {
 flag = 0;
 turnCounter = 0;
 } 
+}
 }
 
 void gamePlay(int roundDelay){
