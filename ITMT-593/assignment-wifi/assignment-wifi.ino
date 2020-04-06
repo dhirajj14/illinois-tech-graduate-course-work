@@ -52,10 +52,15 @@ text-align: center;
  </head>
  <body>
   <h1>Simon Game</h1>
+   <h3>Led Pattern</h3>
+  <div style="text-align:center;">
+  <span style="background-color:#66ff66;" id="GGled" class="dot"></span><span style="background-color:#FF6666;" id="GRled" class="dot"></span><span style="background-color:#6666ff;" id="GBled" class="dot"></span>
+  </div>
   <h3>Led Pushed</h3>
   <div style="text-align:center;">
   <span style="background-color:#66ff66;" id="Gled" class="dot"></span><span style="background-color:#FF6666;" id="Rled" class="dot"></span><span style="background-color:#6666ff;" id="Bled" class="dot"></span>
   <h3 >Score: <span id="score"></span></h3>
+  <h3 >Win/Lose: <span id="wl"></span></h3>
   </div>
   </body>
   <script>
@@ -65,7 +70,29 @@ var lflag = 0;
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      if(this.responseText == "red"){
+      if(this.responseText == "gred"){
+
+          document.getElementById("GRled").style.backgroundColor = "red";
+          document.getElementById("GGled").style.backgroundColor = "#66FF66";
+          document.getElementById("GBled").style.backgroundColor = "#6666FF";
+          
+        }
+
+       if(this.responseText == "ggreen"){
+
+          document.getElementById("GGled").style.backgroundColor = "green";
+          document.getElementById("GRled").style.backgroundColor = "#FF6666";
+          document.getElementById("GBled").style.backgroundColor = "#6666FF";
+        }
+
+        if(this.responseText == "gblue"){
+        
+          document.getElementById("GBled").style.backgroundColor = "blue";
+          document.getElementById("GRled").style.backgroundColor = "#FF6666";
+          document.getElementById("GGled").style.backgroundColor = "#66FF66";
+        }
+
+        if(this.responseText == "red"){
 
           document.getElementById("Rled").style.backgroundColor = this.responseText;
           document.getElementById("Gled").style.backgroundColor = "#66FF66";
@@ -92,6 +119,9 @@ var lflag = 0;
           document.getElementById("Bled").style.backgroundColor = "#6666FF";
           document.getElementById("Rled").style.backgroundColor = "#FF6666";
           document.getElementById("Gled").style.backgroundColor = "#66FF66";
+          document.getElementById("GBled").style.backgroundColor = "#6666FF";
+          document.getElementById("GRled").style.backgroundColor = "#FF6666";
+          document.getElementById("GGled").style.backgroundColor = "#66FF66";
         }
     }
   };
@@ -106,13 +136,13 @@ var lflag = 0;
     if (this.readyState == 4 && this.status == 200) {
        if(lfag == 0){
         if(this.responseText == "win"){
-            document.getElementById("score").innerHTML = score;
+            document.getElementById("wl").innerHTML = "Win";
             lfag=1; 
           }
        
         if(this.responseText == "lose"){
             score = 0;
-            document.getElementById("score").innerHTML = "Final";
+            document.getElementById("wl").innerHTML = "lose";
             lfag == 1;
           }
         }
@@ -251,6 +281,7 @@ for (int x = 0; x < 3; x++) {
         delay(300);
        victoryFlag=false;
        break;
+       statusWL = "null";
      } // end of else;
 } // end of for
 
@@ -258,7 +289,7 @@ if (victoryFlag) {
   Status = "reset";
   Serial.println("You win!");
   statusWL = "win";
-  statusWL = "null";
+ 
   score++;
   if(score == 15){
     score = 0;
@@ -278,20 +309,22 @@ turnCounter = 0;
 }
 
 void gamePlay(int roundDelay){
-     Status = "main";
      for(int i=0; i<3;i++){
         ran = random(12,15); //Random fuction to generate numbers between 12 to 15 randomly
         switch(ran){
           case 12:
             answerArray[i] = "green";
+            Status = "ggreen"; 
             buzzTone = 4000;
             break;
           case 13:
             buzzTone = 8000;
             answerArray[i] = "red";
+            Status = "gred";
             break;
           case 14:
             buzzTone = 1000;  
+            Status = "gblue"; 
             answerArray[i] = "blue";
             break;
         }
