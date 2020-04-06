@@ -15,6 +15,7 @@ String guessArray[3];
 boolean victoryFlag = false; // flag to check victory condition
 int flag = 0;
 int score = 0;
+String statusWL = "null";
 int turnCounter = 0;
 // end of item setup
 String buttonAnsArray[] = {"blue", "red", "green"};
@@ -46,22 +47,26 @@ text-align: center;
  body{margin-top: 50px;} 
  h1 {color: #444444;margin: 50px auto 30px;} 
  h3 {color: #444444;margin-bottom: 50px;}
- .dot { height: 40px; width: 40px; background-color: #bbb; border-radius: 50%; display: inline-block;}
+ .dot { height: 40px; width: 40px; border-radius: 50%; display: inline-block;}
  </style>
  </head>
  <body>
   <h1>Simon Game</h1>
   <h3>Led Pushed</h3>
   <div style="text-align:center;">
-  <span style="background-color:"#66ff66";" id="Gled" class="dot"></span><span style="background-color:"#FF6666";" id="Rled" class="dot"></span><span style="background-color:"#6666ff";" id="Bled" class="dot"></span>
+  <span style="background-color:#66ff66;" id="Gled" class="dot"></span><span style="background-color:#FF6666;" id="Rled" class="dot"></span><span style="background-color:#6666ff;" id="Bled" class="dot"></span>
+  <h3 >Score: <span id="score"></span></h3>
   </div>
   </body>
   <script>
+  var score = 0;
+var lflag = 0;
   setInterval(function ( ) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       if(this.responseText == "red"){
+
           document.getElementById("Rled").style.backgroundColor = this.responseText;
           document.getElementById("Gled").style.backgroundColor = "#66FF66";
           document.getElementById("Bled").style.backgroundColor = "#6666FF";
@@ -69,26 +74,63 @@ text-align: center;
         }
 
        if(this.responseText == "green"){
+
           document.getElementById("Gled").style.backgroundColor = this.responseText;
           document.getElementById("Rled").style.backgroundColor = "#FF6666";
           document.getElementById("Bled").style.backgroundColor = "#6666FF";
         }
 
         if(this.responseText == "blue"){
+        
           document.getElementById("Bled").style.backgroundColor = this.responseText;
           document.getElementById("Rled").style.backgroundColor = "#FF6666";
           document.getElementById("Gled").style.backgroundColor = "#66FF66";
         }
 
          if(this.responseText == "reset"){
+          lfag = 0;
           document.getElementById("Bled").style.backgroundColor = "#6666FF";
           document.getElementById("Rled").style.backgroundColor = "#FF6666";
           document.getElementById("Gled").style.backgroundColor = "#66FF66";
         }
-      
     }
   };
   xhttp.open("GET", "/color", true);
+  xhttp.send();
+}, 50 ) ;
+
+
+ setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+       if(lfag == 0){
+        if(this.responseText == "win"){
+            document.getElementById("score").innerHTML = score;
+            lfag=1; 
+          }
+       
+        if(this.responseText == "lose"){
+            score = 0;
+            document.getElementById("score").innerHTML = "Final";
+            lfag == 1;
+          }
+        }
+    }
+  };
+  xhttp.open("GET", "/wl", true);
+  xhttp.send();
+}, 50 ) ;
+
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+            score = this.responseText;
+            document.getElementById("score").innerHTML = score; 
+          }
+  };
+  xhttp.open("GET", "/score", true);
   xhttp.send();
 }, 50 ) ;
   </script>
@@ -135,6 +177,14 @@ pinMode(buzzer, OUTPUT); //pin 16 - Buzzer Pin
  server.on("/color", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send_P(200, "text/plain", String(Status).c_str());
   });
+
+   server.on("/wl", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send_P(200, "text/plain", String(statusWL).c_str());
+  });
+
+   server.on("/score", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send_P(200, "text/plain", String(score).c_str());
+  });
   // Start server
   server.begin();
 }
@@ -143,6 +193,8 @@ void loop() {
   // put your main code here, to run repeatedly:
   
   if(flag == 0){
+     Status = "reset";
+     statusWL ="null";
      if(score <= 5){
       gamePlay(500);
      }
@@ -191,6 +243,7 @@ for (int x = 0; x < 3; x++) {
      } else {
         Status = "reset";
         Serial.println("you lose!");
+        statusWL = "lose";
         score=0;
         tone(buzzer,4000);
         delay(1000);
@@ -204,6 +257,8 @@ for (int x = 0; x < 3; x++) {
 if (victoryFlag) {
   Status = "reset";
   Serial.println("You win!");
+  statusWL = "win";
+  statusWL = "null";
   score++;
   if(score == 15){
     score = 0;
