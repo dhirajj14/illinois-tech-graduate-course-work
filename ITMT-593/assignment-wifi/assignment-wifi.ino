@@ -26,7 +26,7 @@ unsigned long previousTime = 0;
 // Define timeout time in milliseconds (example: 2000ms = 2s)
 const long timeoutTime = 2000;
 
-String Status = "red";
+String Status = "reset";
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
@@ -53,7 +53,7 @@ text-align: center;
   <h1>Simon Game</h1>
   <h3>Led Pushed</h3>
   <div style="text-align:center;">
-  <span style="background-color:"grey";" id="led" class="dot"></span>
+  <span style="background-color:"#66ff66";" id="Gled" class="dot"></span><span style="background-color:"#FF6666";" id="Rled" class="dot"></span><span style="background-color:"#6666ff";" id="Bled" class="dot"></span>
   </div>
   </body>
   <script>
@@ -61,7 +61,31 @@ text-align: center;
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("led").style.backgroundColor = this.responseText;
+      if(this.responseText == "red"){
+          document.getElementById("Rled").style.backgroundColor = this.responseText;
+          document.getElementById("Gled").style.backgroundColor = "#66FF66";
+          document.getElementById("Bled").style.backgroundColor = "#6666FF";
+          
+        }
+
+       if(this.responseText == "green"){
+          document.getElementById("Gled").style.backgroundColor = this.responseText;
+          document.getElementById("Rled").style.backgroundColor = "#FF6666";
+          document.getElementById("Bled").style.backgroundColor = "#6666FF";
+        }
+
+        if(this.responseText == "blue"){
+          document.getElementById("Bled").style.backgroundColor = this.responseText;
+          document.getElementById("Rled").style.backgroundColor = "#FF6666";
+          document.getElementById("Gled").style.backgroundColor = "#66FF66";
+        }
+
+         if(this.responseText == "reset"){
+          document.getElementById("Bled").style.backgroundColor = "#6666FF";
+          document.getElementById("Rled").style.backgroundColor = "#FF6666";
+          document.getElementById("Gled").style.backgroundColor = "#66FF66";
+        }
+      
     }
   };
   xhttp.open("GET", "/color", true);
@@ -165,7 +189,7 @@ for (int x = 0; x < 3; x++) {
      if (answerArray[x]==guessArray[x]) { 
        victoryFlag=true;
      } else {
-        Status = "grey";
+        Status = "reset";
         Serial.println("you lose!");
         score=0;
         tone(buzzer,4000);
@@ -178,7 +202,7 @@ for (int x = 0; x < 3; x++) {
 } // end of for
 
 if (victoryFlag) {
-  Status = "grey";
+  Status = "reset";
   Serial.println("You win!");
   score++;
   if(score == 15){
