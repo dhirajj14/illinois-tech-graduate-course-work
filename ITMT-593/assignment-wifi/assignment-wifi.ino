@@ -21,13 +21,6 @@ int turnCounter = 0;
 // end of item setup
 String buttonAnsArray[] = {"blue", "red", "green"};
 
-// Current time
-unsigned long currentTime = millis();
-// Previous time
-unsigned long previousTime = 0; 
-// Define timeout time in milliseconds (example: 2000ms = 2s)
-const long timeoutTime = 2000;
-
 String Status = "reset";
 
 // Create AsyncWebServer object on port 80
