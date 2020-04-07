@@ -7,7 +7,7 @@ const char* password = "nahidenge";
 
 
 String header;
-int buzzer = 16;
+int buzzer = 0;
 long ran;
 int gameStart = 0;
 int buzzTone;
@@ -33,11 +33,12 @@ String Status = "reset";
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
 
-const char index_html[] PROGMEM = R"rawliteral(
+const char index_html[] PROGMEM = R"=====(
 <!DOCTYPE html> 
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh' crossorigin='anonymous'>
 <title>Simon Game</title>
 <style>html 
 { font-family: Helvetica; 
@@ -52,129 +53,186 @@ text-align: center;
  </style>
  </head>
  <body>
-  <h1>Simon Game</h1>
-   <h3>Led Pattern</h3>
-  <div style="text-align:center;">
-  <span style="background-color:#66ff66;" id="GGled" class="dot"></span><span style="background-color:#FF6666;" id="GRled" class="dot"></span><span style="background-color:#6666ff;" id="GBled" class="dot"></span>
-  </div>
-  <h3>Led Pushed</h3>
-  <div style="text-align:center;">
-  <span style="background-color:#66ff66;" id="Gled" class="dot"></span><span style="background-color:#FF6666;" id="Rled" class="dot"></span><span style="background-color:#6666ff;" id="Bled" class="dot"></span>
-  <h3 >Score: <span id="score"></span></h3>
-  <h3 >Win/Lose: <span id="wl"></span></h3>
-  <Button onClick="start();">start</Button>
-  </div>
+     <div class="container text-center card">
+          <h1>Simon Game</h1>
+          <div class="row">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Player Name" id="userName">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" onClick="start();" type="button">Start Game!</button>
+                </div>
+              </div>
+          </div>
+          <div class="row ">
+              <div class="col-md-5">
+                <h3>Computer Pattern</h3>
+                <div class="text-center">
+                    <span style="background-color:#66ff66;" id="GGled" class="dot"></span>
+                    <span style="background-color:#FF6666;" id="GRled" class="dot"></span>
+                    <span style="background-color:#6666ff;" id="GBled" class="dot"></span>
+                </div>
+              </div>
+              <div class="col-md-2">
+                  <div class="align-middle" style="margin-top: 30%;">
+                    <h3>Vs</h3>
+                  </div>
+              </div>
+              <div class="col-md-5">
+                <h3>User Pattern</h3>
+                <div class="text-center">
+                    <span style="background-color:#66ff66;" id="Gled" class="dot"></span>
+                    <span style="background-color:#FF6666;" id="Rled" class="dot"></span>
+                    <span style="background-color:#6666ff;" id="Bled" class="dot"></span>
+                </div>
+              </div>
+          </div>
+          <div class="row justify-content-center">
+            <h3 >Score: <span id="score"></span></h3>
+          </div>
+          <div class="row justify-content-center">
+            <h3 >Win/Lose: <span id="wl"></span></h3>
+          </div>
+          <div class="row justify-content-center">
+            <table class="table table-striped table-dark">
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Score</th>
+                      </tr>
+                    </thead>
+                    <tbody id="mytable">
+                    </tbody>
+                  </table>
+          </div>
+    </div>
   </body>
-  <script>
-  var score = 0;
-var lflag = 0;
-  setInterval(function ( ) {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      if(this.responseText == "gred"){
-
-          document.getElementById("GRled").style.backgroundColor = "red";
-          document.getElementById("GGled").style.backgroundColor = "#66FF66";
-          document.getElementById("GBled").style.backgroundColor = "#6666FF";
-          
-        }
-
-       if(this.responseText == "ggreen"){
-
-          document.getElementById("GGled").style.backgroundColor = "green";
-          document.getElementById("GRled").style.backgroundColor = "#FF6666";
-          document.getElementById("GBled").style.backgroundColor = "#6666FF";
-        }
-
-        if(this.responseText == "gblue"){
-        
-          document.getElementById("GBled").style.backgroundColor = "blue";
-          document.getElementById("GRled").style.backgroundColor = "#FF6666";
-          document.getElementById("GGled").style.backgroundColor = "#66FF66";
-        }
-
-        if(this.responseText == "red"){
-
-          document.getElementById("Rled").style.backgroundColor = this.responseText;
-          document.getElementById("Gled").style.backgroundColor = "#66FF66";
-          document.getElementById("Bled").style.backgroundColor = "#6666FF";
-          
-        }
-
-       if(this.responseText == "green"){
-
-          document.getElementById("Gled").style.backgroundColor = this.responseText;
-          document.getElementById("Rled").style.backgroundColor = "#FF6666";
-          document.getElementById("Bled").style.backgroundColor = "#6666FF";
-        }
-
-        if(this.responseText == "blue"){
-        
-          document.getElementById("Bled").style.backgroundColor = this.responseText;
-          document.getElementById("Rled").style.backgroundColor = "#FF6666";
-          document.getElementById("Gled").style.backgroundColor = "#66FF66";
-        }
-
-         if(this.responseText == "reset"){
-          lfag = 0;
-          document.getElementById("Bled").style.backgroundColor = "#6666FF";
-          document.getElementById("Rled").style.backgroundColor = "#FF6666";
-          document.getElementById("Gled").style.backgroundColor = "#66FF66";
-          document.getElementById("GBled").style.backgroundColor = "#6666FF";
-          document.getElementById("GRled").style.backgroundColor = "#FF6666";
-          document.getElementById("GGled").style.backgroundColor = "#66FF66";
-        }
-    }
-  };
-  xhttp.open("GET", "/color", true);
-  xhttp.send();
-}, 50 ) ;
-
-
- setInterval(function ( ) {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-       if(lfag == 0){
-        if(this.responseText == "win"){
-            document.getElementById("wl").innerHTML = "Win";
-            lfag=1; 
+ <script>
+    var score = 0;
+  var lflag = 0;
+  var counter = 0;
+  var fscore = 0;
+  var name = "";
+    setInterval(function ( ) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText == "gred"){
+            document.getElementById("GRled").style.backgroundColor = "red";
+            document.getElementById("GGled").style.backgroundColor = "#66FF66";
+            document.getElementById("GBled").style.backgroundColor = "#6666FF";
+            
           }
-       
-        if(this.responseText == "lose"){
-            score = 0;
-            document.getElementById("wl").innerHTML = "lose";
-            lfag == 1;
-          }
-        }
-    }
-  };
-  xhttp.open("GET", "/wl", true);
-  xhttp.send();
-}, 50 ) ;
-
-setInterval(function ( ) {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-            score = this.responseText;
-            document.getElementById("score").innerHTML = score; 
-          }
-  };
-  xhttp.open("GET", "/score", true);
-  xhttp.send();
-}, 50 ) ;
-
-function start(){
-   var xhttp = new XMLHttpRequest();
   
-  xhttp.open("GET", "/start", true);
-  xhttp.send();
-  }
-  </script>
+         if(this.responseText == "ggreen"){
+  
+            document.getElementById("GGled").style.backgroundColor = "green";
+            document.getElementById("GRled").style.backgroundColor = "#FF6666";
+            document.getElementById("GBled").style.backgroundColor = "#6666FF";
+          }
+  
+          if(this.responseText == "gblue"){
+          
+            document.getElementById("GBled").style.backgroundColor = "blue";
+            document.getElementById("GRled").style.backgroundColor = "#FF6666";
+            document.getElementById("GGled").style.backgroundColor = "#66FF66";
+          }
+  
+          if(this.responseText == "red"){
+  
+            document.getElementById("Rled").style.backgroundColor = this.responseText;
+            document.getElementById("Gled").style.backgroundColor = "#66FF66";
+            document.getElementById("Bled").style.backgroundColor = "#6666FF";
+            
+          }
+  
+         if(this.responseText == "green"){
+  
+            document.getElementById("Gled").style.backgroundColor = this.responseText;
+            document.getElementById("Rled").style.backgroundColor = "#FF6666";
+            document.getElementById("Bled").style.backgroundColor = "#6666FF";
+          }
+  
+          if(this.responseText == "blue"){
+          
+            document.getElementById("Bled").style.backgroundColor = this.responseText;
+            document.getElementById("Rled").style.backgroundColor = "#FF6666";
+            document.getElementById("Gled").style.backgroundColor = "#66FF66";
+          }
+  
+           if(this.responseText == "reset"){
+            lfag = 0;
+            counter = 0;
+            document.getElementById("Bled").style.backgroundColor = "#6666FF";
+            document.getElementById("Rled").style.backgroundColor = "#FF6666";
+            document.getElementById("Gled").style.backgroundColor = "#66FF66";
+            document.getElementById("GBled").style.backgroundColor = "#6666FF";
+            document.getElementById("GRled").style.backgroundColor = "#FF6666";
+            document.getElementById("GGled").style.backgroundColor = "#66FF66";
+          }
+      }
+    };
+    xhttp.open("GET", "/color", true);
+    xhttp.send();
+  }, 50 ) ;
+  
+  
+   setInterval(function ( ) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+         if(lfag == 0){
+          if(this.responseText == "win"){
+              document.getElementById("wl").innerHTML = "Win";
+              lfag=1; 
+            }
+         
+          if(this.responseText == "lose"){
+            if(counter == 0){
+              document.getElementById("mytable").innerHTML += "<tr><td>"+name+"</td><td>"+fscore+"</td></tr>";
+              document.getElementById("userName").disabled = false;
+              document.getElementById("wl").innerHTML = "lose";
+              fscore= 0;
+              lfag == 1;
+              counter++;
+            }
+          }
+          }
+      }
+    };
+    xhttp.open("GET", "/wl", true);
+    xhttp.send();
+  }, 50 ) ;
+  
+  setInterval(function ( ) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+              score = this.responseText;
+              fscore = score;
+              document.getElementById("score").innerHTML = score; 
+            }
+    };
+    xhttp.open("GET", "/score", true);
+    xhttp.send();
+  }, 50 ) ;
+  
+  function start(){
+     score = 0;
+     counter = 0;
+    name = document.getElementById("userName").value;
+    if(name != ""){
+        document.getElementById("userName").disabled = true;
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "/start", true);
+        xhttp.send();
+    }else{
+        alert("Please Enter Player Name");
+    }
+    
+    }
+</script>
   </html>
-)rawliteral";
+)=====";
 
 String processor(const String& var){
   Serial.println(var);
@@ -238,10 +296,9 @@ void startGame(){
 void loop() {
   if(gameStart == 1){
   // put your main code here, to run repeatedly:
-  
+   statusWL = "null";
+   Status = "reset";
   if(flag == 0){
-     Status = "reset";
-     statusWL ="null";
      if(score <= 5){
       gamePlay(500);
      }
@@ -288,7 +345,7 @@ for (int x = 0; x < 3; x++) {
      if (answerArray[x]==guessArray[x]) { 
        victoryFlag=true;
      } else {
-        Status = "reset";
+        
         Serial.println("you lose!");
         statusWL = "lose";
         gameStart = 0 ;
@@ -298,8 +355,8 @@ for (int x = 0; x < 3; x++) {
         tone(buzzer,0);
         delay(300);
        victoryFlag=false;
-       break;
        statusWL = "null";
+       break; 
      } // end of else;
 } // end of for
 
