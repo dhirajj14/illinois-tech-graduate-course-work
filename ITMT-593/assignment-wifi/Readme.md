@@ -35,7 +35,7 @@ Reference: https://en.wikipedia.org/wiki/Simon_(game)
 <img src="web.PNG"/>
 5. Enter the player name and then click on Start Game! button to start the game. There are three levels in the game and each game consists of 5 rounds. With each round you win your score gets increase by 1 and when you lose your game is over.
 
-    Note without Entering the name you can't start the game.
+    Note without Entering the name you can't start the game. You won't be able to change the name in the middle of the game.
 6. After you start the game you will see the pattern of the computer on the screen and on the module, to win the game all you have to do is match the pattern with the computer pattern. 
 7. While matching the pattern you will be able to see the color of led button you pushed on the screen.
 8. After each complete game (win/lose) you will get your scores in below table with your name.
