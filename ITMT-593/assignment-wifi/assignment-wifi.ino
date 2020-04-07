@@ -7,7 +7,7 @@ const char* password = "nahidenge";
 
 
 String header;
-int buzzer = 0;
+int buzzer = 16;
 long ran;
 int gameStart = 0;
 int buzzTone;
