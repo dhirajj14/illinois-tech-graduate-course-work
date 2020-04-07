@@ -32,7 +32,7 @@ Reference: https://en.wikipedia.org/wiki/Simon_(game)
 
 3. Upload the code and check the IP address for the board on Serial Console.
 4. Open the browser and go to the IP adress of the Board. You should see the following page:
-<img src="web.PNG"/>
+    <img src="web.PNG"/>
 5. Enter the player name and then click on Start Game! button to start the game. There are three levels in the game and each game consists of 5 rounds. With each round you win your score gets increase by 1 and when you lose your game is over.
 
     Note without Entering the name you can't start the game. You won't be able to change the name in the middle of the game.
