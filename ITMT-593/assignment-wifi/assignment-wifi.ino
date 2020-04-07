@@ -49,6 +49,7 @@ text-align: center;
  body{margin-top: 50px;} 
  h1 {color: #444444;margin: 50px auto 30px;} 
  h3 {color: #444444;margin-bottom: 50px;}
+ .row{padding: 10px;}
  .dot { height: 40px; width: 40px; border-radius: 50%; display: inline-block;}
  </style>
  </head>
@@ -208,7 +209,9 @@ text-align: center;
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
               score = this.responseText;
-              fscore = score;
+              if(score != 0){
+                fscore = score;
+                }
               document.getElementById("score").innerHTML = score; 
             }
     };
