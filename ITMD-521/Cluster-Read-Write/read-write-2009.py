@@ -11,7 +11,7 @@ spark = SparkSession.builder.appName("Demo Spark Python Cluster Program").getOrC
 df2 = spark.read.text("hdfs://namenode/user/controller/ncdc-orig/2000-2018.txt")
 
 # https://spark.apache.org/docs/latest/api/python/pyspark.sql.html#pyspark.sql.DataFrame.withColumnRenamed
-dfnew = df2.withColumn('Weather Station', df2['value'].substr(5, 6).alias('Weather_Station')) \
+dfnew = df2.withColumn("Weather Station", df2['value'].substr(5, 6)) \
 .withColumn('WBAN', df2['value'].substr(11, 5)) \
 .withColumn('Observation Date',to_date(df2['value'].substr(16,8), 'yyyyMMdd')) \
 .withColumn('Observation Hour', df2['value'].substr(24, 4).cast(IntegerType())) \
