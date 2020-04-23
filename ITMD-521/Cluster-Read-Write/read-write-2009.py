@@ -1,6 +1,11 @@
 from __future__ import print_function
 
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import year
+from pyspark.sql.types import StringType
+from pyspark.sql.types import IntegerType
+from pyspark.sql.functions import to_date
+
 spark = SparkSession.builder.appName("Demo Spark Python Cluster Program").getOrCreate()
  
 df2 = spark.read.text("hdfs://namenode/user/controller/ncdc-orig/2000-2018.txt")
