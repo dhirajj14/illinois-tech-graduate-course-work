@@ -38,6 +38,14 @@ Genral code to filter data using year
 
 ### Your Explanation
 
+filter(condition)[source]
+Filters rows using the given condition.
 
+where() is an alias for filter().
+
+Parameters
+condition – a Column of types.BooleanType or a string of SQL expression
+
+link: https://spark.apache.org/docs/latest/api/python/pyspark.sql.html
 
 
