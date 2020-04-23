@@ -31,7 +31,7 @@ df2.withColumn('Weather Station', df2['value'].substr(5, 6)) \
 .withColumn('DP Quality Code', df2['value'].substr(99, 1).cast(IntegerType())) \
 .withColumn('Atmospheric Pressure', df2['value'].substr(100, 5).cast('float')/ 10) \
 .withColumn('AP Quality Code', df2['value'].substr(105, 1).cast(IntegerType())) \
-.filter(year(to_date(df2['value'].substr(16,8),'yyyyMMdd')).cast(StringType()) == '1920') \
+.filter(year(to_date(df2['value'].substr(16,8),'yyyyMMdd')).cast(StringType()) == '2009') \
 .drop('value').show(10)
 ```
 Genral code to filter data using year
