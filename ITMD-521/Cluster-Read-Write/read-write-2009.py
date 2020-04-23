@@ -11,7 +11,7 @@ spark = SparkSession.builder.appName("Demo Spark Python Cluster Program").getOrC
 df2 = spark.read.text("hdfs://namenode/user/controller/ncdc-orig/2000-2018.txt")
 
 # https://spark.apache.org/docs/latest/api/python/pyspark.sql.html#pyspark.sql.DataFrame.withColumnRenamed
-dfnew = df2.withColumn("Weather Station", df2['value'].substr(5, 6)) \
+dfnew = df2.withColumn('Weather Station', df2['value'].substr(5, 6)) \
 .withColumn('WBAN', df2['value'].substr(11, 5)) \
 .withColumn('Observation Date',to_date(df2['value'].substr(16,8), 'yyyyMMdd')) \
 .withColumn('Observation Hour', df2['value'].substr(24, 4).cast(IntegerType())) \
@@ -33,5 +33,5 @@ dfnew = df2.withColumn("Weather Station", df2['value'].substr(5, 6)) \
 .filter(year(to_date(df2['value'].substr(16,8),'yyyyMMdd')).cast(StringType()) == '2009') \
 .drop('value')
 
-dfnew.write.format("parquet").mode("overwrite").save("hdfs://namenode/output/dpj/2009.parquet")
-dfnew.write.format("csv").mode("overwrite").save("hdfs://namenode/output/dpj/2009.csv")
+dfnew.write.format("parquet").mode("overwrite").save("hdfs://namenode/output//itmd-521/dpj/2009.parquet")
+dfnew.write.format("csv").mode("overwrite").save("hdfs://namenode/output/itmd-521/dpj/2009.csv")
