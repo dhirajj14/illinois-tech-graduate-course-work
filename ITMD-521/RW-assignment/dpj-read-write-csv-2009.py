@@ -35,5 +35,4 @@ dfnew = df2.withColumn('Weather_Station', df2['value'].substr(5, 6)) \
 
 print(dfnew.show(10))
 
-dfnew.write.format("parquet").mode("overwrite").save("hdfs://namenode/output/itmd-521/dpj/2009.parquet")
 dfnew.write.format("csv").mode("overwrite").save("hdfs://namenode/output/itmd-521/dpj/2009.csv")
