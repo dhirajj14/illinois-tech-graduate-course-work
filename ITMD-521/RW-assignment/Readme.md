@@ -81,6 +81,9 @@ dfnew = df2.withColumn('Weather_Station', df2['value'].substr(5, 6)) \
 ```
 This code will parse the dataframe df2 into diffrent columns in dataframe df2.
 
+> **_Problem faced and solved:_** While using the code provided by professor for my case it was giving error of blank spaces. The logs gave me the solution of using alias function but instead of that I changed the column names. 
+e.g. 'Weather Station' --> 'Weather_Station'. This solved the problem.
+
 ## Filter dataframe according to year assigned i.e 2009
 
 ```bash
