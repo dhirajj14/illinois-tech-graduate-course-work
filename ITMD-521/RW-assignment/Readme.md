@@ -123,3 +123,8 @@ dfnew.write.format("csv").mode("overwrite").save("hdfs://namenode/output/itmd-52
 ### Explaination
 This code will write the data to the csv file as 2009.parquet on the server in directory dpj.
 
+## Links
+
+Entire code for write CSV file : https://github.com/illinoistech-itm/djain14/blob/master/ITMD-521/RW-assignment/dpj-read-write-csv-2009.py
+
+Entire code for write parquet file : https://github.com/illinoistech-itm/djain14/blob/master/ITMD-521/RW-assignment/dpj-read-write-parquet-2009.py
