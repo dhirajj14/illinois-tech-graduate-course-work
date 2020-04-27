@@ -1,5 +1,7 @@
 # ITMD-521 Read & Write Assignment
 
+# Question 1:
+
 # pySpark Functions:
 
 ## 1. Year()
@@ -128,3 +130,10 @@ This code will write the data to the csv file as 2009.parquet on the server in d
 Entire code for write CSV file : https://github.com/illinoistech-itm/djain14/blob/master/ITMD-521/RW-assignment/dpj-read-write-csv-2009.py
 
 Entire code for write parquet file : https://github.com/illinoistech-itm/djain14/blob/master/ITMD-521/RW-assignment/dpj-read-write-parquet-2009.py
+
+
+# Question 2:
+
+### I didn't encounter any bad data only one column [''] has null values but that is to be analyzed in the next assignment.
+
+# Question 3: 
