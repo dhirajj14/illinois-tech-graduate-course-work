@@ -137,3 +137,28 @@ Entire code for write parquet file : https://github.com/illinoistech-itm/djain14
 ### I didn't encounter any bad data only one column [''] has null values but that is to be analyzed in the next assignment.
 
 # Question 3: 
+
+### To execute the spark jobs in most efficient way is to coonfigure the cluster in following way:
+
+## Available Resources:
+
+No. of cores available : 56 - 4 = 52 ( -4 becuase we have four nodes and each node will require one core for OS )
+
+No. of cores per Node : 52/4 = 13
+
+No. of executors core: 4
+
+So no. of executors per machine = 13/4
+i.e 3 machines will have 3 executors and 1 machines will have 4 executors.
+
+### Memory
+
+Available memory per node: 172/4 = 43
+
+Available memory per executors 43/4 = 10.75 GB
+
+Yarn over Head : 2 GB
+
+Therefore, available memory per executor: 10.75 - 2 = 8.75 GB
+
+
