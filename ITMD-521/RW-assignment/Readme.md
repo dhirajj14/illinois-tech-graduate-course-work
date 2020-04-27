@@ -142,6 +142,11 @@ Entire code for write parquet file : https://github.com/illinoistech-itm/djain14
 
 ## Available Resources:
 
+No. available cores: 56
+No. of available memory : 172 GB 
+
+## Configuration
+
 No. of cores available : 56 - 4 = 52 ( -4 becuase we have four nodes and each node will require one core for OS )
 
 No. of cores per Node : 52/4 = 13
