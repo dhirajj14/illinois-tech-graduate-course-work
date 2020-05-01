@@ -35,5 +35,8 @@ dfnew = df2.withColumn('Weather_Station', df2['value'].substr(5, 6)) \
 .drop('value')
 
 badCount = dfnew.count()
-dfStats = spark.createDataFrame([(badCount,"","")], ['Total_Records','Filter_Total_Records','Percentage'])
+
+goodCount = dfnew.filter(dfnew['Air_Temperature'] != 999.9).count()
+
+dfStats = spark.createDataFrame([(badCount,goodCount,"")], ['Total_Records','Filter_Total_Records','Percentage'])
 print(dfnew.show(10))
