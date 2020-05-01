@@ -9,7 +9,7 @@ from pyspark.sql.types import FloatType
 
 spark = SparkSession.builder.appName("Demo Spark Python Cluster Program").getOrCreate()
  
-df2 = spark.read.text("hdfs://namenode/user/controller/ncdc-orig/20.txt")
+df2 = spark.read.text("hdfs://namenode/output/controller/ncdc-orig/20.txt")
 
 # https://spark.apache.org/docs/latest/api/python/pyspark.sql.html#pyspark.sql.DataFrame.withColumnRenamed
 dfnew = df2.withColumn('Weather_Station', df2['value'].substr(5, 6)) \
@@ -34,9 +34,11 @@ dfnew = df2.withColumn('Weather_Station', df2['value'].substr(5, 6)) \
 .filter(year(to_date(df2['value'].substr(16,8),'yyyyMMdd')).cast(StringType()) == '1922') \
 .drop('value')
 
-badCount = dfnew.count()
+badCount = dfnew.count().cast('float')
 
-goodCount = dfnew.filter(dfnew['Air_Temperature'] != 999.9).count()
+goodCount = dfnew.filter(dfnew['Air_Temperature'] != 999.9).count().cast('float')
 
-dfStats = spark.createDataFrame([(badCount,goodCount,"")], ['Total_Records','Filter_Total_Records','Percentage'])
+badPercentage = (goodCount/badCount)*100
+
+dfStats = spark.createDataFrame([(badCount,goodCount,badPercentage)], ['Total_Records','Filter_Total_Records','Percentage'])
 print(dfnew.show(10))
