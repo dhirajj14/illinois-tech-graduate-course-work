@@ -5,6 +5,7 @@ from pyspark.sql.functions import year
 from pyspark.sql.types import StringType
 from pyspark.sql.types import IntegerType
 from pyspark.sql.functions import to_date
+from pyspark.sql.types import FloatType
 
 spark = SparkSession.builder.appName("Demo Spark Python Cluster Program").getOrCreate()
  
@@ -33,4 +34,6 @@ dfnew = df2.withColumn('Weather_Station', df2['value'].substr(5, 6)) \
 .filter(year(to_date(df2['value'].substr(16,8),'yyyyMMdd')).cast(StringType()) == '1922') \
 .drop('value')
 
+badCount = dfnew.count()
+dfStats = spark.createDataFrame([(badCount,"","")], ['Total_Records','Filter_Total_Records','Percentage'])
 print(dfnew.show(10))
