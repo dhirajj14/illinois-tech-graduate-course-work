@@ -13,7 +13,7 @@ df2 = spark.read.format("csv").option("inferSchema","true").option("header","fal
 
 totalCount = float(df2.count())
 
-badCount = float(df2.filter(df2['Air_Temperature'] == 9999.9).count())
+badCount = float(df2.filter(df2['Atmospheric_Pressure'] == 9999.9).count())
 
 percentage = round((badCount/totalCount)*100, 2)
 
