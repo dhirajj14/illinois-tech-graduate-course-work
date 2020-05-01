@@ -18,4 +18,5 @@ print(dfnew.show(15))
 
 dfnew.write.format("csv").mode("overwrite").save("hdfs://namenode/output/itmd-521/dpj/dpj-2009-valid-records-temp.csv")
 
+dfnew.write.format("parquet").mode("overwrite").save("hdfs://namenode/output/itmd-521/dpj/dpj-2009-valid-records-temp.parquet")
 
