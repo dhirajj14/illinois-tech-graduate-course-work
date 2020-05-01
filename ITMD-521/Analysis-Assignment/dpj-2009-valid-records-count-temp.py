@@ -24,3 +24,6 @@ dfStats = spark.createDataFrame([(totalCount,badCount,percentage)], ['Total_Reco
 
 print(dfStats.show())
 
+dfStats.write.format("csv").mode("overwrite").save("hdfs://namenode/output/itmd-521/dpj/dpj-2009-valid-records-count-temp.csv")
+
+
