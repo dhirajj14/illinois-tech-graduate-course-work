@@ -36,7 +36,7 @@ drange = df2.withColumn('Weather_Station', df2['value'].substr(5, 6)) \
 .filter((df2['value'].substr(88, 5).cast('float') /10).between(-10.0, 11.5)) \
 .drop('value')
 
-df = drange.groupBy(date_format(drange['Observation_Date'], 'yyyy-MM').alias('Year')).agg(min(drange['Air_Temperature']*10).alias('Minimum_Temperature'), max(drange['Air_Temperature']*10).alias('Max_Temperature'))
+df = drange.groupBy(date_format(drange['Observation_Date'], 'yyyy-MM').alias('Year-Month')).agg(min(drange['Air_Temperature']*10).alias('Minimum_Temperature'), max(drange['Air_Temperature']*10).alias('Max_Temperature'))
 
 print(df.show())
 
