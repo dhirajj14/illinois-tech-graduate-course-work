@@ -14,7 +14,7 @@ spark = SparkSession.builder.appName("Demo Spark Python Cluster Program").getOrC
  
 df2 = spark.read.text("hdfs://namenode/user/controller/ncdc-orig/2000-2018.txt")
 
-dfnew = df2.withColumn('Weather_Station', df2['value'].substr(5, 6)) \
+drange = df2.withColumn('Weather_Station', df2['value'].substr(5, 6)) \
 .withColumn('WBAN', df2['value'].substr(11, 5)) \
 .withColumn('Observation_Date',to_date(df2['value'].substr(16,8), 'yyyyMMdd')) \
 .withColumn('Observation_Hour', df2['value'].substr(24, 4).cast(IntegerType())) \
@@ -33,9 +33,8 @@ dfnew = df2.withColumn('Weather_Station', df2['value'].substr(5, 6)) \
 .withColumn('DP_Quality_Code', df2['value'].substr(99, 1).cast(IntegerType())) \
 .withColumn('Atmospheric_Pressure', df2['value'].substr(100, 5).cast('float')/ 10) \
 .withColumn('AP_Quality_Code', df2['value'].substr(105, 1).cast(IntegerType())) \
+.filter((df2['value'].substr(88, 5).cast('float') /10).between(-10.0, 11.5)) \
 .drop('value')
-
-drange = dfnew.filter(dfnew['Air_Temperature'].between(-10.0, 11.5))
 
 df = drange.groupBy(date_format(drange['Observation_Date'], 'yyyy-MM').alias('Year')).agg(min(drange['Air_Temperature']*10).alias('Minimum_Temperature'), max(drange['Air_Temperature']*10).alias('Max_Temperature'))
 
