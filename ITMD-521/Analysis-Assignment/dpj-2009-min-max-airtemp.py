@@ -15,6 +15,8 @@ df2 = spark.read.format("csv").option("inferSchema","true").option("header","fal
 
 drange = dfnew.filter(dfnew['Air_Temperature'].between(-10.0, 11.5))
 
+df = drange.groupBy(month(drange['Observation_Date']).alias('Month_Number')).agg(min(drange['Air_Temperature']*10).alias('Minimum_Temperature'), max(drange['Air_Temperature']*10).alias('Max_Temperature'))
+
 print(df.show())
 
 df.write.format("csv").mode("overwrite").save("hdfs://namenode/output/itmd-521/dpj/dpj-2009-min-max-airtemp.csv")
