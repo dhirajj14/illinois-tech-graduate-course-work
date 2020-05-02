@@ -6,6 +6,7 @@ from pyspark.sql.types import StringType
 from pyspark.sql.types import IntegerType
 from pyspark.sql.functions import to_date
 from pyspark.sql.types import FloatType
+from pyspark.sql.functions import month
 from pyspark.sql.functions import min, max
 
 
