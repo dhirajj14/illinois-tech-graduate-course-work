@@ -12,11 +12,20 @@ All the results are written out to: ```hdfs://namenode/output/itmd-521/dpj```
 
   ```dfnew = df2.filter(df2['Air_Temperature'] != 999.9)```
 
-  As per the question the invalidate data should be 9999, but as in the last assignment we divided 'Air_Temperature' by 10 its 999.9
+  As per the question the invalidate data should be 9999, but as in the last assignment we divided 'Air_Temperature' by 10 so its 999.9
       
-      * Output file location: hdfs://namenode/output/itmd-521/dpj/dpj-2009-valid-records-temp.csv and hdfs://namenode/output/itmd-521/dpj/dpj-2009-valid-records-temp.parquet
-      
-  * Insert Screenshot of just the above output here
+      * Output file location: 
+      hdfs://namenode/output/itmd-521/dpj/dpj-2009-valid-records-temp.csv 
+      hdfs://namenode/output/itmd-521/dpj/dpj-2009-valid-records-temp.parquet
+
+  * Percentage of Bad Count data
+
+    ```totalCount = float(df2.count())
+    badCount = float(df2.filter(df2['Air_Temperature'] == 999.9).count())
+
+    percentage = round((badCount/totalCount)*100, 2)
+
+    dfStats = spark.createDataFrame([(totalCount,badCount,percentage)], ['Total_Record_Count', 'Bad_Record_Count','Percentage_(bad/total)*100'])```
 
 * An additional Dataframe written to a file that has three columns: the total record count, the bad record count, and the percentage (bad/total)
   * Insert Screenshot of just the above output here
