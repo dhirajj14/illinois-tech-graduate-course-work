@@ -124,15 +124,15 @@ hdfs://namenode/output/itmd-521/dpj/dpj-2009-lz4.csv
 
 #### Jobs for all the files have been submitted and are in the queue. Out of 12 jobs 6 Jobs have been completed successfully (write jobs) and 6 jobs are failed(reads)
 
-####  Year 2009 and Decade 2000-2018 (2000-2005 i.e 5 years) Execution write repartition Screenshot
+###  Year 2009 and Decade 2000-2018 (2000-2005 i.e 5 years) Execution write repartition Screenshot
 
 > **This screenshot shows the start and end time from the point when the job was accepted. To see actual execution I reffered the full logs to get the timestamp**
 ![image](https://user-images.githubusercontent.com/54300222/80916689-e98c2580-8d1f-11ea-860f-ec4557b291de.png)
 
-* Actual Execution times (approx.) for year 2009 (Write)
-  * 1: 
+  * Actual Execution times (approx.) for year 2009 (Write)
+    * 1: 
 
-    Time: 1:21 to 1:45 = 25 mins
+      Time: 1:21 to 1:45 = 25 mins
 
   * 50:
 
@@ -158,7 +158,7 @@ hdfs://namenode/output/itmd-521/dpj/dpj-2009-lz4.csv
 
 > #### **From the execution time for both year and decade we can say that small data should have less number of partition to execute it efficiently and large data should have more numbers of partitions to execute efficiently**
 
-####  Year 2009 and Decade 2000-2018 (2000-2005 i.e 5 years) Execution read repartition Screenshot
+###  Year 2009 and Decade 2000-2018 (2000-2005 i.e 5 years) Execution read repartition Screenshot
 
 > **This screenshot shows the start and end time from the point when the job was accepted. To see actual execution I reffered the full logs to get the timestamp**
 ![image](https://user-images.githubusercontent.com/54300222/80916868-f9f0d000-8d20-11ea-9f87-5e2a4becd5eb.png)
