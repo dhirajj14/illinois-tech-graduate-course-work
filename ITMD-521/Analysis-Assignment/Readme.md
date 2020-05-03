@@ -27,6 +27,8 @@ All the results are written out to: ```hdfs://namenode/output/itmd-521/dpj```
 
     dfStats = spark.createDataFrame([(totalCount,badCount,percentage)], ['Total_Record_Count', 'Bad_Record_Count','Percentage_(bad/total)*100'])```
 
+  ![image](https://user-images.githubusercontent.com/54300222/80897251-84531880-8cbc-11ea-9d7f-6af5cefdd53d.png)
+
 * An additional Dataframe written to a file that has three columns: the total record count, the bad record count, and the percentage (bad/total)
   * Insert Screenshot of just the above output here
 
