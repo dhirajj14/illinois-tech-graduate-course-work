@@ -85,7 +85,29 @@ All the results are written out to: ```hdfs://namenode/output/itmd-521/dpj```
 
 ## Question 3
 
-No written deliverable needed
+#### partitionBy
+    
+  * #### Code for minimum and Maximum air temperature for a Decade(2000-2018) by year-month
+
+    ```bash
+    dfnew = df2.withColumn('Month', month(df2['Observation_Date']))
+  
+    dfnew.write.partitionBy("Month").format("parquet").mode("overwrite").save("hdfs://namenode/output/itmd-521/dpj/dpj-2009-partitionby.parquet")
+    ```
+    
+    ```
+    Output file location: hdfs://namenode/output/itmd-521/dpj/dpj-2009-partitionby.parquet
+    ```
+  * Screenshot
+    ![image](https://user-images.githubusercontent.com/54300222/80898046-5b368600-8cc4-11ea-9e0c-8c8aaca38594.png)
+
+#### lz4
+
+```
+Output file location:
+hdfs://namenode/output/itmd-521/dpj/dpj-2009-lz4.json
+hdfs://namenode/output/itmd-521/dpj/dpj-2009-lz4.csv
+```
 
 ## Question 4
 
