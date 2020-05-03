@@ -155,8 +155,16 @@ hdfs://namenode/output/itmd-521/dpj/dpj-2009-lz4.csv
     
       Time - 2:40 to 8:08 = 5 hrs 28 mins
 
+    |  Partitions| Year Data Execution Time(2009)| Decade Data Execution Time(2000-2015)  |
+    | ------------- |:-------------:| :-------------:|
+    | 1             | 25 mins       | 6 hrs 58 mins  |
+    | 50            | 27 mins       | 5 hrs 58 mins  |
+    | 200           | 26 mins       | 5 hrs 28 mins  |
+
 
 > #### **From the execution time for both year and decade we can say that small data should have less number of partition to execute it efficiently and large data should have more numbers of partitions to execute efficiently**
+
+___
 
 ###  Year 2009 and Decade 2000-2018 (2000-2005 i.e 5 years) Execution read repartition Screenshot
 
@@ -178,3 +186,5 @@ hdfs://namenode/output/itmd-521/dpj/dpj-2009-lz4.csv
   * 200
 
 * Compare the execution times and explain why or why not there are any significant differences in the first group and in the second group
+
+___
