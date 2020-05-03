@@ -99,6 +99,7 @@ All the results are written out to: ```hdfs://namenode/output/itmd-521/dpj```
     Output file location: hdfs://namenode/output/itmd-521/dpj/dpj-2009-partitionby.parquet
     ```
   * Screenshot
+  
     ![image](https://user-images.githubusercontent.com/54300222/80898046-5b368600-8cc4-11ea-9e0c-8c8aaca38594.png)
 
 #### lz4
