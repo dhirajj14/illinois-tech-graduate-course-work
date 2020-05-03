@@ -6,7 +6,16 @@ All the results are written out to: ```hdfs://namenode/output/itmd-521/dpj```
 
 ## Question 1 - Air Temperature and Atmospheric Pressure
 
-* An additional Dataframe written to a file that has three columns: the total record count, the bad record count, and the percentage (bad/total)
+#### Air Temperature
+
+* To remove the invalidate record I used the filter function on the 2009.csv and 2009.parquet to get the output of validate records.
+
+  ```dfnew = df2.filter(df2['Air_Temperature'] != 999.9)```
+
+  As per the question the invalidate data should be 9999, but as in the last assignment we divided 'Air_Temperature' by 10 its 999.9
+      
+      * Output file location: hdfs://namenode/output/itmd-521/dpj/dpj-2009-valid-records-temp.csv and hdfs://namenode/output/itmd-521/dpj/dpj-2009-valid-records-temp.parquet
+      
   * Insert Screenshot of just the above output here
 
 * An additional Dataframe written to a file that has three columns: the total record count, the bad record count, and the percentage (bad/total)
