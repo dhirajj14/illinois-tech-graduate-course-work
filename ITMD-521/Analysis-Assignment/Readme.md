@@ -57,7 +57,17 @@ All the results are written out to: ```hdfs://namenode/output/itmd-521/dpj```
 
 ## Question 2 - Explain Partition Effect
 
-* Briefly explain in a paragraph with references, what happens to execution time when you reduce the shuffle partitions from the default of 200 to 20?
+* I submitted both the jobs at same time and the elasped time for the job with the default shuffle partition (200) was 3hrs 31mins 7secs and for the job with 20 shuffle partition was 3hrs 13mins 9secs
+
+  Here we can see that the job with default partition took more time than the job with 20 partitions. This is because the data we read was not a big data. It was a data only for a year 2009.
+
+  If we are having small data then having default shuffle partition value i.e. 200 will cause much overhead.
+
+  Similarly, for large data having default shuffle partition willnot be effective. 
+
+  And the book says that the number of partion should be accodring to the no. of executors and size of data. pdf page 44
+
+  
 
 * #### Min Max for Year 2009
   #### Code for minimum and Maximum air temperature for a year(2009) by month
