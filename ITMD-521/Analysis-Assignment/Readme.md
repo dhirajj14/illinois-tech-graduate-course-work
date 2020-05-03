@@ -145,15 +145,15 @@ hdfs://namenode/output/itmd-521/dpj/dpj-2009-lz4.csv
   * Actual Execution times (approx.) according to full logs for your decade (write)
     * 1:
     
-      Time - 2:27 to 8:27 = 6 hrs
+      Time - 2:27 to 8:27 = **6 hrs**
 
     * 50:
     
-      Time - 2:39 to 8:37 = 5 hrs 58 mins
+      Time - 2:39 to 8:37 = **5 hrs 58 mins**
 
     * 200:
     
-      Time - 2:40 to 8:08 = 5 hrs 28 mins
+      Time - 2:40 to 8:08 = **5 hrs 28 mins**
 
 
 |  Partitions| Year Data Execution Time(2009)| Decade Data Execution Time(2000-2015)  |
