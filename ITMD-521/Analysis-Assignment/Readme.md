@@ -25,9 +25,10 @@ All the results are written out to: ```hdfs://namenode/output/itmd-521/dpj```
 
     percentage = round((badCount/totalCount)*100, 2)
 
-    dfStats = spark.createDataFrame([(totalCount,badCount,percentage)], ['Total_Record_Count', 'Bad_Record_Count','Percentage_(bad/total)*100'])```
+    dfStats = spark.createDataFrame([(totalCount,badCount,percentage)], ['Total_Record_Count', 'Bad_Record_Count','Percentage_(bad/total)*100'])
+    ```
 
-  ![image](https://user-images.githubusercontent.com/54300222/80897251-84531880-8cbc-11ea-9d7f-6af5cefdd53d.png)
+    ![image](https://user-images.githubusercontent.com/54300222/80897251-84531880-8cbc-11ea-9d7f-6af5cefdd53d.png)
 
 #### Air Pressure
 
@@ -48,12 +49,29 @@ All the results are written out to: ```hdfs://namenode/output/itmd-521/dpj```
     
     percentage = round((badCount/totalCount)*100, 2)
     
-    dfStats = spark.createDataFrame([(totalCount,badCount,percentage)], ['Total_Record_Count', 'Bad_Record_Count','Percentage_(bad/total)*100'])```
+    dfStats = spark.createDataFrame([(totalCount,badCount,percentage)], ['Total_Record_Count', 'Bad_Record_Count','Percentage_(bad/total)*100'])
+    ```
 
-  ![image](https://user-images.githubusercontent.com/54300222/80897505-02b0ba00-8cbf-11ea-99e4-121c02692bae.png)
+    ![image](https://user-images.githubusercontent.com/54300222/80897505-02b0ba00-8cbf-11ea-99e4-121c02692bae.png)
+
+
 ## Question 2 - Explain Partition Effect
 
 * Briefly explain in a paragraph with references, what happens to execution time when you reduce the shuffle partitions from the default of 200 to 20?
+
+  #### Code for minimum and Maximum air temperature for a year(2009) by month
+
+  ```
+  drange = dfnew.filter(dfnew['Air_Temperature'].between(-10.0, 11.5))
+    
+  df = drange.groupBy(month(drange['Observation_Date']).alias('Month_Number')).agg(min(drange['Air_Temperature']*10).alias('Minimum_Temperature'), max(drange['Air_Temperature']*10).alias('Max_Temperature')) 
+  ```
+  ![image](https://user-images.githubusercontent.com/54300222/80897649-9931ab00-8cc0-11ea-9733-982019af246f.png)
+
+  > **Same output for suffle.partitions by 20** : Below is the code used to reduce default shuffle partition
+    ```bash
+    spark.conf.set("spark.sql.shuffle.partitions", 20)
+    ```
 
 ## Question 3
 
