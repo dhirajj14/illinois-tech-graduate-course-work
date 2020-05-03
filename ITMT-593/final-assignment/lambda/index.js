@@ -23,7 +23,7 @@ const NameIntentHandler = {
     handle(handlerInput) {
         const slots = handlerInput.requestEnvelope.request.intent.slots;
         name = slots['name'].value;
-        const speakOutput = `Thank you! Your name is ${name}.`;
+        const speakOutput = `Thank you!${name}. Say Start to start the game`;
         if(name == "start"){
             return handlerInput.responseBuilder
             .speak("sorry!Please tell me your name")
@@ -46,7 +46,7 @@ const StartIntentHandler = {
     },
     handle(handlerInput) {
         return handlerInput.responseBuilder
-        .speak(`Start Game ${name}`)
+        .speak(`${name}, Before we start the game here are the rules of the game. I will read out the the four color pattern, and you have to repeat it to earn one point towards winning.`)
         .getResponse();
     }
 };
