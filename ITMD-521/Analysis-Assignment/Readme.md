@@ -124,18 +124,44 @@ hdfs://namenode/output/itmd-521/dpj/dpj-2009-lz4.csv
 
 #### Jobs for all the files have been submitted and are in the queue. Out of 12 jobs 6 Jobs have been completed successfully (write jobs) and 6 jobs are failed(reads)
 
-####  Year 2009 and Decade 2000-2018 (2000-2005 i.e 5 years) Execution Screenshot
+####  Year 2009 and Decade 2000-2018 (2000-2005 i.e 5 years) Execution write repartition Screenshot
 
- ![image](https://user-images.githubusercontent.com/54300222/80916689-e98c2580-8d1f-11ea-860f-ec4557b291de.png)
- 
+> **This screenshot shows the start and end time from the point when the job was accepted. To see actual execution I reffered the full logs to get the timestamp**
+![image](https://user-images.githubusercontent.com/54300222/80916689-e98c2580-8d1f-11ea-860f-ec4557b291de.png)
+
 * Execution times for your year (Write)
+  * 1 - 
+
+  * 50
+
+  * 200
+
+* Actual Execution times according to full logs for your decade (write)
+  * 1:
+    
+    Time - 2:27 to 8:27 = 6 hrs
+
+  * 50:
+    
+    Time - 2:39 to 8:37 = 5 hrs 58mins
+
+  * 200:
+    
+    Time - 2:40 to 8:08 = 5.47 hrs
+
+####  Year 2009 and Decade 2000-2018 (2000-2005 i.e 5 years) Execution read repartition Screenshot
+
+> **This screenshot shows the start and end time from the point when the job was accepted. To see actual execution I reffered the full logs to get the timestamp**
+![image](https://user-images.githubusercontent.com/54300222/80916868-f9f0d000-8d20-11ea-9f87-5e2a4becd5eb.png)
+
+* Execution times for your year (Read)
   * 1
 
   * 50
 
   * 200
 
-* Execution times for your decade (write)
+* Execution times for your decade (Read)
   * 1
 
   * 50
