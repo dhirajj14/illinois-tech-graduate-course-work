@@ -59,6 +59,7 @@ All the results are written out to: ```hdfs://namenode/output/itmd-521/dpj```
 
 * Briefly explain in a paragraph with references, what happens to execution time when you reduce the shuffle partitions from the default of 200 to 20?
 
+* #### Min Max for Year 2009
   #### Code for minimum and Maximum air temperature for a year(2009) by month
 
   ```
@@ -72,6 +73,15 @@ All the results are written out to: ```hdfs://namenode/output/itmd-521/dpj```
     ```bash
     spark.conf.set("spark.sql.shuffle.partitions", 20)
     ```
+
+* #### Min Max for Decade 2000-2018
+  #### Code for minimum and Maximum air temperature for a Decade(2000-2018) by year-month
+
+  ```    
+  df = drange.groupBy(date_format(drange['Observation_Date'], 'yyyy-MM').alias('Year-Month')).agg(min(drange['Air_Temperature']*10).alias('Minimum_Temperature'), max(drange['Air_Temperature']*10).alias('Max_Temperature')
+  ```
+  ![image](https://user-images.githubusercontent.com/54300222/80897870-faf31480-8cc2-11ea-9b4b-a1e8a424f866.png)
+
 
 ## Question 3
 
