@@ -134,7 +134,7 @@ Entire code for write parquet file : https://github.com/illinoistech-itm/djain14
 
 # Question 2:
 
-### I didn't encounter any bad data only one column [''] has null values but that is to be analyzed in the next assignment.
+### I didn't encounter any bad data only one column ['VD_Quality_Code'] has null values but that is to be analyzed in the next assignment.
 
 # Question 3: 
 
