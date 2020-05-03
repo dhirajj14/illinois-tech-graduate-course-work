@@ -132,15 +132,15 @@ hdfs://namenode/output/itmd-521/dpj/dpj-2009-lz4.csv
   * Actual Execution times (approx.) for year 2009 (Write)
     * 1: 
 
-      Time: 1:21 to 1:45 = 25 mins
+      Time: 1:21 to 1:45 = **25 mins**
 
     * 50:
 
-      Time: 1:27 to 1:54 = 27 mins
+      Time: 1:27 to 1:54 = **27 mins**
 
     * 200:
 
-      Time: 1:46 to 2:12 = 26 mins
+      Time: 1:46 to 2:12 = **26 mins**
 
   * Actual Execution times (approx.) according to full logs for your decade (write)
     * 1:
