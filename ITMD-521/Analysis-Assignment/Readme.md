@@ -57,7 +57,10 @@ All the results are written out to: ```hdfs://namenode/output/itmd-521/dpj```
 
 ## Question 2 - Explain Partition Effect
 
-* Execution time for the job with the default shuffle partition (200) 20 mins and for the job with 20 shuffle partition was 18 mins
+> **This screenshot shows the start and end time from the point when the job was accepted. To see actual execution I reffered the full logs to get the timestamp**
+![image](https://user-images.githubusercontent.com/54300222/80919237-8d7ccd80-8d2e-11ea-979e-383e0919f5b4.png)
+
+* Execution time for the job with the default shuffle partition (200) 20 mins and for the job with 20 shuffle partition was 18 mins based on full logs
 
   |  Shuffle Partitions| Time              | Execution Time |
   | -------------      |:-----------------:| :-------------:|
