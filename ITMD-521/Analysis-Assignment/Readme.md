@@ -57,7 +57,12 @@ All the results are written out to: ```hdfs://namenode/output/itmd-521/dpj```
 
 ## Question 2 - Explain Partition Effect
 
-* I submitted both the jobs at same time and the elasped time for the job with the default shuffle partition (200) was 3hrs 31mins 7secs and for the job with 20 shuffle partition was 3hrs 13mins 9secs
+* Execution time for the job with the default shuffle partition (200) 20 mins and for the job with 20 shuffle partition was 18 mins
+
+  |  Shuffle Partitions| Time              | Execution Time |
+  | -------------      |:-----------------:| :-------------:|
+  | 200 (Default)      | 0 : 46 to 1 : 06  | 20 mins        |
+  | 20                 | 1 : 30 to 1 : 48  | 18 mins        |
 
   Here we can see that the job with default partition took more time than the job with 20 partitions. This is because the data we read was not a big data. It was a data only for a year 2009.
 
