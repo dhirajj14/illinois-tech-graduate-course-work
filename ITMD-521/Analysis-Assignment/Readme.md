@@ -129,25 +129,31 @@ hdfs://namenode/output/itmd-521/dpj/dpj-2009-lz4.csv
 > **This screenshot shows the start and end time from the point when the job was accepted. To see actual execution I reffered the full logs to get the timestamp**
 ![image](https://user-images.githubusercontent.com/54300222/80916689-e98c2580-8d1f-11ea-860f-ec4557b291de.png)
 
-* Execution times for your year (Write)
-  * 1 - 
+* Actual Execution times (approx.) for year 2009 (Write)
+  * 1: 
 
-  * 50
+    Time: 1:21 to 1:45 = 25 mins
 
-  * 200
+  * 50:
 
-* Actual Execution times according to full logs for your decade (write)
+    Time: 1:27 to 1:54 = 27 mins
+
+  * 200:
+
+    Time: 1:46 to 2:12 = 26 mins
+
+* Actual Execution times (approx.) according to full logs for your decade (write)
   * 1:
     
     Time - 2:27 to 8:27 = 6 hrs
 
   * 50:
     
-    Time - 2:39 to 8:37 = 5 hrs 58mins
+    Time - 2:39 to 8:37 = 5 hrs 58 mins
 
   * 200:
     
-    Time - 2:40 to 8:08 = 5.47 hrs
+    Time - 2:40 to 8:08 = 5 hrs 28 mins
 
 ####  Year 2009 and Decade 2000-2018 (2000-2005 i.e 5 years) Execution read repartition Screenshot
 
