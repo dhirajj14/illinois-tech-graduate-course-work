@@ -122,7 +122,7 @@ hdfs://namenode/output/itmd-521/dpj/dpj-2009-lz4.csv
 
 ## Question 4
 
-#### Jobs for all the files have been submitted and are in the queue. Out of 12 jobs 3 Jobs have been completed successfully and 3 jobs are running, while 6 are accepted.
+#### Jobs for all the files have been submitted and are in the queue. Out of 12 jobs 3 Jobs have been completed successfully and 3 jobs are running, while 6 are in accepted state.
 * Show a screenshot of the execution times for your year
   * 1
   * 50
