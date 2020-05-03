@@ -123,14 +123,23 @@ hdfs://namenode/output/itmd-521/dpj/dpj-2009-lz4.csv
 ## Question 4
 
 #### Jobs for all the files have been submitted and are in the queue. Out of 12 jobs 6 Jobs have been completed successfully (write jobs) and 6 jobs are failed(reads)
-* Show a screenshot of the execution times for your year
+
+####  Year 2009 and Decade 2000-2018 (2000-2005 i.e 5 years) Execution Screenshot
+
+ ![image](https://user-images.githubusercontent.com/54300222/80916689-e98c2580-8d1f-11ea-860f-ec4557b291de.png)
+ 
+* Execution times for your year (Write)
   * 1
+
   * 50
+
   * 200
 
-* Show a screenshot of the execution times for your decade
+* Execution times for your decade (write)
   * 1
+
   * 50
+
   * 200
 
 * Compare the execution times and explain why or why not there are any significant differences in the first group and in the second group
