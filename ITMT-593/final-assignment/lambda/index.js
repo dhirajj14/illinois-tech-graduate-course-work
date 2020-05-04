@@ -6,6 +6,7 @@ var name ="";
 var colors = ['red', 'green', 'blue', 'yellow'];
 var ans = new Array(4);
 var ques = new Array(4);
+var score = 0;
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
@@ -48,8 +49,8 @@ const StartIntentHandler = {
     },
     handle(handlerInput) {
         return handlerInput.responseBuilder
-        .speak(`${name}, Before we start the game here are the rules of the game. I will read out the the four color pattern, and you have to repeat it to earn one point towards winning. Say Agree to Continue`)
-        .reprompt("Please say agree")
+        .speak(`${name}, Before we start the game here are the rules of the game. I will read out the the four color pattern, and you have to repeat it to earn one point towards winning. Say Okay to Continue`)
+        .reprompt("Please say Okay")
         .getResponse();
     }
 };
@@ -71,6 +72,46 @@ const PatternIntentHandler = {
             .getResponse();
     }
 };
+
+const MatchPatternHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'MatchPattern';
+    },
+    handle(handlerInput) {
+        var flag = 0;
+        var patternString = "";
+        var status = "";
+        const slots = handlerInput.requestEnvelope.request.intent.slots;
+        ans[0] = slots['colone'].value;
+        ans[1] = slots['coltwo'].value;
+        ans[2] = slots['colthree'].value;
+        ans[3] = slots['colfour'].value;
+        
+        for(i = 0; i< 4; i++){
+            if(flag == 0){
+                if(ans[i] == ques[i]){
+                    flag = 0;
+                }else{
+                    flag = 1;
+                    var finalscore = score;
+                    score = 0;
+                    status = `And it is wrong, you Lose. Your score was ${finalscore}`;
+                }
+            }
+            patternString += ans[i] + " ";
+        }
+        if(flag == 0){
+            score = score + 1;
+            status = `And it is correct, you Win. Your score is ${score}`;
+        }
+        return handlerInput.responseBuilder
+            .speak(`Your answer is ${patternString}. ${status}. say okay to continue`)
+            .reprompt(`Your answer is ${patternString}. ${status}. say okay to continue`)
+            .getResponse()
+    }
+
+};
 const HelpIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
@@ -83,7 +124,7 @@ const HelpIntentHandler = {
             .speak(speakOutput)
             .reprompt(speakOutput)
             .getResponse();
-    }
+    },
 };
 const CancelAndStopIntentHandler = {
     canHandle(handlerInput) {
@@ -154,6 +195,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         NameIntentHandler,
         StartIntentHandler,
         PatternIntentHandler,
+        MatchPatternHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         SessionEndedRequestHandler,
