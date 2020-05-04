@@ -179,22 +179,40 @@ ___
 
 
 > **This screenshot shows the start and end time from the point when the job was accepted. To see actual execution I reffered the full logs to get the timestamp**
-![image](https://user-images.githubusercontent.com/54300222/80916868-f9f0d000-8d20-11ea-9f87-5e2a4becd5eb.png)
+![image](https://user-images.githubusercontent.com/54300222/81019914-4cb7ae00-8e2d-11ea-9248-e290a44b7895.png)
 
-* Execution times for your year (Read)
-  * 1
+  * Actual Execution times (approx.) for year 2009 (Read)
+    * 1: 
 
-  * 50
+      Time: 4:41 to 5:32 = **51 mins**
 
-  * 200
+    * 50:
 
-* Execution times for your decade (Read)
-  * 1
+      Time: 4:56 to 5:29 = **33 mins**
 
-  * 50
+    * 200:
 
-  * 200
+      Time: 5:04 to 5:28 = **24 mins**
 
-* Compare the execution times and explain why or why not there are any significant differences in the first group and in the second group
+  * Actual Execution times (approx.) according to full logs for your decade (Read)
+    * 1:
+    
+      Time - 3:40 to 5:27 = **1 hr 47 mins**
+
+    * 50:
+    
+      Time - 3:47 to 5:40 = **1 hr 53 mins**
+
+    * 200:
+    
+      Time - 5:45 to 7:46 = **2 hrs 1 min**
+
+
+|  Partitions| Year Data Execution Time(2009) (Read)| Decade Data Execution Time(2000-2015) (Read) |
+| ------------- |:-------------:| :-------------:|
+| 1             | 51 mins       | 1 hr 47 mins  |
+| 50            | 33 mins       | 1 hr 53 mins  |
+| 200           | 24 mins       | 2 hrs 1 min  |
+
 
 ___
