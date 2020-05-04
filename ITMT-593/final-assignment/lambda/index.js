@@ -3,6 +3,9 @@
 // session persistence, api calls, and more.
 const Alexa = require('ask-sdk-core');
 var name ="";
+var colors = ['red', 'green', 'blue', 'yellow'];
+var ans = new Array(4);
+var ques = new Array(4);
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
@@ -23,7 +26,7 @@ const NameIntentHandler = {
     handle(handlerInput) {
         const slots = handlerInput.requestEnvelope.request.intent.slots;
         name = slots['name'].value;
-        const speakOutput = `Thank you!${name}. Say Start to start the game`;
+        const speakOutput = `Thank you ${name}. Say Start to start the game`;
         if(name == "start"){
             return handlerInput.responseBuilder
             .speak("sorry!Please tell me your name")
@@ -38,7 +41,6 @@ const NameIntentHandler = {
         
     }
 };
-
 const StartIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
@@ -46,11 +48,29 @@ const StartIntentHandler = {
     },
     handle(handlerInput) {
         return handlerInput.responseBuilder
-        .speak(`${name}, Before we start the game here are the rules of the game. I will read out the the four color pattern, and you have to repeat it to earn one point towards winning.`)
+        .speak(`${name}, Before we start the game here are the rules of the game. I will read out the the four color pattern, and you have to repeat it to earn one point towards winning. Say Agree to Continue`)
+        .reprompt("Please say agree")
         .getResponse();
     }
 };
-
+const PatternIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'PatternIntent';
+    },
+    handle(handlerInput) {
+        var patternString = "";
+        for(i = 0; i< colors.length; i++){
+            var random = Math.floor(Math.random() * Math.floor(4));
+            ques[i] = colors[random];
+            patternString += ques[i] + " ";
+        }
+        return handlerInput.responseBuilder
+            .speak(`Your pattern is ${patternString}. Your turn, Match it if you can!`)
+            .reprompt(`Your pattern is ${patternString}`)
+            .getResponse();
+    }
+};
 const HelpIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
@@ -133,6 +153,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         LaunchRequestHandler,
         NameIntentHandler,
         StartIntentHandler,
+        PatternIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         SessionEndedRequestHandler,
