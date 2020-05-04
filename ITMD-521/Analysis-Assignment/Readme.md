@@ -214,5 +214,9 @@ ___
 | 50            | 33 mins       | 1 hr 53 mins  |
 | 200           | 24 mins       | 2 hrs 1 min  |
 
-
+> #### **From the execution time for both year and decade (Read) we can say that small data should have more number of partition to execute it efficiently and large data should have less numbers of partitions to execute efficiently**
 ___
+
+### Diffrence between write repartition(1, 50, 200) and read repartition(1, 50, 200)
+
+> #### **From the execution time for both **Write** and **Read** using repartition(1,50,200) we can say that read repartition is exactly opposite of write repartition. In write repartition for small data having less number of partition will execute the task efficiently whereas for read using repartition with less number of partition will not execute the task efficiently. For write repartition on large data having less number of partition will not execute the task efficiently whereas for read using repartition with less number of partition will execute the task efficiently**
