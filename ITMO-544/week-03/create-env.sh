@@ -5,7 +5,8 @@ echo \ =============================================================== \
 
 sudo apt-get install jq
 
-echo jq Installe successfully
+echo jq Installed successfully
+echo \ =============================================================== \
 
 echo Creating your EC2 Instance
 echo \ =============================================================== \
