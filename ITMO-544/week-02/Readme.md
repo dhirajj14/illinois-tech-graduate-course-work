@@ -23,3 +23,23 @@ To create non-root user for aws execute the following steps:
 6. Click on create user
 
 ![aws-non-root-account](https://user-images.githubusercontent.com/54300222/93280660-c96d7800-f78f-11ea-8f2b-bf209e69585d.PNG)
+
+## Part 3
+
+
+command to launch the EC2 instance
+
+![launch instance](https://user-images.githubusercontent.com/54300222/93422463-72dc6880-f879-11ea-9068-507f064d3cc8.PNG)
+
+command to check the status of the EC2 instance (Show it is running)
+
+![running instance](https://user-images.githubusercontent.com/54300222/93422478-7839b300-f879-11ea-91af-c7a7e689439c.PNG)
+
+command to destroy the EC2 instance
+
+![terminate](https://user-images.githubusercontent.com/54300222/93422485-7a9c0d00-f879-11ea-9aef-81fe9453965b.PNG)
+
+command to check the status of the EC2 instance (Show it is terminating or terminated)
+
+![terminated](https://user-images.githubusercontent.com/54300222/93422491-7c65d080-f879-11ea-8806-9b7aa234faaa.PNG)
+
