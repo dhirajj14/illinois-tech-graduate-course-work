@@ -2,36 +2,33 @@
 
 1. What is distributed computing?
    
-    >
-        * Distributed Computing is also called as clod or cloud-native.
-  
-        * Distribute Computing is the art of dividing the work over many small systems, maybe 1000's or 100,000's.
-
-        * For examples servies like ATM, Social Media, etc.
+* Distributed Computing is also called as clod or cloud-native.
+* Distribute Computing is the art of dividing the work over many small systems, maybe 1000's or 100,000's.
+* For examples servies like ATM, Social Media, etc.
 
 2. Describe the three major composition patterns in distributed computing.
 
-    >
-        * The three major composition patterns in distributed computing are: 
+* The three major composition patterns in distributed computing are: 
+    1. Load Balancer with multiple backend replicas:
+            
+        * when the requests are send to server, Load balancer selects  one backend among the replicas to forward the request. The response from the backend is then sent to load balancer which gives it to original requester.
 
-            1. Load Balancer with multiple backend replicas:
-                * when the requests are send to server, Load balancer selects  one backend among the replicas to forward the request. The response from the backend is then sent to load balancer which gives it to original requester.
+        * To select backend to forward query, load balancer uses any one of the following method:
 
-                * To select backend to forward query, load balancer uses any one of the following method:
+            - Round Robin
+            - Least Loaded
+            - Slow Start
 
-                - Round Robin
-                - Least Loaded
-                - Slow Start
+    2. Server Tree with multiple backend replicas:
+        * This type of composition is used when the query or the request can be easily destructed.
 
-            2. Server Tree with multiple backend replicas:
-                * This type of composition is used when the query or the request can be easily destructed.
+        * When the request is send to server, it sends queries or request to multiple backends and in return gives response by combining multiple answers.
 
-                * When the request is send to server, it sends queries or request to multiple backends and in return gives response by combining multiple answers.
+        * Advantages : 
+            - Backends works in paralle
 
-                * Advantages : 
-                    - Backends works in paralle
-
-            3. Server Tree
+    3. Server Tree
+    
 3. What are the three patterns discussed for storing state?
 
 4. Sometimes a master server does not reply with an answer but instead replies with where the answer can be found. What are the benefits of this method?
