@@ -5,7 +5,7 @@
 * Distributed Computing is also called as clod or cloud-native.
 * Distribute Computing is the art of dividing the work over many small systems, maybe 1000's or 100,000's.
 * For examples servies like ATM, Social Media, etc.
-
+#
 2. Describe the three major composition patterns in distributed computing.
 
 * The three major composition patterns in distributed computing are: 
@@ -28,7 +28,7 @@
             - Backends works in paralle
 
     3. Server Tree
-    
+#
 3. What are the three patterns discussed for storing state?
 
 4. Sometimes a master server does not reply with an answer but instead replies with where the answer can be found. What are the benefits of this method?
