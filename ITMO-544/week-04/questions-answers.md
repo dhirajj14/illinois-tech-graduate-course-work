@@ -98,3 +98,8 @@ and change over time.
 #
 
 10. In Section 1.7 three design ideas are presented for how to process email deletion requests. Estimate how long the request will take for deleting an email message for each of the three designs. First outline the steps each would take, then break each one into individual operations until estimates can be created.
+    
+* The three design ideas presented for how to process email deletion request are:
+    1. contact the server and delete the message from the storage system and the index
+    2. The storage system simply marks the message as deleted in the index
+    3. Asynchronous design where the client sends requests to the server and quickly returns control to the user without waiting for the request to complet.
