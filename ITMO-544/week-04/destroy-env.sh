@@ -35,7 +35,7 @@ aws elbv2 wait load-balancers-deleted --load-balancer-arns $loadBalancerArn
 echo Deleting EC2 Instance
 echo \ =============================================================== \
 
-aws ec2 terminate-instances --instance-ids $instanceID1 $instanceID2 $instanceID3
+echo $(aws ec2 terminate-instances --instance-ids $instanceID1 $instanceID2 $instanceID3)
 
 echo Finished!!!
 echo \ =============================================================== \
