@@ -13,9 +13,9 @@ echo \ =============================================================== \
 
 read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 run-instances --image-id ami-06b263d6ceff0b3dd --instance-type t2.micro --security-group-ids sg-9abcd0a6 --key-name windows-laptop-bionic-v2 --user-data file://install_apache.txt --count 3 --output text --query 'Instances[*].InstanceId'))
 
-dns1=$(aws ec2 describe-instances --instance-ids ${instanceID1} | jq --raw-output '.Reservations[0].Instances[0].PublicDnsName')
-dns2=$(aws ec2 describe-instances --instance-ids ${instanceID1} | jq --raw-output '.Reservations[0].Instances[0].PublicDnsName')
-dns3=$(aws ec2 describe-instances --instance-ids ${instanceID1} | jq --raw-output '.Reservations[0].Instances[0].PublicDnsName')
+read dns1 < <(echo $(aws ec2 describe-instances --instance-ids ${instanceID1} --query 'Reservations[0].Instances[0].PublicDnsName'))
+read dns2 < <(echo $(aws ec2 describe-instances --instance-ids ${instanceID2} --query 'Reservations[0].Instances[0].PublicDnsName'))
+read dns3 < <(echo $(aws ec2 describe-instances --instance-ids ${instanceID3} --query 'Reservations[0].Instances[0].PublicDnsName'))
 
 echo Your Instance ID is ${instanceID1}
 echo Your Instance ID is ${instanceID2}
@@ -24,6 +24,10 @@ echo \ =============================================================== \
 
 echo Creating....Initializing...Starting you EC2 Instance
 echo \ =============================================================== \
+
+read targetGroupArn < <(echo $(aws elbv2 describe-target-groups --query TargetGroups[0].[TargetGroupArn]))
+read loadBalancerArn < <(echo $(aws elbv2 describe-target-groups --query TargetGroups[0].LoadBalancerArns[0]))
+
 
 while [ "$dns" == "" ]
 do
