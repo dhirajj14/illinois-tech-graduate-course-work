@@ -87,7 +87,9 @@ and change over time.
 
 8. Give examples of loosely and tightly coupled systems you have experience with. What makes them loosely or tightly coupled? (if you haven't worked on any use a system you have seen or used)
 
-* I don't remember if I had experience with loosely or tightly coupled system
+* I don't remember if I had experience with loosely or tightly coupled system, but I can refer some system where I think I indirectly worked with loosely coupled system.
+    1. In the project APIT, where I am working, we have added some of the additional features to our backend server whithout taking it down or affecting the other features and Functionalities. 
+    2. Second is the cellular network service I am using. They offent grow and reduce their coverage network. 
 #
 
 9. How do we estimate how fast a system will be able to process a request such as retrieving an email message?
