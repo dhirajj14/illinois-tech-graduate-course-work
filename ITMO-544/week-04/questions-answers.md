@@ -103,5 +103,30 @@ and change over time.
     
 * The three design ideas presented for how to process email deletion request are:
     1. contact the server and delete the message from the storage system and the index
+        * To contact server : 75ms (which we dont controll) - 75ms
+        * To lookup in index : 3 seeks (each seek 10ms) - 3*10 = 30 ms
+        * To delete data from storage : lets say 1 MB takes 10ms
+            - to delete 2 mb data : 2 * 3 * 10 = 60ms
+        * To response to requester : 75ms (which we dont controll) - 75ms
+
+        * Total = 75 + 30 + 60 + 75 = 250 ms;
+
+    * This design takes time, but the results are in realtime.
+    # 
     2. The storage system simply marks the message as deleted in the index
+        * To contact server : 75ms (which we dont controll) - 75ms
+        * To lookup in index : 3 seeks (each seek 10ms) - 3*10 = 30 ms
+        * To response to requester : 75ms (which we dont controll) - 75ms
+
+        * Total = 75 + 30 + 75 = 180 ms;
+
+    * This design is used when the user wants only the confirmation that the data has been found and will be deleted eventually
+    # 
+
     3. Asynchronous design where the client sends requests to the server and quickly returns control to the user without waiting for the request to complet.
+        * To contact server : 75ms (which we dont controll) - 75ms
+        * To response to requester : 75ms (which we dont controll) - 75ms
+
+        * Total = 75 + 75 = 150 ms;
+
+    * This design is used where user only wants the confirmation that the data will be deleted and it will not be accessed.
