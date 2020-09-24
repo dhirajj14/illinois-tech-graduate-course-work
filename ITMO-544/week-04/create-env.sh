@@ -30,40 +30,37 @@ aws ec2 wait instance-running --instance-ids $instanceID1 $instanceID2 $instance
 read targetGroupArn < <(echo $(aws elbv2 describe-target-groups --query TargetGroups[0].[TargetGroupArn]))
 read loadBalancerArn < <(echo $(aws elbv2 describe-target-groups --query TargetGroups[0].LoadBalancerArns[0]))
 
-aws elbv2 create-listener --load-balancer-arn $loadbalancerArn --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=$targetArn
+aws elbv2 create-listener --load-balancer-arn $loadBalancerArn --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=$targetGroupArn
 
-$vpcId=$(aws elbv2 describe-target-groups --query TargetGroups[0].[VpcId])
+read vpcId < <(echo $(aws elbv2 describe-target-groups --query TargetGroups[0].[VpcId]))
 
 aws elbv2 create-target-group --name my-targets --protocol HTTP --port 80 --target-type instance --vpc-id $vpcId
 
+aws elbv2 register-targets --target-group-arn $targetGroupArn --targets Id=$instanceID1 Id=$instanceID2 Id=$instanceID3
 
-aws elbv2 create-listner --load-balancer-arn $loadbalancerArn --protocol HTTP --port 80 --default-actions Type=forward, $targetArn
-
-aws elbv2 register-targets --target-group-arn $targetArn --targets Id=$instance1 Id=$instance2 Id=$instance3
-
-while [ "$dns" == "" ]
-do
-    dns=$(aws ec2 describe-instances --instance-ids ${instanceID} | jq --raw-output '.Reservations[0].Instances[0].PublicDnsName')
-done
+# while [ "$dns" == "" ]
+# do
+#     dns=$(aws ec2 describe-instances --instance-ids ${instanceID} | jq --raw-output '.Reservations[0].Instances[0].PublicDnsName')
+# done
 
 
-status=$(aws ec2 describe-instances --instance-ids  ${instanceID} | jq --raw-output '.Reservations[0].Instances[0].State.Name')
+# status=$(aws ec2 describe-instances --instance-ids  ${instanceID} | jq --raw-output '.Reservations[0].Instances[0].State.Name')
 
 
-while [ "$status" != "running" ]
-do
-    status=$(aws ec2 describe-instances --instance-ids  ${instanceID} | jq --raw-output '.Reservations[0].Instances[0].State.Name')
-    echo Initializing.....
-done
+# while [ "$status" != "running" ]
+# do
+#     status=$(aws ec2 describe-instances --instance-ids  ${instanceID} | jq --raw-output '.Reservations[0].Instances[0].State.Name')
+#     echo Initializing.....
+# done
 
-echo \ =============================================================== \
-echo Your Apache server is up and ready to use
+# echo \ =============================================================== \
+# echo Your Apache server is up and ready to use
 
-echo \ =============================================================== \
-echo This is dns ${dns}
+# echo \ =============================================================== \
+# echo This is dns ${dns}
 
-echo \ =============================================================== \
-echo Login you into the Instance
+# echo \ =============================================================== \
+# echo Login you into the Instance
 
-echo \ =============================================================== \
-ssh -i ./windows-laptop-bionic-v2.priv -y ubuntu@${dns}
+# echo \ =============================================================== \
+# ssh -i ./windows-laptop-bionic-v2.priv -y ubuntu@${dns}
