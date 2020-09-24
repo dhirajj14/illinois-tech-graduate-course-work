@@ -11,11 +11,15 @@ echo \ =============================================================== \
 echo Creating your EC2 Instance
 echo \ =============================================================== \
 
-read instanceID < <(echo $(aws ec2 run-instances --image-id ami-06b263d6ceff0b3dd --instance-type t2.micro --security-group-ids sg-9abcd0a6 --key-name windows-laptop-bionic-v2 --user-data file://install_apache.txt | jq --raw-output '.Instances[0].InstanceId'))
+read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 run-instances --image-id ami-06b263d6ceff0b3dd --instance-type t2.micro --security-group-ids sg-9abcd0a6 --key-name windows-laptop-bionic-v2 --user-data file://install_apache.txt --count 3 --output text --query 'Instances[*].InstanceId'))
 
-dns=$(aws ec2 describe-instances --instance-ids ${instanceID} | jq --raw-output '.Reservations[0].Instances[0].PublicDnsName')
+dns1=$(aws ec2 describe-instances --instance-ids ${instanceID1} | jq --raw-output '.Reservations[0].Instances[0].PublicDnsName')
+dns2=$(aws ec2 describe-instances --instance-ids ${instanceID1} | jq --raw-output '.Reservations[0].Instances[0].PublicDnsName')
+dns3=$(aws ec2 describe-instances --instance-ids ${instanceID1} | jq --raw-output '.Reservations[0].Instances[0].PublicDnsName')
 
-echo Your Instance ID is ${instanceID}
+echo Your Instance ID is ${instanceID1}
+echo Your Instance ID is ${instanceID2}
+echo Your Instance ID is ${instanceID3}
 echo \ =============================================================== \
 
 echo Creating....Initializing...Starting you EC2 Instance
