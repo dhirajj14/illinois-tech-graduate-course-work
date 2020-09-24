@@ -27,17 +27,34 @@
         * Advantages : 
             - Backends works in paralle
 
-    3. Server Tree
+    3. Server Tree:
+        * In this type of composition many servers work together with one as root and others as children and leaf node.
+
+        * Server tree is used when there is a large datasets to be broken up. For e.g Wikipedia
 #
 3. What are the three patterns discussed for storing state?
-
+    
+    1. shards
+    2. Replicate 
+    3. Distribute
+#
 4. Sometimes a master server does not reply with an answer but instead replies with where the answer can be found. What are the benefits of this method?
 
 5. Section 1.4 describes a distributed file system, including an example of how reading terabytes of data would work. How would writing terabytes of data work?
 
+
 6. Explain the CAP Principle. (If you think the CAP Principle is awesome, read “The Part-Time Parliament” (Lamport & Marzullo 1998) and “Paxos Made Simple” (Lamport 2001).)
 
 7. What does it mean when a system is loosely coupled? What is the advantage of these systems?
+    
+* Distributed systems are expected to be highly available, to last a long time, and to evolve and change without disruption. Entire subsystems are often replaced while the system is up and running. 
+
+* The system is said loosely coupled if each component has little or no knowledge of the internals of the other components.
+
+* Advantages:
+    * loosely coupled systems are easier to evolve
+and change over time.
+#
 
 8. Give examples of loosely and tightly coupled systems you have experience with. What makes them loosely or tightly coupled? (if you haven't worked on any use a system you have seen or used)
 
