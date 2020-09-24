@@ -25,9 +25,21 @@ echo \ =============================================================== \
 echo Creating....Initializing...Starting you EC2 Instance
 echo \ =============================================================== \
 
+aws ec2 wait instance-running --instance-ids $instanceID1 $instanceID2 $instanceID3 
+
 read targetGroupArn < <(echo $(aws elbv2 describe-target-groups --query TargetGroups[0].[TargetGroupArn]))
 read loadBalancerArn < <(echo $(aws elbv2 describe-target-groups --query TargetGroups[0].LoadBalancerArns[0]))
 
+aws elbv2 create-listener --load-balancer-arn $loadbalancerArn --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=$targetArn
+
+$vpcId=$(aws elbv2 describe-target-groups --query TargetGroups[0].[VpcId])
+
+aws elbv2 create-target-group --name my-targets --protocol HTTP --port 80 --target-type instance --vpc-id $vpcId
+
+
+aws elbv2 create-listner --load-balancer-arn $loadbalancerArn --protocol HTTP --port 80 --default-actions Type=forward, $targetArn
+
+aws elbv2 register-targets --target-group-arn $targetArn --targets Id=$instance1 Id=$instance2 Id=$instance3
 
 while [ "$dns" == "" ]
 do
