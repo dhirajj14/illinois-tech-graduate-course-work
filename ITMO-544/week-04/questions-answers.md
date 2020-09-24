@@ -54,6 +54,24 @@
 #
 
 6. Explain the CAP Principle. (If you think the CAP Principle is awesome, read “The Part-Time Parliament” (Lamport & Marzullo 1998) and “Paxos Made Simple” (Lamport 2001).)
+
+* CAP stands for consitency, Avaibility and Partition. This principle says that it is not possible to build a distributed system that guarantees consistency, availability, and patitions tolerance.
+    1.  Consistency
+        
+        * Consistency says that all data has state, so when you update data it should be updated in all the replicas and each node should see the same update at same time.
+
+        * Alternative is eventual consistency, which  guarantee that any update will propagate to all replicas in a certain amount of time.  
+    
+    2.  Avaibility
+        
+        * Avaibility says that every request must recieve a response. It is must that it should be available. Even a "no" is a response. System parts must always be up.
+
+        * Systems can report failures of parts even its busy. 
+    
+    3. Partition Tolerance
+
+        * Partition tolerance says that system should continue to work even if its parts fails.
+ 
 #
 
 7. What does it mean when a system is loosely coupled? What is the advantage of these systems?
