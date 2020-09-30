@@ -1,88 +1,23 @@
 #!/bin/bash
-echo do you have secuirty group and key-name? \(Y\/n\)
-read ans
 
-if [ $ans = "Y"]; then
-    echo Configure Auto Scaling
-    echo Enter your launch-configuration-name
-    read launchConfigName
-    echo \ =============================================================== \
+# Variables to run the Script
+# $1    ImageID
+# $2    Count
+# $3)	Subnet 1 (availability zone a for your region) for load balancer
+# $4)	Subnet 2 (availability zone b for your region) for load balancer
+# $5)	subnet-id for EC2 launch instance (availability zone a) (may or may not be used depending on your design)
+# $6)	Security Group ID
+# $7)	Load balancer name
+# $8)	Target Group name
+# $9)	Key-pair name
+# ${10})	auto-scaling-group-name
+# ${11})	launch-configuration-name
+# ${12})	vpc-id You can have the user prompt this or you can retrieve it
 
-    echo enter your security group name - Leave black to select default group
-    read securityGroupName
-    echo \ =============================================================== \
+#Create launch Configuration
 
-    echo enter your security group name
-    read securityGroupName
-    echo \ =============================================================== \
-
-    echo Creating your EC2 Instance
-    echo \ =============================================================== \
-
-    # read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 run-instances --image-id ami-06b263d6ceff0b3dd --instance-type t2.micro --security-group-ids sg-9abcd0a6 --key-name windows-laptop-bionic-v2 --user-data file://install_apache.txt --count 3 --output text --query 'Instances[*].InstanceId'))
-    # aws ec2 wait instance-running --instance-ids $instanceID1 $instanceID2 $instanceID3 
-
-    # read dns1 < <(echo $(aws ec2 describe-instances --instance-ids ${instanceID1} --output text --query 'Reservations[0].Instances[0].PublicDnsName'))
-    # read dns2 < <(echo $(aws ec2 describe-instances --instance-ids ${instanceID2} --output text --query 'Reservations[0].Instances[1].PublicDnsName'))
-    # read dns3 < <(echo $(aws ec2 describe-instances --instance-ids ${instanceID3} --output text --query 'Reservations[0].Instances[2].PublicDnsName'))
-
-    # echo Your Instance ID is ${instanceID1}
-    # echo Your Instance ID is ${instanceID2}
-    # echo Your Instance ID is ${instanceID3}
-    # echo \ =============================================================== \
-
-    # echo Creating....Initializing...Starting you EC2 Instance
-    # echo \ =============================================================== \
-
-    # echo Getting Subnets
-
-    # read subnet1 subnet2 < <(echo $(aws ec2 describe-subnets --output text --query 'Subnets[*].SubnetId'))
-
-    # echo Your subnets are $subnet1 and $subnet2
-
-    # echo \ =============================================================== \
-
-    # echo Getting VpcId
-
-    # read vpcId < <(echo $(aws elbv2 create-load-balancer --name my-load-balancer --subnets $subnet1 $subnet2 --output text  --query 'LoadBalancers[0].VpcId'))
-
-    # echo your VpcId is $vpcId
-
-    # echo \ =============================================================== \
-
-    # echo Getting Creating target group my-targets
-    # echo \ =============================================================== \
-
-    # aws elbv2 create-target-group --name my-targets --protocol HTTP --port 80 --target-type instance --vpc-id $vpcId
-
-    # echo Waiting /for load-balancer to be active
-    # echo \ =============================================================== \
-
-    # aws elbv2 wait load-balancer-available
-
-    # echo Getting Target Groups ARN and Load Balancer ARN
-    # echo \ =============================================================== \
-
-    # read targetGroupArn < <(echo $(aws elbv2 describe-target-groups --output text --query TargetGroups[0].[TargetGroupArn]))
-    # read loadBalancerArn < <(echo $(aws elbv2 describe-load-balancers --output text --query LoadBalancers[0].LoadBalancerArn))
+#create-launch-configuration --launch-configuration-name <launch-configuration-name> --image-id <image-ID> --instance-type t2.micro --security-groups <Security-Group-Name --key-name <key-pair> --user-data file://install-env.sh
+create-launch-configuration --launch-configuration-name ${11} --image-id $1 --instance-type t2.micro --security-groups $6 --key-name $9 --user-data file://install_apache.sh
 
 
-    # echo Registering Target
-    # echo \ =============================================================== \
-
-    # $(aws elbv2 register-targets --target-group-arn $targetGroupArn --targets Id=$instanceID1 Id=$instanceID2 Id=$instanceID3)
-
-    # echo Creating Listener
-    # echo \ =============================================================== \
-    # $(aws elbv2 create-listener --load-balancer-arn $loadBalancerArn --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=$targetGroupArn)
-
-    # echo Modifying Target Group
-    # echo \ =============================================================== \
-    # echo $(aws elbv2 modify-target-group --target-group-arn $targetGroupArn  --health-check-protocol HTTP --health-check-port 80)
-
-    # aws elbv2 describe-target-group-attributes --target-group-arn $targetGroupArn
-    # echo Finished!!
-    # echo \ =============================================================== \
-else
-    echo You need to first create security-group and key-name
-fi
+   
