@@ -1,9 +1,14 @@
 echo Getting your elbv2 and ec2 information data to delete 
 echo \ =============================================================== \
 
-read instanceID1 < <(echo $(aws ec2 describe-instances --output text --query 'Reservations[0].Instances[0].InstanceId'))
-read instanceID2 < <(echo $(aws ec2 describe-instances --output text --query 'Reservations[0].Instances[1].InstanceId'))
-read instanceID3 < <(echo $(aws ec2 describe-instances --output text --query 'Reservations[0].Instances[2].InstanceId'))
+echo Enter your Instance Tag used when creating the Instance 
+read tag
+
+read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 describe-tags --filters 'Name=tag:Name,Values='${tag}'' --output text --query 'Tags[*].ResourceId'))
+
+# read instanceID1 < <(echo $(aws ec2 describe-instances --output text --query 'Reservations[0].Instances[0].InstanceId'))
+# read instanceID2 < <(echo $(aws ec2 describe-instances --output text --query 'Reservations[0].Instances[1].InstanceId'))
+# read instanceID3 < <(echo $(aws ec2 describe-instances --output text --query 'Reservations[0].Instances[2].InstanceId'))
 
 read targetGroupArn < <(echo $(aws elbv2 describe-target-groups --output text --query TargetGroups[0].[TargetGroupArn]))
 read loadBalancerArn < <(echo $(aws elbv2 describe-load-balancers --output text --query LoadBalancers[0].LoadBalancerArn))

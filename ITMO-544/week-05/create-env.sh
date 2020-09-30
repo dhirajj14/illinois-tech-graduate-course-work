@@ -19,5 +19,8 @@
 #create-launch-configuration --launch-configuration-name <launch-configuration-name> --image-id <image-ID> --instance-type t2.micro --security-groups <Security-Group-Name --key-name <key-pair> --user-data file://install-env.sh
 create-launch-configuration --launch-configuration-name ${11} --image-id $1 --instance-type t2.micro --security-groups $6 --key-name $9 --user-data file://install_apache.sh
 
+#Create auto scaling group
 
+#aws autoscaling create-auto-scaling-group --auto-scaling-group-name <auto-scalling-group-name> --launch-configuration-name <launch-configuration-name> --min-size 2 --max-size 6 --desired-capacity 3
+aws autoscaling create-auto-scaling-group --auto-scaling-group-name ${10} --launch-configuration-name ${11} --min-size 2 --max-size 6 --desired-capacity 3 --vpc-zone-identifier "$3,$4"
    

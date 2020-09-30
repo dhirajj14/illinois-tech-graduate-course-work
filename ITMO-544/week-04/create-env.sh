@@ -6,6 +6,13 @@ echo \ =============================================================== \
 read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 run-instances --image-id ami-06b263d6ceff0b3dd --instance-type t2.micro --security-group-ids sg-9abcd0a6 --key-name windows-laptop-bionic-v2 --user-data file://install_apache.txt --count 3 --output text --query 'Instances[*].InstanceId'))
 aws ec2 wait instance-running --instance-ids $instanceID1 $instanceID2 $instanceID3 
 
+echo Enter the Tag for your instace resourse and note it down...It will be asked while deleting resourses
+read tag
+
+aws ec2 create-tags --resources $instanceID1 $instanceID2 $instanceID3  --tags Key=Name,Value=tag
+
+echo \ =============================================================== \
+
 read dns1 < <(echo $(aws ec2 describe-instances --instance-ids ${instanceID1} --output text --query 'Reservations[0].Instances[0].PublicDnsName'))
 read dns2 < <(echo $(aws ec2 describe-instances --instance-ids ${instanceID2} --output text --query 'Reservations[0].Instances[1].PublicDnsName'))
 read dns3 < <(echo $(aws ec2 describe-instances --instance-ids ${instanceID3} --output text --query 'Reservations[0].Instances[2].PublicDnsName'))
