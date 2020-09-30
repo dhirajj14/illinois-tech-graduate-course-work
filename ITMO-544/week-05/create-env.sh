@@ -1,5 +1,5 @@
 #!/bin/bash
-echo do you have secuirty group and key-name? (Y/n)
+echo do you have secuirty group and key-name? \(Y\/n\)
 read ans
 
 if [ $ans = "Y"]; then
