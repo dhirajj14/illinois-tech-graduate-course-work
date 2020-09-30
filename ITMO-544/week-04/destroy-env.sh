@@ -33,6 +33,7 @@ aws elbv2 delete-target-group --target-group-arn $targetGroupArn
 
 echo Deleting Load Balancer
 echo \ =============================================================== \
+
 aws elbv2 delete-load-balancer --load-balancer-arn $loadBalancerArn
 
 aws elbv2 wait load-balancers-deleted --load-balancer-arns $loadBalancerArn
