@@ -43,16 +43,6 @@ echo \ =============================================================== \
 echo Creating....Initializing...Starting you EC2 Instance
 echo \ =============================================================== \
 
-echo Getting Subnets
-
-read subnet1 subnet2 < <(echo $(aws ec2 describe-subnets --output text --query 'Subnets[*].SubnetId'))
-
-echo Your subnets are $subnet1 and $subnet2
-
-echo \ =============================================================== \
-
-
-
 aws autoscaling create-launch-configuration --launch-configuration-name ${11} --image-id $1 --instance-type t2.micro --security-groups $6 --key-name $9 --user-data file://install_apache.sh
 
 read vpcId < <(echo $(aws elbv2 create-load-balancer --name $7 --subnets $3 $4 --output text  --query 'LoadBalancers[0].VpcId'))
@@ -85,20 +75,12 @@ $(aws elbv2 register-targets --target-group-arn $targetGroupArn --targets Id=$in
 echo Creating Listener
 echo \ =============================================================== \
 
-echo Registering Target
-echo \ =============================================================== \
-
-$(aws elbv2 register-targets --target-group-arn $targetGroupArn --targets Id=$instanceID1 Id=$instanceID2 Id=$instanceID3)
-
-echo Creating Listener
-echo \ =============================================================== \
-
-$(aws elbv2 create-listener --load-balancer-arn $loadBalancerArn --protocol HTTP --port 80 --default-actions Type=forward, TargetGroupArn=$targetGroupArn)
+$(aws elbv2 create-listener --load-balancer-arn $loadBalancerArn --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=$targetGroupArn)
 
 echo Modifying Target Group
 echo \ =============================================================== \
 
-echo $(aws elbv2 modify-target-group --target-group-arn $targetGroupArn  --health-check-protocol HTTP --health-check-port 80)
+echo $(aws elbv2 modify-target-group --target-group-arn $targetGroupArn --health-check-protocol HTTP --health-check-port 80)
 
 aws elbv2 describe-target-group-attributes --target-group-arn $targetGroupArn
 

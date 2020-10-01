@@ -18,9 +18,6 @@ aws elbv2 deregister-targets --target-group-arn $targetGroupArn --targets Id=$in
 
 aws elbv2 wait target-deregistered --target-group-arn $targetGroupArn --targets Id=$instanceID1 Id=$instanceID2 Id=$instanceID3,Port=80
 
-aws autoscaling detach-load-balancer-target-groups --auto-scaling-group-name $1 --target-group-arns $targetGroupArn
-
-aws autoscaling detach-load-balancers --load-balancer-names $2 --auto-scaling-group-name $1
 
 echo Deleting listener
 echo \ =============================================================== \
@@ -47,7 +44,7 @@ echo $(aws ec2 terminate-instances --instance-ids $instanceID1 $instanceID2 $ins
 
 aws autoscaling delete-auto-scaling-group --auto-scaling-group-name $1 --force-delete
 
-aws autoscaling delete-launch-configuration --launch-configuration-name $3
+aws autoscaling delete-launch-configuration --launch-configuration-name $2
 
 
 echo Finished!!!
