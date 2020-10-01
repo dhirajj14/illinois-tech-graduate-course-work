@@ -17,6 +17,42 @@
 #Create launch Configuration
 
 #create-launch-configuration --launch-configuration-name <launch-configuration-name> --image-id <image-ID> --instance-type t2.micro --security-groups <Security-Group-Name --key-name <key-pair> --user-data file://install-env.sh
+
+echo Creating your EC2 Instance
+echo \ =============================================================== \
+
+read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 run-instances --image-id $1 --instance-type t2.micro --security-group-ids $6 --key-name $9 --user-data file://install_apache.txt --count $2 --output text --query 'Instances[*].InstanceId'))
+aws ec2 wait instance-running --instance-ids $instanceID1 $instanceID2 $instanceID3 
+
+echo Enter the Tag for your instace resourse and note it down...It will be asked while deleting resourses
+read tag
+
+aws ec2 create-tags --resources $instanceID1 $instanceID2 $instanceID3  --tags Key=Name,Value=$tag
+
+echo \ =============================================================== \
+
+read dns1 < <(echo $(aws ec2 describe-instances --instance-ids ${instanceID1} --output text --query 'Reservations[0].Instances[0].PublicDnsName'))
+read dns2 < <(echo $(aws ec2 describe-instances --instance-ids ${instanceID2} --output text --query 'Reservations[0].Instances[1].PublicDnsName'))
+read dns3 < <(echo $(aws ec2 describe-instances --instance-ids ${instanceID3} --output text --query 'Reservations[0].Instances[2].PublicDnsName'))
+
+echo Your Instance ID is ${instanceID1}
+echo Your Instance ID is ${instanceID2}
+echo Your Instance ID is ${instanceID3}
+echo \ =============================================================== \
+
+echo Creating....Initializing...Starting you EC2 Instance
+echo \ =============================================================== \
+
+echo Getting Subnets
+
+read subnet1 subnet2 < <(echo $(aws ec2 describe-subnets --output text --query 'Subnets[*].SubnetId'))
+
+echo Your subnets are $subnet1 and $subnet2
+
+echo \ =============================================================== \
+
+
+
 aws autoscaling create-launch-configuration --launch-configuration-name ${11} --image-id $1 --instance-type t2.micro --security-groups $6 --key-name $9 --user-data file://install_apache.sh
 
 read vpcId < <(echo $(aws elbv2 create-load-balancer --name $7 --subnets $3 $4 --output text  --query 'LoadBalancers[0].VpcId'))
@@ -40,18 +76,24 @@ read loadBalancerArn < <(echo $(aws elbv2 describe-load-balancers --output text 
 echo Registering Target
 echo \ =============================================================== \
 
+$(aws elbv2 register-targets --target-group-arn $targetGroupArn --targets Id=$instanceID1 Id=$instanceID2 Id=$instanceID3)
+
 #Create auto scaling group
 
 #aws autoscaling create-auto-scaling-group --auto-scaling-group-name <auto-scalling-group-name> --launch-configuration-name <launch-configuration-name> --min-size 2 --max-size 6 --desired-capacity 3
 
-aws autoscaling attach-load-balancer-target-groups --auto-scaling-group-name ${10} --target-group-arns targetGroupArn
+echo Creating Listener
+echo \ =============================================================== \
 
-aws autoscaling attach-load-balancers --load-balancer-names $7 --auto-scaling-group-name ${10}
+echo Registering Target
+echo \ =============================================================== \
+
+$(aws elbv2 register-targets --target-group-arn $targetGroupArn --targets Id=$instanceID1 Id=$instanceID2 Id=$instanceID3)
 
 echo Creating Listener
 echo \ =============================================================== \
 
-$(aws elbv2 create-listener --load-balancer-arn $loadBalancerArn --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=$targetGroupArn)
+$(aws elbv2 create-listener --load-balancer-arn $loadBalancerArn --protocol HTTP --port 80 --default-actions Type=forward, TargetGroupArn=$targetGroupArn)
 
 echo Modifying Target Group
 echo \ =============================================================== \

@@ -65,7 +65,8 @@ $(aws elbv2 register-targets --target-group-arn $targetGroupArn --targets Id=$in
 
 echo Creating Listener
 echo \ =============================================================== \
-$(aws elbv2 create-listener --load-balancer-arn $loadBalancerArn --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=$targetGroupArn)
+
+$(aws elbv2 create-listener --load-balancer-arn $loadBalancerArn --protocol HTTP --port 80 --default-actions Type=forward, TargetGroupArn=$targetGroupArn)
 
 echo Modifying Target Group
 echo \ =============================================================== \
