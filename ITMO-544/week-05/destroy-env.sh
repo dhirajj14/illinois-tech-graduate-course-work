@@ -39,6 +39,10 @@ echo \ =============================================================== \
 
 echo $(aws ec2 terminate-instances --instance-ids $instanceID1 $instanceID2 $instanceID3)
 
+aws ec2 wait instance-terminated --instance-ids $instanceID1 $instanceID2 $instanceID3
+
+echo All resources have been terminated
+echo \ =============================================================== \
 
 aws autoscaling delete-auto-scaling-group --auto-scaling-group-name $1 --force-delete
 
