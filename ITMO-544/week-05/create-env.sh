@@ -44,9 +44,6 @@ echo \ =============================================================== \
 
 #aws autoscaling create-auto-scaling-group --auto-scaling-group-name <auto-scalling-group-name> --launch-configuration-name <launch-configuration-name> --min-size 2 --max-size 6 --desired-capacity 3
 
-
-$(aws elbv2 register-targets --target-group-arn $targetGroupArn --targets Id=$instanceID1 Id=$instanceID2 Id=$instanceID3)
-
 aws autoscaling attach-load-balancer-target-groups --auto-scaling-group-name ${10} --target-group-arns targetGroupArn
 
 aws autoscaling attach-load-balancers --load-balancer-names $7 --auto-scaling-group-name ${10}
