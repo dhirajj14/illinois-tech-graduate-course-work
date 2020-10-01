@@ -1,10 +1,8 @@
 echo Getting your elbv2 and ec2 information data to delete 
 echo \ =============================================================== \
 
-echo Enter your Instance Tag used when creating the Instance 
-read tag
 
-read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 describe-tags --filters 'Name=tag:Name,Values='${tag}'' --output text --query 'Tags[*].ResourceId'))
+read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 describe-tags --filters 'Name=tag:Name,Values='$3'' --output text --query 'Tags[*].ResourceId'))
 
 
 read targetGroupArn < <(echo $(aws elbv2 describe-target-groups --output text --query TargetGroups[0].[TargetGroupArn]))

@@ -24,10 +24,7 @@ echo \ =============================================================== \
 read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 run-instances --image-id $1 --instance-type t2.micro --security-group-ids $6 --key-name $9 --user-data file://install_apache.txt --count $2 --output text --query 'Instances[*].InstanceId'))
 aws ec2 wait instance-running --instance-ids $instanceID1 $instanceID2 $instanceID3 
 
-echo Enter the Tag for your instace resourse and note it down...It will be asked while deleting resourses
-read tag
-
-aws ec2 create-tags --resources $instanceID1 $instanceID2 $instanceID3  --tags Key=Name,Value=$tag
+aws ec2 create-tags --resources $instanceID1 $instanceID2 $instanceID3  --tags Key=Name,Value=${13}
 
 echo \ =============================================================== \
 
@@ -62,6 +59,7 @@ echo \ =============================================================== \
 read targetGroupArn < <(echo $(aws elbv2 describe-target-groups --output text --query TargetGroups[0].[TargetGroupArn]))
 read loadBalancerArn < <(echo $(aws elbv2 describe-load-balancers --output text --query LoadBalancers[0].LoadBalancerArn))
 
+echo LoadBalancers Arn $loadBalancerArn
 
 echo Registering Target
 echo \ =============================================================== \
