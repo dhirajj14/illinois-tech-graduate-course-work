@@ -20,13 +20,16 @@
 3. List the important factors for redundancy through replication.
     
     * Service must be designed to work behid the load-balancer.
-    * Should cosider the user-state
+    * Should consider the user-state
     * Must handle pattern to handle-traffic
         1. Round Robin
         2. Least Loaded
         3. Slow-Start 
 
 4. Give an example of a partially implemented process in your current environment. What would you do to fully implement it?
+
+    * In my current environment, I have implemented EC2 instance, load balancer, autoscalling, S3. 
+    * Adding monitoring to my environment will complete the process.
 
 5. Why might you not want to solve an issue by coding the solution yourself?
     
