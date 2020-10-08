@@ -28,7 +28,7 @@
 
 4. Give an example of a partially implemented process in your current environment. What would you do to fully implement it?
 
-    * In my current environment, I have implemented EC2 instance, load balancer, autoscalling, S3. 
+    * In my current environment (Class-setup), I have implemented EC2 instance, load balancer, autoscalling, S3. 
     * Adding monitoring to my environment will complete the process.
 
 5. Why might you not want to solve an issue by coding the solution yourself?
