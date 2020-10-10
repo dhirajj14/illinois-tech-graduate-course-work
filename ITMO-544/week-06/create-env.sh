@@ -48,7 +48,7 @@ read vpcId < <(echo $(aws elbv2 create-load-balancer --name $7 --subnets $3 $4 -
 
 echo your VpcId is $vpcId
 
-aws elbv2 create-target-group --name $8 --protocol HTTP --port 80 --target-type instance --vpc-id $vpcId
+aws elbv2 create-target-group --name $8 --protocol HTTP --port 3300 --target-type instance --vpc-id $vpcId
 
 echo Waiting /for load-balancer to be active
 echo \ =============================================================== \
