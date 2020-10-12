@@ -37,7 +37,6 @@
 
 ### To execute the script enter the following command
 
-
     ./create-env.sh <Image-ID> <Count> <Subnet-1> <Subnet-2> <Subnet-ID - I am not using Subnet ID Provide dummy value> <Security-ID> <Load-Balancer-Name> <Target-Group-Name> <Key-Pair-Name> <Auto-Scaling-group-Name> <Launch-Configuration-Name> <VPC ID - I am getting this Automatically Provide Dummy Value > <Instance-Tag-Name> <S3-Bucket-Name> <IAM-Profile-ARN>
 
 ### Variables to run the destroy-env Script (Variables should be same as used for creating)
