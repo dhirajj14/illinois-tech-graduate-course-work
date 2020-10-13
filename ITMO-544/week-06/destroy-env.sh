@@ -51,6 +51,11 @@ aws autoscaling delete-auto-scaling-group --auto-scaling-group-name $1 --force-d
 
 aws autoscaling delete-launch-configuration --launch-configuration-name $2
 
+echo Deleting Bucket
+
+echo \ =============================================================== \
+
+aws s3 rb s3://${4} --force  
 
 echo Finished!!!
 echo \ =============================================================== \
