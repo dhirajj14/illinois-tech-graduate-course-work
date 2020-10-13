@@ -1,5 +1,11 @@
 # Week-05 Assisgnment
 
+## Important Instuctions
+
+
+**In my Install-env Script I am using git clone to to get the app.js and index.html which are stored in github public repo due to authentication problem for time being**
+
+**I am automatically getting the s3 bucket name in app.js using the s3.listbucket fuction and scraping data from it. For me I have only one bucket so my next step is to allow user to confirm the bucket name**
 
 
 ### Variables to run the Create-env Script
@@ -56,3 +62,4 @@
 
 
     ./destroy-env.sh <Auto-Scaling-group-Name> <Launch-Configuration-Name> <Instance-Tag-Name> <Bucket-Name>
+
