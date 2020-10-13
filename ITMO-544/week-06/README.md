@@ -48,9 +48,11 @@
 
  $3)	Instance Resource Tag
 
+ $4)    Bucket Name to be deleted
+
 #
 
 ### To execute the script enter the following command
 
 
-    ./destroy-env.sh <Auto-Scaling-group-Name> <Launch-Configuration-Name> <Instance-Tag-Name>
+    ./destroy-env.sh <Auto-Scaling-group-Name> <Launch-Configuration-Name> <Instance-Tag-Name> <Bucket-Name>
