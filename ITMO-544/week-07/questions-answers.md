@@ -35,6 +35,12 @@
 
 7. What does a reverse proxy do? When is it needed?
 
+    * A reverse proxy enables one web server to provide content from another web server transparently. The user sees one cohesive web site, even though it is actually made up of a patchwork of applications.
+
+    * Reverse proxy is needed when you have multiple web servers and want user to access all the servers from one URL. It combine all the servers and gives seamlessly unified user experience to the user.
+
+    * Requests go to the reverse proxy, which interprets the URL and collects the required pages from the appropriate server or service. This result is then relayed to the original requester.
+
 8. Suppose you wanted to build a simple image-sharing web site. How would you design it if the site was intended to serve people in one region of the world? How would you then expand it to work globally?
 
 9. What is a message bus architecture and how might one be used?
