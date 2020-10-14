@@ -12,11 +12,24 @@
 
 2. Describe how a single-machine web server, which uses a database to generate content, might evolve to a three-tier web server. How would this be done with minimal downtime?
 
+    * Execute the following steps to evolve a single-machine web server to a three-tier web-server at minimal downtime :
+        1. Create a load-Balancer and configure it to route queries or request to the web-server.
+        2. Create a data server which is similar to single machine data base content and create API points to which web server can make Calls.
+        3. Connect Load-Balancer to the Web-server (Single-Machine Web Server). Therefore, till this step there is no downtime of the system.
+        4. Now, take a copy of single-machine web server and modify it's configuration to make the API calls or request to the data server.
+        5. Test the web-server to pass all the test cases.
+        6. Now replace the single-machine web server with the new modified web-server. Here we will have downtime until we replace the web-server.
+        7. Now make the replicas of the web-server.
+
 3. Describe the common web service architectures, in order from smallest to largest (include cloud tier/scale).
 
 4. Describe how different local load balancer types work and what their pros and cons are. You may choose to make a comparison chart.
 
 5. What is “shared state” and how is it maintained between replicas?
+    
+    * There is an issue with the load-balancer and replicas is shared-state. There are diffrent stategies to overcome this issue like Sticky Connections, Shared-State and Hybrid.
+    * In Shared-State strategy the fact that user is logged in and the user's profile infromation are stored somewhere that all backends can access. For each HTTP connection, the user’s state is fetched from this shared area. With this approach, it doesn’t matter if each HTTP request goes to a different machine. The user is not asked to log in every time the backends are switched.
+
 
 6. What are the services that a four-tier architecture provides in the first tier?
 
