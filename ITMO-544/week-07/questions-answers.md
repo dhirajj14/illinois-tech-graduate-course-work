@@ -10,6 +10,8 @@
         5. S3, Amazon rora, Database
         6. Advantage of three-tier is that we have seperated the resources and now we can sclae it.
 
+#
+
 2. Describe how a single-machine web server, which uses a database to generate content, might evolve to a three-tier web server. How would this be done with minimal downtime?
 
     * Execute the following steps to evolve a single-machine web server to a three-tier web-server at minimal downtime :
@@ -21,17 +23,26 @@
         6. Now replace the single-machine web server with the new modified web-server. Here we will have downtime until we replace the web-server.
         7. Now make the replicas of the web-server.
 
+#
+
 3. Describe the common web service architectures, in order from smallest to largest (include cloud tier/scale).
 
+#
+
 4. Describe how different local load balancer types work and what their pros and cons are. You may choose to make a comparison chart.
+
+#
 
 5. What is “shared state” and how is it maintained between replicas?
     
     * There is an issue with the load-balancer and replicas is shared-state. There are diffrent stategies to overcome this issue like Sticky Connections, Shared-State and Hybrid.
     * In Shared-State strategy the fact that user is logged in and the user's profile infromation are stored somewhere that all backends can access. For each HTTP connection, the user’s state is fetched from this shared area. With this approach, it doesn’t matter if each HTTP request goes to a different machine. The user is not asked to log in every time the backends are switched.
 
+#
 
 6. What are the services that a four-tier architecture provides in the first tier?
+
+#
 
 7. What does a reverse proxy do? When is it needed?
 
@@ -43,6 +54,8 @@
 
 8. Suppose you wanted to build a simple image-sharing web site. How would you design it if the site was intended to serve people in one region of the world? How would you then expand it to work globally?
 
+#
+
 9. What is a message bus architecture and how might one be used?
 
     * A message bus is a many-to-many communication mechanism between servers.
@@ -53,13 +66,16 @@
     * One-to-many communication enables one server to quicklysend information to a large set of machines. Many-to-many communicationresembles a chat room application, where many people all hear what is beingsaid. 
     * Many-to-one communication enables a funnel-like configuration wheremany machines can produce information and one machine takes it in. 
     * A central authority, or master, manages which servers are connected to which channels.The messages being sent may contain any kind of data. They may be real-timeupdates such as chat room messages, database updates, or notifications thatupdate a user’s display to indicate there are messages waiting in the inbox. 
-    
+
+#
+
 10. What is an SOA?
 
     * Service Oriented Architecture enable large services to be managed more easily.
     * SOA is the collection of subsystems with each subsystem is a self-contained service.
     * Each service is access via it's own API.
     * The Various services communicate with one another by making API calls.
+#
 
 11. Why are SOAs loosely coupled?
     * SOAs have its services loosely coupled becuase it makes easy to add and remove services. This indirecly helps SOA to manage large services easily.
@@ -70,6 +86,8 @@
         * Suppose a new internal design was proposed that prevented duplicate job execution but did locking some other way. This change could not be madewithout changing the code of all the services that used the API. 
         * In a looselycoupled system, the API would provide job status at a higher level ofabstraction: is the job waiting, is it running, where is it running, can it bestopped, and so on. No matter what the internal implementation was, theserequests could be proces
 
+#
+
 12. How would you design an email system as an SOA?
 
     * To design email system as an SOA I will have the following services or Subsystems:
@@ -79,7 +97,8 @@
         4. One filter service to filter emails according to their type like social, promotions, updates which will not be access by user directly but will be used by other services internally.
         5. I will also have one montioring service which will monitor the all other services.
 
+#
 
 13. Who was Christopher Alexander and what was his contribution to architecture?
     
->> Christopher Wolfgang Alexander (born 4 October 1936 in Vienna, Austria)[1][2] is a widely influential British-American architect and design theorist, and currently emeritus professor at the University of California, Berkeley. His theories about the nature of human-centered design have affected fields beyond architecture, including urban design, software, sociology and others.Alexander has designed and personally built over 100 buildings, both as an architect and a general contractor. In software, Alexander is regarded as the father of the pattern language movement. The first wiki—the technology behind Wikipedia—led directly from Alexander's work, according to its creator, Ward Cunningham. Alexander's work has also influenced the development of agile software development.
+> Christopher Wolfgang Alexander (born 4 October 1936 in Vienna, Austria) is a widely influential British-American architect and design theorist, and currently emeritus professor at the University of California, Berkeley. His theories about the nature of human-centered design have affected fields beyond architecture, including urban design, software, sociology and others.Alexander has designed and personally built over 100 buildings, both as an architect and a general contractor. In software, Alexander is regarded as the father of the pattern language movement. The first wiki—the technology behind Wikipedia—led directly from Alexander's work, according to its creator, Ward Cunningham. Alexander's work has also influenced the development of agile software development.
