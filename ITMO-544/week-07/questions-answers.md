@@ -25,7 +25,7 @@
         2. The frontends handle interactions with the users, and communicate to theapplication servers for content. 
         3. Fou-tier architecture has the Load Balancer, Frontends, Application server and Data Servers.
         4. All the request are sent to load balancer and then load balancer routes this request to frontends.
-        4. Then the frontends send queries to the application servers. Because all HTTPprocessing is handled by the frontends, this permits the frontend-to-applicationprotocol to be something other than HTTP.
+        5. Then the frontends send queries to the application servers. Because all HTTPprocessing is handled by the frontends, this permits the frontend-to-applicationprotocol to be something other than HTTP.
 #
 
 2. Describe how a single-machine web server, which uses a database to generate content, might evolve to a three-tier web server. How would this be done with minimal downtime?
@@ -85,6 +85,10 @@
     * Cloud-scale services are globally distributed.
     * In cloud scale service a global load balanceris used to direct traffic to the nearest location.
     * In this type of architecure We build multiple datacenters around the world, or we rent space in otherpeople’s datacenters, and replicate our services in each of them.
+
+    <img width="800" alt="Screen Shot 2020-10-15 at 1 21 58 AM" src="https://user-images.githubusercontent.com/54300222/96084546-e11a4800-0e84-11eb-9873-17a1c36b02b1.png">
+
+    `Source: The Practice of Cloud System Administration`
 #
 
 9. What is a message bus architecture and how might one be used?
