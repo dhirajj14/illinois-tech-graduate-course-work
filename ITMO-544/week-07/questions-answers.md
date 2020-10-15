@@ -45,10 +45,41 @@
 
 9. What is a message bus architecture and how might one be used?
 
+    * A message bus is a many-to-many communication mechanism between servers.
+    * It is a convenient way to distribute information among different services.Message buses are becoming a popular architecture used behind the scenes insystem administration systems, web-based services, and enterprise systems. This approach is more efficient than repeatedly polling a database to see if new information has arrived.
+    * A message bus is a mechanism whereby servers send messages to “channels”(like a radio channel) and other servers listen to the channels they need. 
+    * A server that sends messages is a publisher and the receivers are subscribers. A servercan be a publisher or subscriber of a given channel, or it can simply ignore thechannel. 
+    * This permits one-to-many, many-to-many, and many-to-onecommunication. 
+    * One-to-many communication enables one server to quicklysend information to a large set of machines. Many-to-many communicationresembles a chat room application, where many people all hear what is beingsaid. 
+    * Many-to-one communication enables a funnel-like configuration wheremany machines can produce information and one machine takes it in. 
+    * A central authority, or master, manages which servers are connected to which channels.The messages being sent may contain any kind of data. They may be real-timeupdates such as chat room messages, database updates, or notifications thatupdate a user’s display to indicate there are messages waiting in the inbox. 
+    
 10. What is an SOA?
 
+    * Service Oriented Architecture enable large services to be managed more easily.
+    * SOA is the collection of subsystems with each subsystem is a self-contained service.
+    * Each service is access via it's own API.
+    * The Various services communicate with one another by making API calls.
+
 11. Why are SOAs loosely coupled?
+    * SOAs have its services loosely coupled becuase it makes easy to add and remove services. This indirecly helps SOA to manage large services easily.
+    * In SOA each service is presented API at high level of abstaction.
+    * For example
+        * imagine a job scheduler service. It accepts requests to perform various actions, schedules them, coordinates them, and reports back progress asit executes. 
+        * In a tightly coupled system, the API would be tightly linked to the inner workings of the job scheduler. Users of the API could specify detailsrelated to how the jobs work rather than what is needed. For example, the API might provide direct access to the status of the lock mechanism used to prevent the same job from being executed twice.
+        * Suppose a new internal design was proposed that prevented duplicate job execution but did locking some other way. This change could not be madewithout changing the code of all the services that used the API. 
+        * In a looselycoupled system, the API would provide job status at a higher level ofabstraction: is the job waiting, is it running, where is it running, can it bestopped, and so on. No matter what the internal implementation was, theserequests could be proces
 
 12. How would you design an email system as an SOA?
 
+    * To design email system as an SOA I will have the following services or Subsystems:
+        1. Service to Send and Receive emails.
+        2. Service to add attachments like music, files, images to database when they are added attached in email.
+        3. I will have a delete API to delete the emails
+        4. One filter service to filter emails according to their type like social, promotions, updates which will not be access by user directly but will be used by other services internally.
+        5. I will also have one montioring service which will monitor the all other services.
+
+
 13. Who was Christopher Alexander and what was his contribution to architecture?
+    
+>> Christopher Wolfgang Alexander (born 4 October 1936 in Vienna, Austria)[1][2] is a widely influential British-American architect and design theorist, and currently emeritus professor at the University of California, Berkeley. His theories about the nature of human-centered design have affected fields beyond architecture, including urban design, software, sociology and others.Alexander has designed and personally built over 100 buildings, both as an architect and a general contractor. In software, Alexander is regarded as the father of the pattern language movement. The first wiki—the technology behind Wikipedia—led directly from Alexander's work, according to its creator, Ward Cunningham. Alexander's work has also influenced the development of agile software development.
