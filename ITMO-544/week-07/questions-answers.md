@@ -20,6 +20,12 @@
         5. S3, Amazon rora, Database
         6. Advantage of three-tier is that we have seperated the resources and now we can sclae it.
 
+    * Four-Tier Machine:
+        1. The four-tier architecture is similar to three-tier architecture but has many individual application which serves the same frontends.
+        2. The frontends handle interactions with the users, and communicate to theapplication servers for content. 
+        3. Fou-tier architecture has the Load Balancer, Frontends, Application server and Data Servers.
+        4. All the request are sent to load balancer and then load balancer routes this request to frontends.
+        4. Then the frontends send queries to the application servers. Because all HTTPprocessing is handled by the frontends, this permits the frontend-to-applicationprotocol to be something other than HTTP.
 #
 
 2. Describe how a single-machine web server, which uses a database to generate content, might evolve to a three-tier web server. How would this be done with minimal downtime?
@@ -74,8 +80,11 @@
 
 8. Suppose you wanted to build a simple image-sharing web site. How would you design it if the site was intended to serve people in one region of the world? How would you then expand it to work globally?
 
-    * To build a simple image-sharing web site, I would use the three-tier architecture. 
+    * To build a simple image-sharing web site, I would use the three-tier architecture with clod-scale service.
     * Three-tier architecture has the feature of scaling and then I can scale the system by adding more data servers in the different regions and and replicate the web serevers to handle the requests from the load balancer.
+    * Cloud-scale services are globally distributed.
+    * In cloud scale service a global load balanceris used to direct traffic to the nearest location.
+    * In this type of architecure We build multiple datacenters around the world, or we rent space in otherpeople’s datacenters, and replicate our services in each of them.
 #
 
 9. What is a message bus architecture and how might one be used?
@@ -103,7 +112,7 @@
     * SOAs have its services loosely coupled becuase it makes easy to add and remove services. This indirecly helps SOA to manage large services easily.
     * In SOA each service is presented API at high level of abstaction.
     * For example
-        * imagine a job scheduler service. It accepts requests to perform various actions, schedules them, coordinates them, and reports back progress asit executes. 
+        * Imagine a job scheduler service. It accepts requests to perform various actions, schedules them, coordinates them, and reports back progress asit executes. 
         * In a tightly coupled system, the API would be tightly linked to the inner workings of the job scheduler. Users of the API could specify detailsrelated to how the jobs work rather than what is needed. For example, the API might provide direct access to the status of the lock mechanism used to prevent the same job from being executed twice.
         * Suppose a new internal design was proposed that prevented duplicate job execution but did locking some other way. This change could not be madewithout changing the code of all the services that used the API. 
         * In a looselycoupled system, the API would provide job status at a higher level ofabstraction: is the job waiting, is it running, where is it running, can it bestopped, and so on. No matter what the internal implementation was, theserequests could be proces
