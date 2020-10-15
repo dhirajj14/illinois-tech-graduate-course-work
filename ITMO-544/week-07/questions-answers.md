@@ -2,6 +2,16 @@
 
 1. Describe the single-machine, three-tier, and four-tier web application architectures.
 
+    * Single-Machine
+        1. It is a self sufficient machine used to provide web service.
+        2. The machine runs software that speaks theHTTP protocol, receiving requests, processing them, generating a result, andsending the reply.
+        3. Single machine web server generates the web pages from three diffrent sources:
+            * Static Content: Files are stored in local storage and sent to users. e.g. HTML pages, Images, music, video, softwares, etc.
+
+            * Dynamic Content:Programs running on the web server generate HTML and possibly other output that is sent to the user. They may do soindependently or based on input received from the user.
+
+            * Database-Driven Dynamic Content: This is a special case of dynamiccontent where the programs running on the web server consult a databasefor information and use that to generate the web page. In this architecture,the database software and its data are on the same machine as the webserver.
+
     * Three-Tier Web Application Architecture:
         1. Three-Tier service is similar to single-machine architecture and it is the lowest comman denominator for cloud native.
         2. In three-tier there is seperations of the resources at multiple levels. we have Load Balancer tier, then Web Server tier and then Data server tier.
@@ -49,6 +59,7 @@
 
 6. What are the services that a four-tier architecture provides in the first tier?
 
+    * Four-tier architecture provides a Load Balancer in the first tier which  divides the traffic among the various frontends.
 #
 
 7. What does a reverse proxy do? When is it needed?
@@ -59,8 +70,12 @@
 
     * Requests go to the reverse proxy, which interprets the URL and collects the required pages from the appropriate server or service. This result is then relayed to the original requester.
 
+#
+
 8. Suppose you wanted to build a simple image-sharing web site. How would you design it if the site was intended to serve people in one region of the world? How would you then expand it to work globally?
 
+    * To build a simple image-sharing web site, I would use the three-tier architecture. 
+    * Three-tier architecture has the feature of scaling and then I can scale the system by adding more data servers in the different regions and and replicate the web serevers to handle the requests from the load balancer.
 #
 
 9. What is a message bus architecture and how might one be used?
