@@ -27,9 +27,16 @@
 
 3. Describe the common web service architectures, in order from smallest to largest (include cloud tier/scale).
 
+
 #
 
 4. Describe how different local load balancer types work and what their pros and cons are. You may choose to make a comparison chart.
+
+| Load Balancer Types | Working | Pros | Cons |
+| :------------- |:-------------:|:-----:|:-----:|
+|DNS Round Robin| In this type IP address of all the replicas are listed and then randomly picked one to forward the request.|Easy to implement and free.|If one replica dies clients will continue to try to access it as they cache DNS heavily .Difficult to control.|
+|Layer 3 & 4 load Balancers| |Thebenefit of these load balancers is that they are simple and fast. Also, if areplica goes down, the load balancer will route traffic to the remainingreplicas.||
+|Layer 7 Load Balancer||They can examinewhat is inside the HTTP protocol itself (cookies, headers, URLs, and soon) and make decisions based on what was found.||
 
 #
 
@@ -101,4 +108,10 @@
 
 13. Who was Christopher Alexander and what was his contribution to architecture?
     
-> Christopher Wolfgang Alexander (born 4 October 1936 in Vienna, Austria) is a widely influential British-American architect and design theorist, and currently emeritus professor at the University of California, Berkeley. His theories about the nature of human-centered design have affected fields beyond architecture, including urban design, software, sociology and others.Alexander has designed and personally built over 100 buildings, both as an architect and a general contractor. In software, Alexander is regarded as the father of the pattern language movement. The first wiki—the technology behind Wikipedia—led directly from Alexander's work, according to its creator, Ward Cunningham. Alexander's work has also influenced the development of agile software development.
+    `Source : https://en.wikipedia.org/wiki/Christopher_Alexander`
+
+    > Christopher Wolfgang Alexander (born 4 October 1936 in Vienna, Austria) is a widely influential British-American architect and design theorist, and currently emeritus professor at the University of California, Berkeley. His theories about the nature of human-centered design have affected fields beyond architecture, including urban design, software, sociology and others.Alexander has designed and personally built over 100 buildings, both as an architect and a general contractor. In software, Alexander is regarded as the father of the pattern language movement. The first wiki—the technology behind Wikipedia—led directly from Alexander's work, according to its creator, Ward Cunningham. Alexander's work has also influenced the development of agile software development.
+
+    * Patterns are solutions to recurring problems in a context. —Christopher Alexander
+    * He said that all the problems can be solved using patterns.
+    * In this chapter we can see that different problems are solve using diffrent architecture probles lik three-tier architecture, four-tier architecture, message bus, etc.
