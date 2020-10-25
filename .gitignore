@@ -5,5 +5,9 @@
 *console.log
 *.iso
 *.iso.lock
-gitclone.sh
 *port/
+id_rsa*.pub
+id_rsa*
+packer-cache/
+output*/
+
