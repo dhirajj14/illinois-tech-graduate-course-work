@@ -14,6 +14,4 @@ npm install -y express aws-sdk multer multer-s3
 
 git clone https://github.com/dhirajj14/node-app
 
-cd node-app
-
-node app.js
+node node-app/app.js
