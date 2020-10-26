@@ -1,11 +1,6 @@
-# Week-06 Assisgnment
+# Week-07 Assisgnment
 
 ## Important Instuctions
-
-
-**In my Install-env Script I am using git clone to to get the app.js and index.html which are stored in github public repo due to authentication problem for time being.**
-
-**I have made it public becuase it doesn't have any credentials**
 
 **I am automatically getting the s3 bucket name in app.js using the s3.listbucket fuction and scraping data from it. For me I have only one bucket so my next step is to allow user to confirm the bucket name**
 
@@ -66,3 +61,19 @@
 
     ./destroy-env.sh <Auto-Scaling-group-Name> <Launch-Configuration-Name> <Instance-Tag-Name> <Bucket-Name>
 
+## Added command to open TCP 3300 port for node application
+```cli
+aws ec2 authorize-security-group-ingress --group-id sg-**** --ip-permissions IpProtocol=tcp,FromPort=3300,ToPort=3300,IpRanges='[{CidrIp=0.0.0.0/0}]'
+```
+
+## Automated node-app to get the first bucket from the bucket list
+
+```node
+var promise = new Promise(function(resolve, reject) { 
+  s3.listBuckets(function(err, data) {
+  if (err) console.log(err, err.stack); // an error occurred
+   else resolve(data.Buckets[0].Name); // successful response
+  });
+}).catch((error) => {
+  console.error(error);
+});```
