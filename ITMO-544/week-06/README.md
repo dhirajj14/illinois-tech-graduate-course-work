@@ -3,10 +3,13 @@
 ## Important Instuctions
 
 
-**In my Install-env Script I am using git clone to to get the app.js and index.html which are stored in github public repo due to authentication problem for time being**
+**In my Install-env Script I am using git clone to to get the app.js and index.html which are stored in github public repo due to authentication problem for time being.**
+
+**I have made it public becuase it doesn't have any credentials**
 
 **I am automatically getting the s3 bucket name in app.js using the s3.listbucket fuction and scraping data from it. For me I have only one bucket so my next step is to allow user to confirm the bucket name**
 
+**This node app will take the first bucket from the list**
 
 ### Variables to run the Create-env Script
 

@@ -41,3 +41,21 @@ What the packer post-processor is doing is essentially running this:  [https://d
 ## CleanUp of Artifacts
 
 Take note of Packer's comment: *After tagging is completed, the OVA uploaded to S3 will be removed.* If you leave large amounts of 1GB AMIs on AWS after awhile you could incur a small storage charge.
+
+
+## Added command to open TCP 3300 port for node application
+```cli
+aws ec2 authorize-security-group-ingress --group-id sg-**** --ip-permissions IpProtocol=tcp,FromPort=3300,ToPort=3300,IpRanges='[{CidrIp=0.0.0.0/0}]'
+```
+
+## Automated node-app to get the first bucket from the bucket list
+
+```node
+var promise = new Promise(function(resolve, reject) { 
+  s3.listBuckets(function(err, data) {
+  if (err) console.log(err, err.stack); // an error occurred
+   else resolve(data.Buckets[0].Name); // successful response
+  });
+}).catch((error) => {
+  console.error(error);
+});```
