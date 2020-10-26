@@ -23,7 +23,7 @@
 echo Creating your EC2 Instance
 echo \ =============================================================== \
 
-read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 run-instances --image-id $1 --instance-type t2.micro --security-group-ids $6 --key-name $9 --user-data file://install-env.sh --iam-instance-profile Arn=${15} --count $2 --output text --query 'Instances[*].InstanceId'))
+read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 run-instances --image-id $1 --instance-type t2.micro --security-group-ids $6 --key-name $9 --user-data file://install-env.txt --iam-instance-profile Arn=${15} --count $2 --output text --query 'Instances[*].InstanceId'))
 aws ec2 wait instance-running --instance-ids $instanceID1 $instanceID2 $instanceID3 
 
 aws ec2 create-tags --resources $instanceID1 $instanceID2 $instanceID3  --tags Key=Name,Value=${13}
@@ -42,13 +42,13 @@ echo \ =============================================================== \
 echo Creating....Initializing...Starting you EC2 Instance
 echo \ =============================================================== \
 
-aws autoscaling create-launch-configuration --launch-configuration-name ${11} --image-id $1 --instance-type t2.micro --security-groups $6 --key-name $9 --user-data file://install-env.sh
+aws autoscaling create-launch-configuration --launch-configuration-name ${11} --image-id $1 --instance-type t2.micro --security-groups $6 --key-name $9 --user-data file://install-env.txt
 
 read vpcId < <(echo $(aws elbv2 create-load-balancer --name $7 --subnets $3 $4 --output text  --query 'LoadBalancers[0].VpcId'))
 
 echo your VpcId is $vpcId
 
-aws elbv2 create-target-group --name $8 --protocol HTTP --port 3300 --target-type instance --vpc-id $vpcId
+aws elbv2 create-target-group --name $8 --protocol HTTP --port 80 --target-type instance --vpc-id $vpcId
 
 echo Waiting /for load-balancer to be active
 echo \ =============================================================== \
@@ -75,7 +75,7 @@ $(aws elbv2 register-targets --target-group-arn $targetGroupArn --targets Id=$in
 echo Creating Listener
 echo \ =============================================================== \
 
-$(aws elbv2 create-listener --load-balancer-arn $loadBalancerArn --protocol HTTP --port 3300 --default-actions Type=forward,TargetGroupArn=$targetGroupArn)
+$(aws elbv2 create-listener --load-balancer-arn $loadBalancerArn --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=$targetGroupArn)
 
 echo Modifying Target Group
 echo \ =============================================================== \
@@ -90,6 +90,14 @@ echo Creating S3 bucket
 echo \ =============================================================== \
 
 aws s3 mb s3://${14}
+
+echo \ =============================================================== \
+
+
+echo Opening TCP 3300 port
+echo \ =============================================================== \
+
+aws ec2 authorize-security-group-ingress --group-id ${6} --ip-permissions IpProtocol=tcp,FromPort=3300,ToPort=3300,IpRanges='[{CidrIp=0.0.0.0/0}]'
 
 echo \ =============================================================== \
 

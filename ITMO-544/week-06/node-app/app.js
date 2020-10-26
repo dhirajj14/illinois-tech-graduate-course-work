@@ -13,7 +13,7 @@ aws.config.update({
 });
 
 var app = express();
-var s3 = new aws.S3({ /* ... */ });
+var s3 = new aws.S3();
 
 app.use(bodyParser.json());
 
@@ -26,22 +26,24 @@ var promise = new Promise(function(resolve, reject) {
   console.error(error);
 });
 
+console.log(promise);
 var d1 = "";
 promise.then((value) => {
   var upload = multer({
     storage: multerS3({
         s3: s3,
-        bucket: d1,
+        bucket: value,
         key: function (req, file, cb) {
             cb(null, file.originalname);
             }
         })
     });
-    
+    console.log(value);
     app.post('/upload', upload.array('uploadFile',1), function (req, res, next) {
     res.send("File uploaded successfully to Amazon S3 Server!");
     });
     
+
 }).catch((error) => {
   console.error(error);
 });

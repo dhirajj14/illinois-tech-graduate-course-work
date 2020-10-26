@@ -23,7 +23,7 @@
 echo Creating your EC2 Instance
 echo \ =============================================================== \
 
-read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 run-instances --image-id $1 --instance-type t2.micro --security-group-ids $6 --key-name $9 --user-data file://install-env.sh --iam-instance-profile Arn=${15} --count $2 --output text --query 'Instances[*].InstanceId'))
+read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 run-instances --image-id $1 --instance-type t2.micro --security-group-ids $6 --key-name $9 --user-data file://install-env.txt --iam-instance-profile Arn=${15} --count $2 --output text --query 'Instances[*].InstanceId'))
 aws ec2 wait instance-running --instance-ids $instanceID1 $instanceID2 $instanceID3 
 
 aws ec2 create-tags --resources $instanceID1 $instanceID2 $instanceID3  --tags Key=Name,Value=${13}
@@ -42,7 +42,7 @@ echo \ =============================================================== \
 echo Creating....Initializing...Starting you EC2 Instance
 echo \ =============================================================== \
 
-aws autoscaling create-launch-configuration --launch-configuration-name ${11} --image-id $1 --instance-type t2.micro --security-groups $6 --key-name $9 --user-data file://install-env.sh
+aws autoscaling create-launch-configuration --launch-configuration-name ${11} --image-id $1 --instance-type t2.micro --security-groups $6 --key-name $9 --user-data file://install-env.txt
 
 read vpcId < <(echo $(aws elbv2 create-load-balancer --name $7 --subnets $3 $4 --output text  --query 'LoadBalancers[0].VpcId'))
 
