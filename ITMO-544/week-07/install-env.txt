@@ -12,6 +12,6 @@ sudo apt-get install -y nodejs
 
 npm install -y express aws-sdk multer multer-s3
 
-git clone https://github.com/dhirajj14/node-app
+git clone git@github.com:illinoistech-itm/djain14.git
 
-node /node-app/app.js
+node /djain14/ITMO-544/week-07/node-app/app.js
