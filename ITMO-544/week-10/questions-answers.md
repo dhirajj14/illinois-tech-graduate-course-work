@@ -28,7 +28,22 @@
 #
 
 4. The data in Figure 1.10 is outdated because hardware tends to get less expensive every year. Update the chart for the current year. Which items changed the least? Which changed the most?
-
+     | Action | Typical Time | Year 2020 | Change |
+    | :------------- |:-------------:|:-----:|:-----:|
+    |L1 Cache Reference|0.5 ns| 1 ns| Normal Change|
+    |Branch Mispredict|5 ns|3 ns|Least Change|
+    |L2 Cache Reference|7 ns|4 ns|Least Change|
+    |Mutex Lock/unLock|100 ns|17 ns|Most Change|
+    |Main Memory Reference|100 ns|100 ns|No Change|
+    |Compress 1kb with Zippy|10,000 ns|1000 ns| Most Change|
+    |send 2k bytes over 1Gbps Network|20,000|44 ns|Most Change|
+    |Read 1MB Sequentially from memory|250,000 ns| 3,000| Most Change|
+    |Round Trip with Same DataCenter|500,000 ns|500,000 ns|No Change|
+    |Read 1MB from SSD|1,000,000 ns|49,000 ns| Most Change|
+    |Disk Seek|10,000,000 ns|2,000,000 ns| Most Change|
+    |Read 1MB Sequentially from Network| 10,000,000 ns|||
+    |Read 1MB Sequentially from Disk|30,000,000 ns|825,000 ns| Most Change|
+    |Packet roundtrip CA to Netherlands|150,000,000 ns| 150,000,000ns|No Change|
 #
 
 5. Rewrite the data in Figure 1.10 in terms of proportion. If reading from main memory took 1 second, how long would the other operations take? For extra credit, draw your answer to resemble a calendar or the solar system.
