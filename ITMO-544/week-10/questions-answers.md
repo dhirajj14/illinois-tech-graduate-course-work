@@ -67,25 +67,29 @@
 
 6. Take the data table in Figure 1.10 and add a column that identifies the cost of each item. Scale the costs to the same unit—for example, the cost of 1 terabyte of RAM, 1 terabyte of disk, and 1 terabyte of L1 cache. Add another column that shows the ratio of performance to cost.
 
-    Cost for 1 ns = $1;
+    Cost for 1ns = $ 0.1;
+    
+    Normal Speed to read or access 1MB = 1ns;
 
 
-    | Action | Typical Time (ns) | Cost ($)| Performance to Cost Ratio|
-    | :------------- |:-------------:|:-----:|:-----:|
-    |L1 Cache Reference|0.5 ns| 0.5 ||
-    |Branch Mispredict|5 ns|5|
-    |L2 Cache Reference|7 ns| 7|
-    |Mutex Lock/unLock|100 ns|100|
-    |Main Memory Reference|100 ns|100|
-    |Compress 1kb with Zippy|10,000 ns|10,000|
-    |send 2k bytes over 1Gbps Network|20,000|20,000|
-    |Read 1MB Sequentially from memory|250,000 ns| 250000s|
-    |Round Trip with Same DataCenter|500,000 ns| 500000 s|
-    |Read 1MB from SSD|1,000,000 ns| 4 s|
-    |Disk Seek|10,000,000 ns| 40 s|
-    |Read 1MB Sequentially from Network| 10,000,000 ns| 40s|
-    |Read 1MB Sequentially from Disk|30,000,000 ns|120 s|
-    |Packet roundtrip CA to Netherlands|150,000,000 ns| 600 s|
+
+
+    | Action | Typical Time (ns) | Unit |Cost ($)| Performance to Cost Ratio|
+    | :------------- |:-------------:|:-----:|:-----:|:----:|
+    |L1 Cache Reference|0.5 ns| 1 MB |  0.05 | 10 |
+    |Branch Mispredict|5 ns| 1 MB| 0.5 | 10 |
+    |L2 Cache Reference|7 ns| 1 MB| 0.7| 10 |
+    |Mutex Lock/unLock|100 ns|1 MB| 10 | 10 |
+    |Main Memory Reference|100 ns|1 MB| 100|10|
+    |Compress 1kb with Zippy|10,000 ns|1 MB|10000*1024 = 10240000 * 0.1 = 1024000 |0.0097|
+    |send 2k bytes over 1Gbps Network|20,000|1 MB|20000*512 = 10240000 * 0.1 = 1024000 | 0.0195
+    |Read 1MB Sequentially from memory|250,000 ns| 1 MB | 25000| 10|
+    |Round Trip with Same DataCenter|500,000 ns| 1 MB|50000| 10|
+    |Read 1MB from SSD|1,000,000 ns| 1 MB | 100000 | 10
+    |Disk Seek|10,000,000 ns| 1 MB | 1000000 | 10
+    |Read 1MB Sequentially from Network| 10,000,000 ns| 1 MB|  10000000|10
+    |Read 1MB Sequentially from Disk|30,000,000 ns|1 MB|  30000000| 10    
+    |Packet roundtrip CA to Netherlands|150,000,000 ns| 1 MB| 15000000| 10
 #
 
 7. What is the theoretical model that describes the different kinds of scaling techniques?
