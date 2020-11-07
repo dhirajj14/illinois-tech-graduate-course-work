@@ -94,5 +94,23 @@
 #
 
 12. Research Amdahl’s Law and explain how it relates to the AKF Scaling Cube.
+    * AKF scaling Cube is all related to what part of the service should be scaled up or on what part of the service the reengineering should be done.
+         * x: Horizontal Duplication
+         * y: Functional or Service Splits
+         * z: Lookup-Oriented Split
 
+    * Amdhal's Law is all about what difference will reengineering will make. For. e.g WHat difference will changing the CPU will make.
+    * Amdhal's gives the theoretical speedup in latency of the execution of a task at a fixed workload that can be expected of a system whose resources are improved. In other words, it is a formula used to find the maximum improvement possible by just improving a particular part of a system. It is often used in parallel computing to predict the theoretical speedup when using multiple processors. (Source: GeeksForGeeks)
+    * It has given two formulas
+
+        Pe is the performance for entire task using the enhancement when possible 
+        Pw is the performance for entire task without using the enhancement
+        Ew is the execution time for entire task without using the enhancement and 
+        Ee is the execution time for entire task using the enhancement when possible
+
+        Speedup = Pe/Pw
+            
+        or
+            
+        Speedup = Ew/Ee
 #
