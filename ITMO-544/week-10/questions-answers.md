@@ -7,9 +7,11 @@
     is a limit to how far a system can scale before reengineering is required to permit
     additional growth.
 
+#
 
 2. What are the options for scaling a service that is CPU bound?
 
+#
 
 3. What are the options for scaling a service whose storage requirements are growing?
     * The options for scaling a service whose storage requirements are growing is by using the AKF cube's Z-Axis (Split into Lookup and Formulaic Splits) option.
@@ -19,11 +21,17 @@
         2. Another way to segment data is by geography. In a global service it is common practice to set up many individual data stores around the world. Each user’s data is kept on the nearest store. This approach also gives users faster access to their data because it is stored closer to them.
         3. Using T-Bird, based on Gizzard system to scale automatically.
 
+#
+
 4. The data in Figure 1.10 is outdated because hardware tends to get less expensive every year. Update the chart for the current year. Which items changed the least? Which changed the most?
+
+#
 
 5. Rewrite the data in Figure 1.10 in terms of proportion. If reading from main memory took 1 second, how long would the other operations take? For extra credit, draw your answer to resemble a calendar or the solar system.
 
 6. Take the data table in Figure 1.10 and add a column that identifies the cost of each item. Scale the costs to the same unit—for example, the cost of 1 terabyte of RAM, 1 terabyte of disk, and 1 terabyte of L1 cache. Add another column that shows the ratio of performance to cost.
+
+#
 
 7. What is the theoretical model that describes the different kinds of scaling techniques?
 
@@ -31,6 +39,8 @@
          1. x: Horizontal Duplication
          2. y: Functional or Service Splits
          3. z: Lookup-Oriented Split
+
+#
 
 8. How do you know when scaling is needed?
     
@@ -43,11 +53,29 @@
         additional load, possibly in a test environment, to see at which point performance suffers.
     * Deciding what to scale is a matter of finding the bottleneck in the system and eliminating it
  
+#
 
 9. What are the most common scaling techniques and how do they work? When are they most appropriate to use?
 
+#
+
 10. Which scaling techniques also improve resiliency?
 
+#
+
 11. Describe how your environment uses a CDN or research how it could be used.
+    * A content delivery network (CDN) is a web-acceleration service that delivers
+    content (web pages, images, video) more efficiently on behalf of your service.
+    CDNs cache content on servers all over the world. Requests for content are
+    serviced from the cache nearest the user. Geolocation techniques are used to
+    identify the network location of the requesting web browser.
+
+    * I have two examples in my environment where I using the CDN:
+        1. To download the ubuntu ISO Image using during packer Build. The link we use is the nearest to our location.
+        2. If the university wants to share some software or application (Mobile app or desktop app) it can use AWS CDN to share the files amound different networks.
+
+#
 
 12. Research Amdahl’s Law and explain how it relates to the AKF Scaling Cube.
+
+#
