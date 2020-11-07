@@ -35,7 +35,7 @@
     |L2 Cache Reference|7 ns|4 ns|Least Change|
     |Mutex Lock/unLock|100 ns|17 ns|Most Change|
     |Main Memory Reference|100 ns|100 ns|No Change|
-    |Compress 1kb with Zippy|10,000 ns|1000 ns| Most Change|
+    |Compress 1kb with Zippy|10,000 ns|2000 ns| Most Change|
     |send 2k bytes over 1Gbps Network|20,000|44 ns|Most Change|
     |Read 1MB Sequentially from memory|250,000 ns| 3,000| Most Change|
     |Round Trip with Same DataCenter|500,000 ns|500,000 ns|No Change|
@@ -48,8 +48,44 @@
 
 5. Rewrite the data in Figure 1.10 in terms of proportion. If reading from main memory took 1 second, how long would the other operations take? For extra credit, draw your answer to resemble a calendar or the solar system.
 
+    | Action | Typical Time (ns) | Proportion (s)|
+    | :------------- |:-------------:|:-----:|
+    |L1 Cache Reference|0.5 ns| 0.000002 s|
+    |Branch Mispredict|5 ns|0.00005 s|
+    |L2 Cache Reference|7 ns| 0.000028 s|
+    |Mutex Lock/unLock|100 ns|0.0004 s|
+    |Main Memory Reference|100 ns|0.0004 s|
+    |Compress 1kb with Zippy|10,000 ns|0.04 s|
+    |send 2k bytes over 1Gbps Network|20,000|0.08 s|
+    |Read 1MB Sequentially from memory|250,000 ns| 1 s|
+    |Round Trip with Same DataCenter|500,000 ns| 2 s|
+    |Read 1MB from SSD|1,000,000 ns| 4 s|
+    |Disk Seek|10,000,000 ns| 40 s|
+    |Read 1MB Sequentially from Network| 10,000,000 ns| 40s|
+    |Read 1MB Sequentially from Disk|30,000,000 ns|120 s|
+    |Packet roundtrip CA to Netherlands|150,000,000 ns| 600 s|
+
 6. Take the data table in Figure 1.10 and add a column that identifies the cost of each item. Scale the costs to the same unit—for example, the cost of 1 terabyte of RAM, 1 terabyte of disk, and 1 terabyte of L1 cache. Add another column that shows the ratio of performance to cost.
 
+    Cost for 1 ns = $1;
+
+
+    | Action | Typical Time (ns) | Cost ($)| Performance to Cost Ratio|
+    | :------------- |:-------------:|:-----:|:-----:|
+    |L1 Cache Reference|0.5 ns| 0.5 ||
+    |Branch Mispredict|5 ns|5|
+    |L2 Cache Reference|7 ns| 7|
+    |Mutex Lock/unLock|100 ns|100|
+    |Main Memory Reference|100 ns|100|
+    |Compress 1kb with Zippy|10,000 ns|10,000|
+    |send 2k bytes over 1Gbps Network|20,000|20,000|
+    |Read 1MB Sequentially from memory|250,000 ns| 250000s|
+    |Round Trip with Same DataCenter|500,000 ns| 500000 s|
+    |Read 1MB from SSD|1,000,000 ns| 4 s|
+    |Disk Seek|10,000,000 ns| 40 s|
+    |Read 1MB Sequentially from Network| 10,000,000 ns| 40s|
+    |Read 1MB Sequentially from Disk|30,000,000 ns|120 s|
+    |Packet roundtrip CA to Netherlands|150,000,000 ns| 600 s|
 #
 
 7. What is the theoretical model that describes the different kinds of scaling techniques?
