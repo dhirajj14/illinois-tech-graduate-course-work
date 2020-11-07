@@ -10,7 +10,11 @@
 #
 
 2. What are the options for scaling a service that is CPU bound?
-
+    * For the CPU bound services we can use the most common technique which is called as "Scaling UP".
+    * This is the simplest methodology for scaling a system is to use bigger, faster equipment.
+    * A system that runs too slowly can be moved to a machine with a faster CPU, more CPUs, more RAM, faster disks, faster network interfaces, and so on. 
+    * Often an existing computer can have one of those attributes improved without replacing the entire machine. This is called scaling up because the system is increasing in size.
+    * When this solution works well, it is often the easiest solution because it does not require a redesign of the software.
 #
 
 3. What are the options for scaling a service whose storage requirements are growing?
