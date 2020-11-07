@@ -51,15 +51,28 @@
         * If a system is underperforming, the bottleneck can be fixed to permit the system to perform better. If the system is performing well, knowing the location of the bottleneck can be useful because it enables us to predict and
         prevent future problems. In this case the bottleneck can be found by generating
         additional load, possibly in a test environment, to see at which point performance suffers.
-    * Deciding what to scale is a matter of finding the bottleneck in the system and eliminating it
+    * Deciding what to scale is a matter of finding the bottleneck in the system and eliminating it.
  
 #
 
 9. What are the most common scaling techniques and how do they work? When are they most appropriate to use?
+    * The most commonn scaling technique is x:Horizontal Duplication or Horizontal scaling or scaling out.
+    * Horizontal duplication increases throughput by replicating the service. 
+    * For example, the technique of using many replicas of a web server behind a load balancer is an example of horizontal scaling.
+    * The appropriate use of this technique is when the data is not increasing and there is no complex trasactions that need special handling.
+    * If each transaction can be completed independently on all replicas, then the performance improvement can be proportional to the number of replicas.
 
 #
 
 10. Which scaling techniques also improve resiliency?
+    * According to me the scaling techiniques that improves the resiliency is the Z-axis with Data Sharding. 
+    * Sharding is a way to segment a database (z-axis) that is flexible, scalable, and resilient. It divides the database based on the hash value of the database keys.
+    * Shards can be replicated on multiple machines to improve performance. With
+    such an approach, each replica processes a share of the queries destined for that
+    shard. Replication can also provide better availability. 
+    * If multiple machines store
+    any shard, then any machine can crash or be taken down for maintenance and the
+    other replicas will continue to service the requests.
 
 #
 
