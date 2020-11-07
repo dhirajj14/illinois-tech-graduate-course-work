@@ -2,6 +2,12 @@
 
 1. What is scaling?
 
+    * A system’s ability to scale is its ability to process a growing workload, usually
+    measured in transactions per second, amount of data, or number of users. There
+    is a limit to how far a system can scale before reengineering is required to permit
+    additional growth.
+
+
 2. What are the options for scaling a service that is CPU bound?
 
 3. What are the options for scaling a service whose storage requirements are growing?
@@ -13,6 +19,8 @@
 6. Take the data table in Figure 1.10 and add a column that identifies the cost of each item. Scale the costs to the same unit—for example, the cost of 1 terabyte of RAM, 1 terabyte of disk, and 1 terabyte of L1 cache. Add another column that shows the ratio of performance to cost.
 
 7. What is the theoretical model that describes the different kinds of scaling techniques?
+
+    * The theeoritical model that descriobes the different kinds of scaling techniques is "The AKF Scaling Cube".   
 
 8. How do you know when scaling is needed?
 
