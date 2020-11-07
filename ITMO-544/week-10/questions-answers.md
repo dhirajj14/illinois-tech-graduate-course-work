@@ -10,7 +10,14 @@
 
 2. What are the options for scaling a service that is CPU bound?
 
+
 3. What are the options for scaling a service whose storage requirements are growing?
+    * The options for scaling a service whose storage requirements are growing is by using the AKF cube's Z-Axis (Split into Lookup and Formulaic Splits) option.
+    * Using this options we have three diffrent sub options we can use for a service whose storage requirements are growing:
+        1.  start a new database server every time the current one fills up.
+            * For e.g  To divide, or segment, a database by date. If the database is an accumulation of data, such as log data, one can start a new database server every time the current one fills up. There may be a database for 2013 data, 2014 data, and so on.
+        2. Another way to segment data is by geography. In a global service it is common practice to set up many individual data stores around the world. Each user’s data is kept on the nearest store. This approach also gives users faster access to their data because it is stored closer to them.
+        3. Using T-Bird, based on Gizzard system to scale automatically.
 
 4. The data in Figure 1.10 is outdated because hardware tends to get less expensive every year. Update the chart for the current year. Which items changed the least? Which changed the most?
 
@@ -21,8 +28,21 @@
 7. What is the theoretical model that describes the different kinds of scaling techniques?
 
     * The theeoritical model that descriobes the different kinds of scaling techniques is "The AKF Scaling Cube".   
+         1. x: Horizontal Duplication
+         2. y: Functional or Service Splits
+         3. z: Lookup-Oriented Split
 
 8. How do you know when scaling is needed?
+    
+    * We can know when the scaling is required by identifying the bottlenecks.
+    * **Bottlenecks-**
+        * A bottleneck is a point in the system where congestion occurs. 
+        * It is a point that is resource starved in a way that limits performance. Every system has a bottleneck. 
+        * If a system is underperforming, the bottleneck can be fixed to permit the system to perform better. If the system is performing well, knowing the location of the bottleneck can be useful because it enables us to predict and
+        prevent future problems. In this case the bottleneck can be found by generating
+        additional load, possibly in a test environment, to see at which point performance suffers.
+    * Deciding what to scale is a matter of finding the bottleneck in the system and eliminating it
+ 
 
 9. What are the most common scaling techniques and how do they work? When are they most appropriate to use?
 
