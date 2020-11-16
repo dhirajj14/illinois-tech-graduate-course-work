@@ -11,3 +11,4 @@ id_rsa*
 packer-cache/
 output*/
 variables.json
+*.cnf
