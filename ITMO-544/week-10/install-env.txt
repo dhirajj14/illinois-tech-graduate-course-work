@@ -15,3 +15,7 @@ npm install -y express aws-sdk multer multer-s3
 sudo runuser -l ubuntu -c 'git clone git@github.com:illinoistech-itm/djain14.git'
 
 sudo runuser -l ubuntu -c 'node djain14/ITMO-544/week-07/node-app/app.js'
+
+
+//Download sql client
+sudo apt-get install mysql-client -y
