@@ -93,7 +93,7 @@ var id = uuidv4();
 const connection = mysql.createConnection({
     host: dbhost,
     user: 'admin',
-    password: 'dhirajjain123',
+    password: 'dhirajj123',
     database: 'company'
  });
  
@@ -121,6 +121,29 @@ var recorddata = {RecordNumber: id,CustomerName: username,Email: email,Phone: ph
 
 // Code for SQS Message sending goes here
 // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SQS.html#sendMessage-property
+
+var params = {
+  MaxResults: '1',
+};
+sqs.listQueues(params, function(err, data) {
+  if (err){
+    console.log(err, err.stack); // an error occurred
+  } 
+  else {
+    console.log(data.QueueUrls[0]);           // successful response
+  }   
+});
+
+var SQSparams = {
+  // Remove DelaySeconds parameter and value for FIFO queues
+ DelaySeconds: 0,
+ MessageBody: id,
+ // MessageDeduplicationId: "TheWhistler",  // Required for FIFO queues
+ // MessageGroupId: "Group1",  // Required for FIFO queues
+ QueueUrl: "SQS_QUEUE_URL"
+};
+
+
 
 // Write output to the screen
         res.write(s3url + "\n");
