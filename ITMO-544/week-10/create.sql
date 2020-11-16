@@ -13,4 +13,3 @@ Stat INT(1) DEFAULT 0, -- Job status, not done is 0, done is 1
 S3URL VARCHAR(200) -- set the returned S3URL here
 );
 
-INSERT INTO jobs(RecordNumber,CustomerName,Email,Phone,Stat,S3URL) VALUES('00000',"NAME","email@iit.edu","000-000-0000",0,"http://");

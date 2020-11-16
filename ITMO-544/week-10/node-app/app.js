@@ -49,12 +49,7 @@ promise.then((value) => {
     });
     console.log(value);
   
-  
-}).catch((error) => {
-  console.error(error);
-});
-
-// initialize an RDS connection object
+    // initialize an RDS connection object
 var rds = new aws.RDS();
 
 // connect to RDS to retrieve RDS database instance endpoint
@@ -135,6 +130,11 @@ var recorddata = {RecordNumber: id,CustomerName: username,Email: email,Phone: ph
         res.write("File uploaded successfully to Amazon S3 Server!" + "\n");
       
         res.end();
+});
+
+  
+}).catch((error) => {
+  console.error(error);
 });
 
 app.listen(3300, function () {
