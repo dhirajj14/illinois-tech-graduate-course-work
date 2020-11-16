@@ -51,6 +51,15 @@ aws autoscaling delete-auto-scaling-group --auto-scaling-group-name $1 --force-d
 
 aws autoscaling delete-launch-configuration --launch-configuration-name $2
 
+
+echo Deleting RDS Instance
+
+aws rds delete-db-instance --db-instance-identifier ${5} --delete-automated-backups --skip-final-snapshot
+
+echo \ =============================================================== \
+
+echo Deleting SQS Queue 
+aws sqs delete-queue --queue-url {6} //queueURL
 echo Deleting Bucket
 
 echo \ =============================================================== \
