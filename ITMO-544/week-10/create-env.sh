@@ -99,7 +99,7 @@ aws rds create-db-instance --db-instance-identifier ${15} --db-instance-class db
 echo \ =============================================================== \
 
 echo \ ==========================Your rds ID============================ \
-read rdsID < <(echo $(aws rds describe-db-instances --db-instance-identifier ddb --output text --query 'DBInstances[0].DbiResourceId'))
+read rdsID < <(echo $(aws rds describe-db-instances --db-instance-identifier ${15} --output text --query 'DBInstances[0].DbiResourceId'))
 echo $rdsID
 echo \ =============================================================== \
 

@@ -59,9 +59,11 @@ aws rds delete-db-instance --db-instance-identifier ${5} --delete-automated-back
 echo \ =============================================================== \
 
 echo Deleting SQS Queue 
+echo \ =============================================================== \
 
- aws sqs get-queue-url --queue-name {6} // queuename
-aws sqs delete-queue --queue-url {6} //queueURL
+read queueURL < <(echo $(aws sqs get-queue-url --queue-name ${6}))
+aws sqs delete-queue --queue-url ${queueURL}
+
 echo Deleting Bucket
 
 echo \ =============================================================== \
