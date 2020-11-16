@@ -12,4 +12,3 @@ Phone VARCHAR(64),
 Stat INT(1) DEFAULT 0, -- Job status, not done is 0, done is 1
 S3URL VARCHAR(200) -- set the returned S3URL here
 );
-

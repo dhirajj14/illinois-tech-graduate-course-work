@@ -15,7 +15,8 @@
 # ${12})	vpc-id You can have the user prompt this or you can retrieve it
 # ${13}) S3 bucket Name
 # ${14}) IAM Profile
-# ${15})   tag Name
+# ${15}) RDS-DB-Identifier
+# ${16})   tag Name
 
 
 #Create launch Configuration
@@ -27,7 +28,7 @@ echo \ =============================================================== \
 read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 run-instances --image-id $1 --instance-type t2.micro --security-group-ids $6 --key-name $9 --user-data file://install-env.txt --iam-instance-profile Arn=${14} --count $2 --output text --query 'Instances[*].InstanceId'))
 aws ec2 wait instance-running --instance-ids $instanceID1 $instanceID2 $instanceID3 
 
-aws ec2 create-tags --resources $instanceID1 $instanceID2 $instanceID3  --tags Key=Name,Value=${15}
+aws ec2 create-tags --resources $instanceID1 $instanceID2 $instanceID3  --tags Key=Name,Value=${16}
 
 echo \ =============================================================== \
 
