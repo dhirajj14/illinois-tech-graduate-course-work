@@ -172,8 +172,6 @@ var recorddata = {RecordNumber: id,CustomerName: username,Email: email,Phone: ph
   ); 
 
 
-
-
 // Write output to the screen
         res.write(s3url + "\n");
         res.write(username + "\n")
