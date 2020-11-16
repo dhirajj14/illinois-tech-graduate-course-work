@@ -17,8 +17,28 @@ aws.config.update({
 });
 
 // initialize an s3 connection object
+
+var sqsURL ="";
 var app = express(),
     s3 = new aws.S3();
+
+    // Code to get SQS URL
+    var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
+
+    var params = {
+      QueueName: 'myqueue'
+    };
+    
+    var sqsURL = "";
+    sqs.getQueueUrl(params, function(err, data) {
+      if (err) {
+        console.log("Error", err);
+      } else {
+        console.log("Success", data.QueueUrl);
+        sqsURL = data.QueueUrl;
+      }
+    });
+
 
 // configure S3 parameters to send to the connection object
 app.use(bodyParser.json());
@@ -113,35 +133,35 @@ var recorddata = {RecordNumber: id,CustomerName: username,Email: email,Phone: ph
  // SQL INSERT STATEMENT to insert the values from the POST
  var query = connection.query('INSERT INTO jobs SET ?', recorddata,
     function(err, results) {
-        console.log(query.sql);
-        console.log(err);
-        console.log(results); // results contains rows returned by server
+      console.log(query.sql);
+        if(err){
+          console.log(err);
+        }else{
+          console.log(results); // results contains rows returned by server
+          var SQSparams = {
+            // Remove DelaySeconds parameter and value for FIFO queues
+           DelaySeconds: 0,
+           MessageBody: id,
+           // MessageDeduplicationId: "TheWhistler",  // Required for FIFO queues
+           // MessageGroupId: "Group1",  // Required for FIFO queues
+           QueueUrl: sqsURL
+          };
+
+          // Code for SQS Message sending goes here
+          // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SQS.html#sendMessage-property
+
+          sqs.sendMessage(SQSparams, function(err, data) {
+            if (err) {
+              console.log("Error", err);
+            } else {
+              console.log("Success", data.MessageId);
+            }
+          });
+        }
+       
      }
   ); 
 
-// Code for SQS Message sending goes here
-// https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SQS.html#sendMessage-property
-
-var params = {
-  MaxResults: '1',
-};
-sqs.listQueues(params, function(err, data) {
-  if (err){
-    console.log(err, err.stack); // an error occurred
-  } 
-  else {
-    console.log(data.QueueUrls[0]);           // successful response
-  }   
-});
-
-var SQSparams = {
-  // Remove DelaySeconds parameter and value for FIFO queues
- DelaySeconds: 0,
- MessageBody: id,
- // MessageDeduplicationId: "TheWhistler",  // Required for FIFO queues
- // MessageGroupId: "Group1",  // Required for FIFO queues
- QueueUrl: "SQS_QUEUE_URL"
-};
 
 
 
