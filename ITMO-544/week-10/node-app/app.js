@@ -1,5 +1,8 @@
 // Install these packages via npm: npm install express aws-sdk multer multer-s3
 
+const path = require('path');
+const fs = require('fs');
+
 var express = require('express'),
     aws = require('aws-sdk'),
     bodyParser = require('body-parser'),
@@ -88,6 +91,27 @@ rds.describeDBInstances(params, function(err, data) {
           }
 });
 
+
+ // create the connection to database
+ const connection = mysql.createConnection({
+  host: dbhost,
+  user: 'admin',
+  password: 'dhirajj123',
+  database: 'company'
+});
+
+const createTable = fs.readFileSync(path.join(__dirname, '../create.sql')).toString();
+
+connection.query(createTable, function(err, result){
+  if(err){
+    console.log("Failed to create Database");
+  }else{
+    console.log(result);
+    console.log("Database Created Successfully");
+  }
+});
+
+
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
 });
@@ -109,21 +133,6 @@ var phone = req.body['phone'];
 // generate a UUID for this action
 var id = uuidv4();
 
-// create the connection to database
-const connection = mysql.createConnection({
-    host: dbhost,
-    user: 'admin',
-    password: 'dhirajj123',
-    database: 'company'
- });
- 
-// simple query to test making a query from the database, not needed for this application
-connection.query(
-    'SELECT * FROM `jobs`', 
-    function(err, results) {
-      console.log(results); // results contains rows returned by server
-     }
-  ); 
 
 // hardcoded values for testing
 //var recorddata = {RecordNumber: 45,CustomerName: 'jeremy',Email: 'hajek@iit.edu',Phone: '630-469-6411', Stat: 0, S3URL: "https"};
