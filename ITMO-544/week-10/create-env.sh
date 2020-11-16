@@ -96,16 +96,23 @@ aws s3 mb s3://${13}
 echo \ =============================================================== \
 
 echo \ ==========================Creating RDS============================ \
+
 aws rds create-db-instance --db-instance-identifier ${15} --db-instance-class db.t3.micro --engine mysql --master-username admin --master-user-password dhirajj123 --allocated-storage 20
+
 echo \ =============================================================== \
 
 echo \ ==========================Your rds ID============================ \
+
 read rdsID < <(echo $(aws rds describe-db-instances --db-instance-identifier ${15} --output text --query 'DBInstances[0].DbiResourceId'))
+
 echo $rdsID
+
 echo \ =============================================================== \
 
 echo \ ==========================Your rds ID============================ \
+
 read queueURL < <(echo $(aws sqs create-queue --queue-name myqueue --output text --query 'QueueUrl'))
+
 echo $queueURL
 
 aws sqs change-message-visibility --queue-url $queueURL --visibility-timeout 30000
