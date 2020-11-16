@@ -33,9 +33,11 @@ var promise = new Promise(function(resolve, reject) {
   console.error(error);
 });
 
-console.log(promise);
 var d1 = "";
+console.log(promise);
+
 promise.then((value) => {
+  d1 = value;
   var upload = multer({
     storage: multerS3({
         s3: s3,
@@ -59,7 +61,7 @@ var rds = new aws.RDS();
 var dbhost = '';
 // configure RDS parameters to send to the connection object
 var params = {
-    DBInstanceIdentifier: 'jrh-db-identifier',
+    DBInstanceIdentifier: 'dpj-db-identifier',
 };
 
 rds.describeDBInstances(params, function(err, data) {
@@ -82,7 +84,7 @@ app.post('/upload', upload.array('uploadFile',1), function (req, res, next) {
 var fname = req.files[0].originalname;
 // Now we can construct the S3 URL since we already know the structure of S3 URLS and our bucket
 // For this sample I hardcoded my bucket, you can do this or retrieve it dynamically
-var s3url = "https://fall2020-jrh.s3.amazonaws.com/" + fname;
+var s3url = `https://${d1}.s3.amazonaws.com/` + fname;
 // Use this code to retrieve the value entered in the username field in the index.html
 var username = req.body['name'];
 // Use this code to retrieve the value entered in the email field in the index.html
@@ -96,7 +98,7 @@ var id = uuidv4();
 const connection = mysql.createConnection({
     host: dbhost,
     user: 'admin',
-    password: 'ilovebunnies',
+    password: 'dhirajjain',
     database: 'company'
  });
  
