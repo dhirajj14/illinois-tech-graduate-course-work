@@ -56,7 +56,7 @@ var rds = new aws.RDS();
 var dbhost = '';
 // configure RDS parameters to send to the connection object
 var params = {
-    DBInstanceIdentifier: 'dpj-db-identifier',
+    DBInstanceIdentifier: '',
 };
 
 rds.describeDBInstances(params, function(err, data) {
