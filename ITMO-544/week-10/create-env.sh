@@ -94,7 +94,7 @@ aws s3 mb s3://${14}
 echo \ =============================================================== \
 
 echo \ ==========================Creating RDS============================ \
-aws rds create-db-instance --db-instance-identifier ${15} --db-instance-class db.t3.micro --engine mysql --master-username admin --master-user-password secret99 --allocated-storage 20
+aws rds create-db-instance --db-instance-identifier ${15} --db-instance-class db.t3.micro --engine mysql --master-username admin --master-user-password dhirajj123 --allocated-storage 20
 echo \ =============================================================== \
 
 echo \ ==========================Your rds ID============================ \
@@ -105,9 +105,11 @@ echo \ =============================================================== \
 echo \ ==========================Your rds ID============================ \
 read queueURL < <(echo $(aws sqs create-queue --queue-name myqueue --output text --query 'QueueUrl'))
 echo $queueURL
+
+aws sqs change-message-visibility --queue-url $queueURL --visibility-timeout 30000
+
 echo \ =============================================================== \
 
-aws sqs create-queue --queue-name myqueue
 
 echo Opening TCP 3300 port
 echo \ =============================================================== \

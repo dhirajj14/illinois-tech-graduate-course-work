@@ -98,7 +98,7 @@ var id = uuidv4();
 const connection = mysql.createConnection({
     host: dbhost,
     user: 'admin',
-    password: 'dhirajjain',
+    password: 'dhirajjain123',
     database: 'company'
  });
  
