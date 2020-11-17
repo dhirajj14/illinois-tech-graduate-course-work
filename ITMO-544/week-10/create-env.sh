@@ -23,16 +23,17 @@
 
 #create-launch-configuration --launch-configuration-name <launch-configuration-name> --image-id <image-ID> --instance-type t2.micro --security-groups <Security-Group-Name --key-name <key-pair> --user-data file://install-env.sh
 
+echo \ 
 
-echo \ ==============Creating SQS and RDS first as it is required by EC2 instance to start node app =========================== \
+echo \ ============== Creating SQS and RDS first as it is required by EC2 instance to start node app =========================== \
 
 echo \ ==========================Creating RDS============================ \
 
-echo temp < <(echo $(aws rds create-db-instance --db-instance-identifier ${15} --db-instance-class db.t3.micro --engine mysql --master-username admin --master-user-password dhirajj123 --allocated-storage 20))
+read temp < <(echo $(aws rds create-db-instance --db-instance-identifier ${15} --db-instance-class db.t3.micro --engine mysql --master-username admin --master-user-password dhirajj123 --allocated-storage 20))
 
 aws rds wait db-instance-available --db-instance-identifier ${15}
 
-echo \ =============May take about 10-15 mins to create RDS Instance================ \
+echo \ ==========May take about 10-15 mins to create RDS Instance========= \
 
 echo \ =============================================================== \
 
