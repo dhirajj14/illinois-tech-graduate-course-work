@@ -99,6 +99,8 @@ echo \ ==========================Creating RDS============================ \
 
 aws rds create-db-instance --db-instance-identifier ${15} --db-instance-class db.t3.micro --engine mysql --master-username admin --master-user-password dhirajj123 --allocated-storage 20
 
+aws rds db-instance-available --db-instance-identifier ${15}
+
 echo \ =============================================================== \
 
 echo \ ==========================Your rds ID============================ \

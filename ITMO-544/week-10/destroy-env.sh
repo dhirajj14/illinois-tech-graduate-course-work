@@ -62,6 +62,7 @@ echo Deleting SQS Queue
 echo \ =============================================================== \
 
 read queueURL < <(echo $(aws sqs get-queue-url --queue-name ${6}))
+
 aws sqs delete-queue --queue-url ${queueURL}
 
 echo Deleting Bucket
