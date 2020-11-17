@@ -31,13 +31,13 @@ echo \ ==========================Creating RDS============================ \
 
 read temp < <(echo $(aws rds create-db-instance --db-instance-identifier ${15} --db-instance-class db.t3.micro --engine mysql --master-username admin --master-user-password dhirajj123 --allocated-storage 20))
 
-aws rds wait db-instance-available --db-instance-identifier ${15}
-
 echo \ ==========May take about 10-15 mins to create RDS Instance========= \
 
 echo \ =============================================================== \
 
-echo \ ==========================Your rds ID============================ \
+aws rds wait db-instance-available --db-instance-identifier ${15}
+
+echo \ ==========================Your rds Endpoint============================ \
 
 read rdsEndpoint < <(echo $(aws rds describe-db-instances --db-instance-identifier ${15} --output text --query 'DBInstances[0].Endpoint.Address'))
 
@@ -45,11 +45,13 @@ echo $rdsEndpoint
 
 echo \ =============================================================== \
 
-echo \ ==========================Your rds ID============================ \
+echo \ ==========================Your sqs queue URL============================ \
 
 read queueURL < <(echo $(aws sqs create-queue --queue-name myqueue --output text --query 'QueueUrl'))
 
 echo $queueURL
+
+echo \ ===============================================================\
 
 aws sqs change-message-visibility --queue-url $queueURL --visibility-timeout 30000
 
@@ -75,6 +77,7 @@ echo Creating your EC2 Instance
 echo \ =============================================================== \
 
 read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 run-instances --image-id $1 --instance-type t2.micro --security-group-ids $6 --key-name $9 --user-data file://install-env.txt --iam-instance-profile Arn=${14} --count $2 --output text --query 'Instances[*].InstanceId'))
+
 aws ec2 wait instance-running --instance-ids $instanceID1 $instanceID2 $instanceID3 
 
 aws ec2 create-tags --resources $instanceID1 $instanceID2 $instanceID3  --tags Key=Name,Value=${16}
