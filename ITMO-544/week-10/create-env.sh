@@ -97,9 +97,9 @@ echo \ =============================================================== \
 
 echo \ ==========================Creating RDS============================ \
 
-aws rds create-db-instance --db-instance-identifier ${15} --db-instance-class db.t3.micro --engine mysql --master-username admin --master-user-password dhirajj123 --allocated-storage 20
+$(aws rds create-db-instance --db-instance-identifier ${15} --db-instance-class db.t3.micro --engine mysql --master-username admin --master-user-password dhirajj123 --allocated-storage 20)
 
-aws rds db-instance-available --db-instance-identifier ${15}
+aws rds wait db-instance-available --db-instance-identifier ${15}
 
 echo \ =============================================================== \
 
@@ -121,9 +121,8 @@ aws sqs change-message-visibility --queue-url $queueURL --visibility-timeout 300
 
 echo \ =============================================================== \
 
-
-
 echo Opening TCP 3300 port
+
 echo \ =============================================================== \
 
 aws ec2 authorize-security-group-ingress --group-id ${6} --ip-permissions IpProtocol=tcp,FromPort=3300,ToPort=3300,IpRanges='[{CidrIp=0.0.0.0/0}]'
