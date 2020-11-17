@@ -82,6 +82,7 @@ var params = {
     DBInstanceIdentifier: '',
 };
 
+var connection ='';
 console.log("getting DB Instance");
 rds.describeDBInstances(params, function(err, data) {
           if (err) console.log(err, err.stack); // an error occurred
@@ -89,17 +90,16 @@ rds.describeDBInstances(params, function(err, data) {
                    dbhost=data.DBInstances[0].Endpoint.Address;
                    console.log(data.DBInstances[0].Endpoint.Address);           // successful response
                    console.log(dbhost);
+
+                   // create the connection to database
+                  connection = mysql.createConnection({
+                    host: dbhost,
+                    user: 'admin',
+                    port: '3306',
+                    password: 'dhirajj123',
+                    database: 'company'
+                  });
           }
-});
-
-
- // create the connection to database
- const connection = mysql.createConnection({
-  host: dbhost,
-  user: 'admin',
-  port: '3306',
-  password: 'dhirajj123',
-  database: 'company'
 });
 
 
