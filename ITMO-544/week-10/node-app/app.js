@@ -96,6 +96,7 @@ rds.describeDBInstances(params, function(err, data) {
  const connection = mysql.createConnection({
   host: dbhost,
   user: 'admin',
+  port: '3306',
   password: 'dhirajj123',
   database: 'company'
 });
