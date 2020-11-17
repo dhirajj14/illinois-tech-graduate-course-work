@@ -103,9 +103,9 @@ echo \ =============================================================== \
 
 echo \ ==========================Your rds ID============================ \
 
-read rdsID < <(echo $(aws rds describe-db-instances --db-instance-identifier ${15} --output text --query 'DBInstances[0].DbiResourceId'))
+read rdsEndpoint < <(echo $(aws rds describe-db-instances --db-instance-identifier ${15} --output text --query 'DBInstances[0].Endpoint.Address'))
 
-echo $rdsID
+echo $rdsEndpoint
 
 echo \ =============================================================== \
 
@@ -120,12 +120,20 @@ aws sqs change-message-visibility --queue-url $queueURL --visibility-timeout 300
 echo \ =============================================================== \
 
 
+
 echo Opening TCP 3300 port
 echo \ =============================================================== \
 
 aws ec2 authorize-security-group-ingress --group-id ${6} --ip-permissions IpProtocol=tcp,FromPort=3300,ToPort=3300,IpRanges='[{CidrIp=0.0.0.0/0}]'
 
 echo \ =============================================================== \
+
+echo Creating Database
+
+mysql --host=${rdsEndpoint} -u admin -pdhirajj123 < create.sql
+
+echo \ =============================================================== \
+
 
 echo Finished!!
 echo \ =============================================================== \
