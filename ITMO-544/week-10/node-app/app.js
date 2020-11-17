@@ -26,7 +26,7 @@ var app = express(),
     s3 = new aws.S3();
 
     // Code to get SQS URL
-    var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
+    var sqs = new aws.SQS({apiVersion: '2012-11-05'});
 
     var params = {
       QueueName: 'myqueue'
@@ -98,17 +98,6 @@ rds.describeDBInstances(params, function(err, data) {
   user: 'admin',
   password: 'dhirajj123',
   database: 'company'
-});
-
-const createTable = fs.readFileSync(path.join(__dirname, '../create.sql')).toString();
-
-connection.query(createTable, function(err, result){
-  if(err){
-    console.log("Failed to create Database");
-  }else{
-    console.log(result);
-    console.log("Database Created Successfully");
-  }
 });
 
 
