@@ -82,6 +82,7 @@ var params = {
     DBInstanceIdentifier: '',
 };
 
+console.log("getting DB Instance");
 rds.describeDBInstances(params, function(err, data) {
           if (err) console.log(err, err.stack); // an error occurred
           else     {
