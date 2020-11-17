@@ -130,7 +130,7 @@ echo \ =============================================================== \
 
 echo Creating Database
 
-mysql --host=${rdsEndpoint} -u admin -pdhirajj123 < create.sql
+mysql --host=${rdsEndpoint} -u admin -pdhirajj123 --port=3306< create.sql
 
 echo \ =============================================================== \
 
