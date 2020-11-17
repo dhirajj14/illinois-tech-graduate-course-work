@@ -53,10 +53,6 @@ echo $queueURL
 
 echo \ ===============================================================\
 
-aws sqs change-message-visibility --queue-url $queueURL --visibility-timeout 30000
-
-echo \ =============================================================== \
-
 echo Opening TCP 3300 port
 
 echo \ =============================================================== \
@@ -70,7 +66,6 @@ echo Creating Database
 mysql --host=${rdsEndpoint} -u admin -pdhirajj123 --port=3306< create.sql
 
 echo \ =============================================================== \
-
 
 
 echo Creating your EC2 Instance
