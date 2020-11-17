@@ -22,6 +22,54 @@
 #Create launch Configuration
 
 #create-launch-configuration --launch-configuration-name <launch-configuration-name> --image-id <image-ID> --instance-type t2.micro --security-groups <Security-Group-Name --key-name <key-pair> --user-data file://install-env.sh
+
+
+echo \ ==============Creating SQS and RDS first as it is required by EC2 instance to start node app =========================== \
+
+echo \ ==========================Creating RDS============================ \
+
+echo temp < <(echo $(aws rds create-db-instance --db-instance-identifier ${15} --db-instance-class db.t3.micro --engine mysql --master-username admin --master-user-password dhirajj123 --allocated-storage 20))
+
+aws rds wait db-instance-available --db-instance-identifier ${15}
+
+echo \ =============May take about 10-15 mins to create RDS Instance================ \
+
+echo \ =============================================================== \
+
+echo \ ==========================Your rds ID============================ \
+
+read rdsEndpoint < <(echo $(aws rds describe-db-instances --db-instance-identifier ${15} --output text --query 'DBInstances[0].Endpoint.Address'))
+
+echo $rdsEndpoint
+
+echo \ =============================================================== \
+
+echo \ ==========================Your rds ID============================ \
+
+read queueURL < <(echo $(aws sqs create-queue --queue-name myqueue --output text --query 'QueueUrl'))
+
+echo $queueURL
+
+aws sqs change-message-visibility --queue-url $queueURL --visibility-timeout 30000
+
+echo \ =============================================================== \
+
+echo Opening TCP 3300 port
+
+echo \ =============================================================== \
+
+aws ec2 authorize-security-group-ingress --group-id ${6} --ip-permissions IpProtocol=tcp,FromPort=3300,ToPort=3300,IpRanges='[{CidrIp=0.0.0.0/0}]'
+
+echo \ =============================================================== \
+
+echo Creating Database
+
+mysql --host=${rdsEndpoint} -u admin -pdhirajj123 --port=3306< create.sql
+
+echo \ =============================================================== \
+
+
+
 echo Creating your EC2 Instance
 echo \ =============================================================== \
 
@@ -92,46 +140,6 @@ echo Creating S3 bucket
 echo \ =============================================================== \
 
 aws s3 mb s3://${13}
-
-echo \ =============================================================== \
-
-echo \ ==========================Creating RDS============================ \
-
-$(aws rds create-db-instance --db-instance-identifier ${15} --db-instance-class db.t3.micro --engine mysql --master-username admin --master-user-password dhirajj123 --allocated-storage 20)
-
-aws rds wait db-instance-available --db-instance-identifier ${15}
-
-echo \ =============================================================== \
-
-echo \ ==========================Your rds ID============================ \
-
-read rdsEndpoint < <(echo $(aws rds describe-db-instances --db-instance-identifier ${15} --output text --query 'DBInstances[0].Endpoint.Address'))
-
-echo $rdsEndpoint
-
-echo \ =============================================================== \
-
-echo \ ==========================Your rds ID============================ \
-
-read queueURL < <(echo $(aws sqs create-queue --queue-name myqueue --output text --query 'QueueUrl'))
-
-echo $queueURL
-
-aws sqs change-message-visibility --queue-url $queueURL --visibility-timeout 30000
-
-echo \ =============================================================== \
-
-echo Opening TCP 3300 port
-
-echo \ =============================================================== \
-
-aws ec2 authorize-security-group-ingress --group-id ${6} --ip-permissions IpProtocol=tcp,FromPort=3300,ToPort=3300,IpRanges='[{CidrIp=0.0.0.0/0}]'
-
-echo \ =============================================================== \
-
-echo Creating Database
-
-mysql --host=${rdsEndpoint} -u admin -pdhirajj123 --port=3306< create.sql
 
 echo \ =============================================================== \
 
