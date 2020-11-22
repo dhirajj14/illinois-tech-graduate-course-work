@@ -1,5 +1,7 @@
 import boto3
 import mysql.connector
+from urllib.parse import urlparse
+from PIL import Image, ImageFilter
 
 sqs = boto3.resource('sqs',region_name='us-east-1')
 
@@ -43,13 +45,26 @@ mycursor = cnx.cursor()
 for message in queue.receive_messages():
   # Print out the body and author (if set)
   print(message.body)                 
-  mycursor.execute("SELECT * FROM jobs WHERE id == message.body")
+  mycursor.execute("SELECT * FROM jobs WHERE id == "+message.body+"")
   myresult = mycursor.fetchall()
 
   for x in myresult
-    s3.download_file(bucketName, 'ch-05-files-location.png', 'current-image.jpg')
+    fileName = urlparse(x.S3URL)
+    components = fileName.path.split["/"]
+    s3.download_file(bucketName, components[1], components[1]+'.png')
 
+    im = Image.open( components[1]+'.png' )
+    size = (100, 100)
+    im.thumbnail(size, Image.ANTIALIAS)
+    background = Image.new('RGBA', size, (255, 255, 255, 0))
+    background.paste(
+      im, (int((size[0] - im.size[0]) / 2), int((size[1] - im.size[1]) / 2))
+    )
+    background.save(components[1]+"-thumbnail.png")
 
+    s3.Object(bucketName, components[1]+'-rendered').upload_file(components[1]+"-thumbnail.png")
+
+    mycursor.execute('UPDATE Jobs SET stat = 1 WHERE id ='+message.body+'')
 
 
 # Retreive image from the S3 bucket
