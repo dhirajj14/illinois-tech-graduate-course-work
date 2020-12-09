@@ -72,7 +72,7 @@ promise.then((value) => {
     console.log(value);
   
   // initialize an DynomoDB object
-  var docClient = new AWS.DynamoDB.DocumentClient();
+  var docClient = new aws.DynamoDB.DocumentClient();
 
   var table = "Company";
 
