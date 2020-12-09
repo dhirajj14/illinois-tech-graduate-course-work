@@ -79,5 +79,5 @@ for message in queue.receive_messages():
         print(e.response['Error']['Message'])
     
 
- message.delete()
+    message.delete()
 
