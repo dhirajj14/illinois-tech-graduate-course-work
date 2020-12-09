@@ -140,6 +140,7 @@ echo Getting Target Groups ARN and Load Balancer ARN
 echo \ =============================================================== \
 
 read targetGroupArn < <(echo $(aws elbv2 describe-target-groups --output text --query TargetGroups[0].[TargetGroupArn]))
+
 read loadBalancerArn < <(echo $(aws elbv2 describe-load-balancers --output text --query LoadBalancers[0].LoadBalancerArn))
 
 echo LoadBalancers Arn $loadBalancerArn
