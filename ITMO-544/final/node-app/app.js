@@ -102,7 +102,7 @@ promise.then((value) => {
     TableName:table,
     Item:{
         "Email": email,
-        "S3URL": title,
+        "S3URL": s3url,
         "RecordNumber": id,
         "CustomerName": username,
         "Phone": phone,
