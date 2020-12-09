@@ -8,8 +8,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     multer = require('multer'),
     multerS3 = require('multer-s3');
-      
-const mysql = require('mysql2');
+    
 
 // needed to include to generate UUIDs
 // https://www.npmjs.com/package/uuid
