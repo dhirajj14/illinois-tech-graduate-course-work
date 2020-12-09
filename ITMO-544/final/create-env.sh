@@ -61,6 +61,11 @@ echo $queueURL
 
 echo \ ===============================================================\
 
+echo \ ==========================Getting QueueArn============================ \
+
+read queueARN < <(echo $(aws sqs get-queue-attributes --queue-url $queueURL --attribute-names QueueArn --output text --query Attributes.QueueArn))
+
+echo \ ===============================================================\
 
 echo Opening TCP 3300 port
 
@@ -77,6 +82,22 @@ echo \ =============================================================== \
 # echo \ =============================================================== \
 
 echo \ ==========================Creating Lambda Function============================ \
+
+aws lambda create-function \
+    --function-name EditorFunction \
+    --runtime python3.7 \
+    --zip-file fileb://editor.zip \
+    --handler editor.handler \
+    --role ${17}
+    --timeout 30
+
+echo \ =============================================================== \
+
+echo \ ==========================Creating SNS Topic============================ \
+
+aws sns create-topic --name dpj-sns-topic
+
+echo \ =============================================================== \
 
 
 echo Creating your EC2 Instance
@@ -150,6 +171,13 @@ echo Creating S3 bucket
 echo \ =============================================================== \
 
 aws s3 mb s3://${13}
+
+echo \ =============================================================== \
+
+echo Creating Output Thumbnail S3 bucket
+echo \ =============================================================== \
+
+aws s3 mb s3://${16}
 
 echo \ =============================================================== \
 
