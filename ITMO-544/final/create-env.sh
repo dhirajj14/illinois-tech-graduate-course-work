@@ -37,11 +37,19 @@ echo \ =============================================================== \
 
 aws dynamodb wait table-exists --table-name ${15}
 
-echo \ ==========================Your DynomoBD Endpoint============================ \
+echo \ ==========================Adding Records to DynomoDB============================ \
 
-read dbEndpoint < <(echo $(aws rds describe-db-instances --db-instance-identifier ${15} --output text --query 'DBInstances[0].Endpoint.Address'))
+aws dynamodb put-item --table-name ${15} --item file://records.json
 
-echo $dbEndpoint
+echo \ ==========================Scanning DynomoBD============================ \
+
+aws dynamodb scan --table-name ${15}
+
+# echo \ ==========================Your DynomoBD Endpoint============================ \
+
+# read dbEndpoint < <(echo $(aws rds describe-db-instances --db-instance-identifier ${15} --output text --query 'DBInstances[0].Endpoint.Address'))
+
+# echo $dbEndpoint
 
 echo \ =============================================================== \
 
@@ -53,6 +61,7 @@ echo $queueURL
 
 echo \ ===============================================================\
 
+
 echo Opening TCP 3300 port
 
 echo \ =============================================================== \
@@ -61,11 +70,13 @@ aws ec2 authorize-security-group-ingress --group-id ${6} --ip-permissions IpProt
 
 echo \ =============================================================== \
 
-echo Creating Database
+# echo Creating Database
 
-mysql --host=${rdsEndpoint} -u admin -pdhirajj123 --port=3306< create.sql
+# mysql --host=${rdsEndpoint} -u admin -pdhirajj123 --port=3306< create.sql
 
-echo \ =============================================================== \
+# echo \ =============================================================== \
+
+echo \ ==========================Creating Lambda Function============================ \
 
 
 echo Creating your EC2 Instance
@@ -97,7 +108,7 @@ read vpcId < <(echo $(aws elbv2 create-load-balancer --name $7 --subnets $3 $4 -
 
 echo your VpcId is $vpcId
 
-aws elbv2 create-target-group --name $8 --protocol HTTP --port 80 --target-type instance --vpc-id $vpcId
+aws elbv2 create-target-group --name $8 --protocol HTTP --port 3300 --target-type instance --vpc-id $vpcId
 
 echo Waiting /for load-balancer to be active
 echo \ =============================================================== \
