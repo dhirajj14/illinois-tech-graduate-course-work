@@ -15,8 +15,10 @@
 # ${12})	vpc-id You can have the user prompt this or you can retrieve it
 # ${13}) S3 bucket Name
 # ${14}) IAM Profile
-# ${15}) RDS-DB-Identifier
-# ${16})   tag Name
+# ${15}) DynomoDB Name
+# ${16}) Ouput S3 BucketName
+# ${17}) DynomoDB ARN
+# ${18}) Tag
 
 
 #Create launch Configuration
@@ -67,13 +69,14 @@ echo \ =============================================================== \
 
 echo \ ==========================Creating Lambda Function============================ \
 
-aws lambda create-function \
-    --function-name EditorFunction \
-    --runtime python3.7 \
-    --zip-file fileb://editor.zip \
-    --handler editor.handler \
-    --role ${17}
-    --timeout 30
+aws lambda create-function --function-name EditorFunction --runtime python3.7 --zip-file fileb://editor.zip \
+    --handler editor.handler --role ${17} --timeout 30
+
+echo \ =============================================================== \
+
+echo \ ==========================Mapping Lambda Function============================ \
+
+aws lambda create-event-source-mapping --function-name EditorFunction --batch-size 5 --maximum-batching-window-in-seconds 60 --event-source-arn $queueARN
 
 echo \ =============================================================== \
 
@@ -83,7 +86,6 @@ aws sns create-topic --name dpj-sns-topic
 
 echo \ =============================================================== \
 
-
 echo Creating your EC2 Instance
 echo \ =============================================================== \
 
@@ -91,7 +93,7 @@ read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 run-instances --imag
 
 aws ec2 wait instance-running --instance-ids $instanceID1 $instanceID2 $instanceID3 
 
-aws ec2 create-tags --resources $instanceID1 $instanceID2 $instanceID3  --tags Key=Name,Value=${16}
+aws ec2 create-tags --resources $instanceID1 $instanceID2 $instanceID3  --tags Key=Name,Value=${18}
 
 echo \ =============================================================== \
 
