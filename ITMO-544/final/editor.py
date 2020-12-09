@@ -39,33 +39,33 @@ def handler(event, context):
     s3url=""
     name=""
     # Process messages by printing out body and optional author name
-    for message in queue.receive_messages():
+    for message in event['Records']:
     # Print out the body and author (if set)
-        print(message.body)
-        msg = message.body
-        try:
-            response = table.get_item(Key={'RecordNumber': msg})
-            if('Item' in response):
-                data= response['Item']
-                phone=data['Phone']
-                name=data['CustomerName']
-                s3url=data['S3URL']
-                fileName = urlparse(s3url)
-                components = fileName.path
-                components = components[1:]
-                s3Client.download_file(bucketName, components, components)
-                im = Image.open( components)
-                size = (100, 100)
-                im.thumbnail(size, Image.ANTIALIAS)
-                background = Image.new('RGBA', size, (255, 255, 255, 0))
-                background.paste(
-                im, (int((size[0] - im.size[0]) / 2), int((size[1] - im.size[1]) / 2))
-                )
-                background.save("thumbnail-"+components)
+        print(message['body'])
+        msg = str(message['body'])
+        response = table.get_item(Key={'RecordNumber': msg})
+        if('Item' in response):
+            print( response['Item'])
+            data= response['Item']
+            phone=data['Phone']
+            name=data['CustomerName']
+            s3url=data['S3URL']
+            fileName = urlparse(s3url)
+            components = fileName.path
+            components = components[1:]
+            s3Client.download_file(bucketName, components, "/tmp/"+components)
+            im = Image.open("/tmp/"+components)
+            size = (100, 100)
+            im.thumbnail(size, Image.ANTIALIAS)
+            background = Image.new('RGBA', size, (255, 255, 255, 0))
+            background.paste(
+            im, (int((size[0] - im.size[0]) / 2), int((size[1] - im.size[1]) / 2))
+            )
+            background.save("/tmp/thumbnail-"+components)
 
-                s3.Object(outputBucketName, "thumbnail-"+msg+".jpeg").upload_file("thumbnail-"+components)
-                response = table.update_item(
-                    Key={
+            s3.Object(outputBucketName, "thumbnail-"+msg+".jpeg").upload_file("/tmp/thumbnail-"+components)
+            response = table.update_item(
+                Key={
                     'RecordNumber': msg,
                     },
                     UpdateExpression="set Stat=:s",
@@ -75,16 +75,11 @@ def handler(event, context):
                     },
                     ReturnValues="UPDATED_NEW"
                 )
-                response = client.publish(
+            response = client.publish(
                     PhoneNumber=phone,
                     Message=name,
                     Subject="Your Image is ready!"
                 )
-                message.delete()
-            else:
-                print("No Pending Item")
-        except ClientError as e:
-            print("No error")
-
-
-            
+        else:
+            print("No Pending Item")
+    
