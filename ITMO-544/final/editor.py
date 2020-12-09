@@ -5,7 +5,6 @@ import uuid
 from urllib.parse import urlparse
 from PIL import Image, ImageFilter
 import PIL.Image
-import mysql.connector
 
 
 #s3_client = boto3.client('s3')
