@@ -17,7 +17,7 @@
 # ${14}) IAM Profile
 # ${15}) DynomoDB Name
 # ${16}) Ouput S3 BucketName
-# ${17}) DynomoDB ARN
+# ${17}) lambda ARN
 # ${18}) Tag
 
 
@@ -27,11 +27,9 @@
 
 echo \ 
 
-echo \ ============== Creating SQS and DynoDB first as it is required by EC2 instance to start node app =========================== \
-
 echo \ ==========================Creating DynomoBD============================ \
 
-read temp < <(echo $(aws dynamodb create-table --table-name ${15} --attribute-definitions AttributeName=Email,AttributeType=S AttributeName=S3URL,AttributeType=S --key-schema AttributeName=Email,KeyType=HASH AttributeName=S3URL,KeyType=RANGE --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5))
+read temp < <(echo $(aws dynamodb create-table --table-name ${15} --attribute-definitions AttributeName=Email,AttributeType=S AttributeName=S3URL,AttributeType=S --key-schema AttributeName=RecordNumber,KeyType=HASH --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5))
 
 echo \ ==========May take about 10-15 mins to create DynomoBD ============== \
 
