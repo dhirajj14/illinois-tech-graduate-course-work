@@ -29,7 +29,7 @@ echo \
 
 echo \ ==========================Creating DynomoBD============================ \
 
-read temp < <(echo $(aws dynamodb create-table --table-name ${15} --attribute-definitions AttributeName=Email,AttributeType=S AttributeName=S3URL,AttributeType=S --key-schema AttributeName=RecordNumber,KeyType=HASH --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5))
+read temp < <(echo $(aws dynamodb create-table --table-name ${15} --attribute-definitions AttributeName=RecordNumber,AttributeType=S --key-schema AttributeName=RecordNumber,KeyType=HASH --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5))
 
 echo \ ==========May take about 10-15 mins to create DynomoBD ============== \
 
