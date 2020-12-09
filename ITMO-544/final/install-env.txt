@@ -16,6 +16,6 @@ npm install uuid
 
 sudo runuser -l ubuntu -c 'git clone git@github.com:illinoistech-itm/djain14.git'
 
-sudo runuser -l ubuntu -c 'node djain14/ITMO-544/week-10/node-app/app.js'
+sudo runuser -l ubuntu -c 'node djain14/ITMO-544/final/node-app/app.js'
 
 
