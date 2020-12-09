@@ -26,10 +26,10 @@ def handler(event, context):
     for bucket in s3.buckets.all():
         if(x==0):
             bucketName = bucket.name
-            x =x+1
         if(x==1):
             outputBucketName = bucket.name
             break
+        x =x+1
     # https://boto3.amazonaws.com/v1/documentation/api/latest/guide/sqs.html#processing-messages
     # Get the queue
     queue = sqs.get_queue_by_name(QueueName='myqueue')
@@ -46,43 +46,46 @@ def handler(event, context):
         msg = message.body
         try:
             response = table.get_item(Key={'RecordNumber': msg})
-            print(response['Item'])
-            data= response['Item']
-            phone=data['Phone']
-            name=data['CustomerName']
-            s3url=data['S3URL']
-            fileName = urlparse(s3url)
-            components = fileName.path
-            components = components[1:]
-            s3Client.download_file(bucketName, components, components)
-            im = Image.open( components)
-            size = (100, 100)
-            im.thumbnail(size, Image.ANTIALIAS)
-            background = Image.new('RGBA', size, (255, 255, 255, 0))
-            background.paste(
-            im, (int((size[0] - im.size[0]) / 2), int((size[1] - im.size[1]) / 2))
-            )
-            background.save("thumbnail-"+components)
+            if('Item' in response):
+                data= response['Item']
+                phone=data['Phone']
+                name=data['CustomerName']
+                s3url=data['S3URL']
+                fileName = urlparse(s3url)
+                components = fileName.path
+                components = components[1:]
+                s3Client.download_file(bucketName, components, components)
+                im = Image.open( components)
+                size = (100, 100)
+                im.thumbnail(size, Image.ANTIALIAS)
+                background = Image.new('RGBA', size, (255, 255, 255, 0))
+                background.paste(
+                im, (int((size[0] - im.size[0]) / 2), int((size[1] - im.size[1]) / 2))
+                )
+                background.save("thumbnail-"+components)
 
-            s3.Object(outputBucketName, "thumbnail-"+msg+".jpeg").upload_file("thumbnail-"+components)
-            response = table.update_item(
-                Key={
-                'RecordNumber': msg,
-                },
-                UpdateExpression="set Stat=:s",
-                ExpressionAttributeValues={
-                    ':s': 1,
+                s3.Object(outputBucketName, "thumbnail-"+msg+".jpeg").upload_file("thumbnail-"+components)
+                response = table.update_item(
+                    Key={
+                    'RecordNumber': msg,
+                    },
+                    UpdateExpression="set Stat=:s",
+                    ExpressionAttributeValues={
+                        ':s': 1,
 
-                },
-                ReturnValues="UPDATED_NEW"
-            )
-            response = client.publish(
-                PhoneNumber=phone,
-                Message=name,
-                Subject="Your Image is ready!"
-            )
+                    },
+                    ReturnValues="UPDATED_NEW"
+                )
+                response = client.publish(
+                    PhoneNumber=phone,
+                    Message=name,
+                    Subject="Your Image is ready!"
+                )
+                message.delete()
+            else:
+                print("No Pending Item")
         except ClientError as e:
-            print(e.response['Error']['Message'])
+            print("No error")
 
 
-        message.delete()
+            
