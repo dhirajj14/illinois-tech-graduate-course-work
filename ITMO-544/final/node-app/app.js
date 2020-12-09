@@ -8,8 +8,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     multer = require('multer'),
     multerS3 = require('multer-s3');
-      
-const mysql = require('mysql2');
+    
 
 // needed to include to generate UUIDs
 // https://www.npmjs.com/package/uuid
@@ -73,9 +72,9 @@ promise.then((value) => {
     console.log(value);
   
   // initialize an DynomoDB object
-  var docClient = new AWS.DynamoDB.DocumentClient();
+  var docClient = new aws.DynamoDB.DocumentClient();
 
-  var table = "Company";
+  var table = "dynomo-dpj";
 
   app.get('/', function (req, res) {
       res.sendFile(__dirname + '/index.html');
@@ -103,7 +102,7 @@ promise.then((value) => {
     TableName:table,
     Item:{
         "Email": email,
-        "S3URL": title,
+        "S3URL": s3url,
         "RecordNumber": id,
         "CustomerName": username,
         "Phone": phone,
