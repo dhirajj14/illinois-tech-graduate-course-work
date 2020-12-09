@@ -74,7 +74,7 @@ promise.then((value) => {
   // initialize an DynomoDB object
   var docClient = new aws.DynamoDB.DocumentClient();
 
-  var table = "	dynomo-dpj";
+  var table = "dynomo-dpj";
 
   app.get('/', function (req, res) {
       res.sendFile(__dirname + '/index.html');
