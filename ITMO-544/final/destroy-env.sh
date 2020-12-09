@@ -6,9 +6,9 @@ read instances < <(echo $(aws ec2 describe-instances --filters Name=instance-sta
 
 
 
-read targetGroupArn < <(echo $(aws elbv2 describe-target-groups --output text --query TargetGroups[0].[TargetGroupArn]))
-read loadBalancerArn < <(echo $(aws elbv2 describe-load-balancers --output text --query LoadBalancers[0].LoadBalancerArn))
-read listenerArn < <(echo $(aws elbv2 describe-listeners --load-balancer-arn $loadBalancerArn --output text --query Listeners[0].ListenerArn))
+read targetGroupArn < <(echo $(aws elbv2 describe-target-groups --output text --query 'TargetGroups[0].TargetGroupArn'))
+read loadBalancerArn < <(echo $(aws elbv2 describe-load-balancers --output text --query 'LoadBalancers[0].LoadBalancerArn'))
+read listenerArn < <(echo $(aws elbv2 describe-listeners --load-balancer-arn $loadBalancerArn --output text --query 'Listeners[0].ListenerArn'))
 
 read instanceID1< <(echo $(aws elbv2 describe-target-health --target-group-arn $targetGroupArn  --query 'TargetHealthDescriptions[0].Target.Id'))
 read instanceID2< <(echo $(aws elbv2 describe-target-health --target-group-arn $targetGroupArn  --query 'TargetHealthDescriptions[1].Target.Id'))

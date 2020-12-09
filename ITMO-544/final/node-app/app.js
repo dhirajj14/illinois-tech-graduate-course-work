@@ -73,9 +73,18 @@ promise.then((value) => {
   
   // initialize an DynomoDB object
   var docClient = new aws.DynamoDB.DocumentClient();
+  var table ="";
+  docClient.listTables(param, function (err, data) {
 
-  var table = "dynomo-dpj";
-
+    if (err){
+      console.log(err, err.stack);
+     } // an error occurred
+    else{
+      console.log(data); 
+      table = data[0];
+    }          // successful response
+  });
+  
   app.get('/', function (req, res) {
       res.sendFile(__dirname + '/index.html');
   });
