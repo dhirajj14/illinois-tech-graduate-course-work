@@ -69,7 +69,7 @@ echo \ =============================================================== \
 
 echo \ ==========================Creating Lambda Function============================ \
 
-aws lambda create-function --function-name EditorFunction --runtime python3.7 --zip-file fileb://editor.zip \
+aws lambda create-function --function-name EditorFunction --runtime python3 --zip-file fileb://editor.zip \
     --handler editor.handler --role ${17} --timeout 30
 
 echo \ =============================================================== \
