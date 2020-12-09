@@ -72,108 +72,79 @@ promise.then((value) => {
     });
     console.log(value);
   
-    // initialize an RDS connection object
-var rds = new aws.RDS();
+  // initialize an DynomoDB object
+  var docClient = new AWS.DynamoDB.DocumentClient();
 
-// connect to RDS to retrieve RDS database instance endpoint
-var dbhost = '';
-// configure RDS parameters to send to the connection object
-var params = {
-    DBInstanceIdentifier: '',
-};
+  var table = "Company";
 
-var connection ='';
-console.log("getting DB Instance");
-rds.describeDBInstances(params, function(err, data) {
-          if (err) console.log(err, err.stack); // an error occurred
-          else     {
-                   dbhost=data.DBInstances[0].Endpoint.Address;
-                   console.log(data.DBInstances[0].Endpoint.Address);           // successful response
-                   console.log(dbhost);
+  app.get('/', function (req, res) {
+      res.sendFile(__dirname + '/index.html');
+  });
 
-                   // create the connection to database
-                  connection = mysql.createConnection({
-                    host: dbhost,
-                    user: 'admin',
-                    port: '3306',
-                    password: 'dhirajj123',
-                    database: 'company'
-                  });
-          }
-});
+  app.post('/upload', upload.array('uploadFile',1), function (req, res, next) {
+
+  // https://www.npmjs.com/package/multer
+  // This retrieves the name of the uploaded file
+  var fname = req.files[0].originalname;
+  // Now we can construct the S3 URL since we already know the structure of S3 URLS and our bucket
+  // For this sample I hardcoded my bucket, you can do this or retrieve it dynamically
+  var s3url = `https://${d1}.s3.amazonaws.com/` + fname;
+  // Use this code to retrieve the value entered in the username field in the index.html
+  var username = req.body['name'];
+  // Use this code to retrieve the value entered in the email field in the index.html
+  var email = req.body['email'];
+  // Use this code to retrieve the value entered in the phone field in the index.html
+  var phone = req.body['phone'];
+  // generate a UUID for this action
+  var id = uuidv4();
 
 
-app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
-});
+  var params = {
+    TableName:table,
+    Item:{
+        "Email": email,
+        "S3URL": title,
+        "RecordNumber": id,
+        "CustomerName": username,
+        "Phone": phone,
+        "Stat": 0 
+    }
+  };
 
-app.post('/upload', upload.array('uploadFile',1), function (req, res, next) {
+    console.log("Adding a new item...");
+    docClient.put(params, function(err, data) {
+        if (err) {
+            console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("Added item:", JSON.stringify(data, null, 2));
+            var SQSparams = {
+              // Remove DelaySeconds parameter and value for FIFO queues
+            DelaySeconds: 0,
+            MessageBody: id,
+            // MessageDeduplicationId: "TheWhistler",  // Required for FIFO queues
+            // MessageGroupId: "Group1",  // Required for FIFO queues
+            QueueUrl: sqsURL
+            };
 
-// https://www.npmjs.com/package/multer
-// This retrieves the name of the uploaded file
-var fname = req.files[0].originalname;
-// Now we can construct the S3 URL since we already know the structure of S3 URLS and our bucket
-// For this sample I hardcoded my bucket, you can do this or retrieve it dynamically
-var s3url = `https://${d1}.s3.amazonaws.com/` + fname;
-// Use this code to retrieve the value entered in the username field in the index.html
-var username = req.body['name'];
-// Use this code to retrieve the value entered in the email field in the index.html
-var email = req.body['email'];
-// Use this code to retrieve the value entered in the phone field in the index.html
-var phone = req.body['phone'];
-// generate a UUID for this action
-var id = uuidv4();
-
-
-// hardcoded values for testing
-//var recorddata = {RecordNumber: 45,CustomerName: 'jeremy',Email: 'hajek@iit.edu',Phone: '630-469-6411', Stat: 0, S3URL: "https"};
-var recorddata = {RecordNumber: id,CustomerName: username,Email: email,Phone: phone, Stat: 0, S3URL: s3url};
-
- // https://github.com/mysqljs/mysql#escaping-query-values
- // SQL INSERT STATEMENT to insert the values from the POST
- var query = connection.query('INSERT INTO jobs SET ?', recorddata,
-    function(err, results) {
-      console.log(query.sql);
-        if(err){
-          console.log(err);
-        }else{
-          console.log(results); // results contains rows returned by server
-          var SQSparams = {
-            // Remove DelaySeconds parameter and value for FIFO queues
-           DelaySeconds: 0,
-           MessageBody: id,
-           // MessageDeduplicationId: "TheWhistler",  // Required for FIFO queues
-           // MessageGroupId: "Group1",  // Required for FIFO queues
-           QueueUrl: sqsURL
-          };
-
-          // Code for SQS Message sending goes here
-          // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SQS.html#sendMessage-property
-
-          sqs.sendMessage(SQSparams, function(err, data) {
-            if (err) {
-              console.log("Error", err);
-            } else {
-              console.log("Success", data.MessageId);
-            }
-          });
+            sqs.sendMessage(SQSparams, function(err, data) {
+              if (err) {
+                console.log("Error", err);
+              } else {
+                console.log("Success", data.MessageId);
+                // Write output to the screen
+              res.write(s3url + "\n");
+              res.write(username + "\n")
+              res.write(fname + "\n");
+              res.write("File uploaded successfully to Amazon S3 Server!" + "\n");
+              res.end();
+              }
+            });
         }
-       
-     }
-  ); 
+      });
 
 
-// Write output to the screen
-        res.write(s3url + "\n");
-        res.write(username + "\n")
-        res.write(fname + "\n");
-        res.write(dbhost + "\n");
-        res.write("File uploaded successfully to Amazon S3 Server!" + "\n");
-      
-        res.end();
-});
+  });
 
-  
 }).catch((error) => {
   console.error(error);
 });

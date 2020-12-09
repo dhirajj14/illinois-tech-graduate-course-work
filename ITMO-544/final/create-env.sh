@@ -33,23 +33,7 @@ read temp < <(echo $(aws dynamodb create-table --table-name ${15} --attribute-de
 
 echo \ ==========May take about 10-15 mins to create DynomoBD ============== \
 
-echo \ =============================================================== \
-
 aws dynamodb wait table-exists --table-name ${15}
-
-echo \ ==========================Adding Records to DynomoDB============================ \
-
-aws dynamodb put-item --table-name ${15} --item file://records.json
-
-echo \ ==========================Scanning DynomoBD============================ \
-
-aws dynamodb scan --table-name ${15}
-
-# echo \ ==========================Your DynomoBD Endpoint============================ \
-
-# read dbEndpoint < <(echo $(aws rds describe-db-instances --db-instance-identifier ${15} --output text --query 'DBInstances[0].Endpoint.Address'))
-
-# echo $dbEndpoint
 
 echo \ =============================================================== \
 
