@@ -2,15 +2,21 @@ echo Getting your elbv2 and ec2 information data to delete
 echo \ =============================================================== \
 
 
-read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 describe-tags --filters 'Name=tag:Name,Values='$3'' --output text --query 'Tags[*].ResourceId'))
+read instances < <(echo $(aws ec2 describe-instances --filters Name=instance-state-name,Values=running --output text --query 'Reservations[*].Instances[*].InstanceId'))
+
 
 
 read targetGroupArn < <(echo $(aws elbv2 describe-target-groups --output text --query TargetGroups[0].[TargetGroupArn]))
 read loadBalancerArn < <(echo $(aws elbv2 describe-load-balancers --output text --query LoadBalancers[0].LoadBalancerArn))
 read listenerArn < <(echo $(aws elbv2 describe-listeners --load-balancer-arn $loadBalancerArn --output text --query Listeners[0].ListenerArn))
 
+read instanceID1< <(echo $(aws elbv2 describe-target-health --target-group-arn $targetGroupArn  --query 'TargetHealthDescriptions[0].Target.Id'))
+read instanceID2< <(echo $(aws elbv2 describe-target-health --target-group-arn $targetGroupArn  --query 'TargetHealthDescriptions[1].Target.Id'))
+read instanceID3< <(echo $(aws elbv2 describe-target-health --target-group-arn $targetGroupArn  --query 'TargetHealthDescriptions[2].Target.Id'))
+
 echo Deregistering Targets
 echo \ =============================================================== \
+
 
 aws elbv2 deregister-targets --target-group-arn $targetGroupArn --targets Id=$instanceID1 Id=$instanceID2 Id=$instanceID3
 
@@ -37,13 +43,9 @@ aws elbv2 wait load-balancers-deleted --load-balancer-arns $loadBalancerArn
 echo Deleting EC2 Instance
 echo \ =============================================================== \
 
-echo $(aws ec2 terminate-instances --instance-ids $instanceID1 $instanceID2 $instanceID3)
+echo $(aws ec2 terminate-instances --instance-ids $instances)
 
-aws ec2 wait instance-terminated --instance-ids $instanceID1 $instanceID2 $instanceID3
-
-echo \ =============================================================== \
-
-echo All resources have been terminated
+aws ec2 wait instance-terminated --instance-ids $instances
 
 echo \ =============================================================== \
 
@@ -52,16 +54,18 @@ aws autoscaling delete-auto-scaling-group --auto-scaling-group-name $1 --force-d
 aws autoscaling delete-launch-configuration --launch-configuration-name $2
 
 
-echo Deleting RDS Instance
+echo Deleting DynomoDB Instance
 
-aws rds delete-db-instance --db-instance-identifier ${5} --delete-automated-backups --skip-final-snapshot
+aws dynamodb delete-table --table-name $3
+
+aws dynamodb wait table-not-exists --table-name $3
 
 echo \ =============================================================== \
 
 echo Deleting SQS Queue 
 echo \ =============================================================== \
 
-read queueURL < <(echo $(aws sqs get-queue-url --queue-name ${6}))
+read queueURL < <(echo $(aws sqs get-queue-url --queue-name ${4} --query 'QueueUrl'))
 
 aws sqs delete-queue --queue-url ${queueURL}
 
@@ -69,7 +73,27 @@ echo Deleting Bucket
 
 echo \ =============================================================== \
 
-aws s3 rb s3://${4} --force  
+aws s3 rb s3://${5} --force  
 
-echo Finished!!!
+aws s3 rb s3://${6} --force  
+
+echo Deleting SNS Topic
+
+echo \ =============================================================== \
+
+read topicARN < <(echo $(aws sns list-topics --query 'Topics[0].TopicArn'))
+
+aws sns delete-topic --topic-arn $topicARN
+
+echo Deleting Lambda
+
+echo \ =============================================================== \
+
+aws lambda delete-function --function-name EditorFunction
+
+read UUID < <(echo $(aws lambda list-event-source-mappings --function-name EditorFunction --query 'EventSourceMappings[0].UUID'))
+
+aws lambda delete-event-source-mapping --uuid $UUID
+
+echo Finished!!! All resources have been terminated/deleted
 echo \ =============================================================== \

@@ -93,8 +93,6 @@ read instanceID1 instanceID2 instanceID3 < <(echo $(aws ec2 run-instances --imag
 
 aws ec2 wait instance-running --instance-ids $instanceID1 $instanceID2 $instanceID3 
 
-aws ec2 create-tags --resources $instanceID1 $instanceID2 $instanceID3  --tags Key=Name,Value=${18}
-
 echo \ =============================================================== \
 
 read dns1 < <(echo $(aws ec2 describe-instances --instance-ids ${instanceID1} --output text --query 'Reservations[0].Instances[0].PublicDnsName'))
