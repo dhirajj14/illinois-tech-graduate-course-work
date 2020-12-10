@@ -27,7 +27,7 @@
 ### ${13}) S3 bucket Name
 ### ${14}) IAM Profile
 ### ${15}) DynomoDB Name
-### ${16}) Ouput S3 BucketName
+### ${16}) Ouput S3 BucketName - Thumbnail
 ### ${17}) AWS Lambda user role 
 
 #
@@ -49,6 +49,10 @@
 ### ${5}) Ouput S3 BucketName
 
 #
+
+## Important Instuctions
+
+> ### Deregistering Targets take some time.
 
 ### To execute the script enter the following command
 
