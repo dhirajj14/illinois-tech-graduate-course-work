@@ -85,7 +85,7 @@ def handler(event, context):
     
         response = client.publish(
                     PhoneNumber=phone,
-                    Message="Hello "+Insert Name+ " Your image has been rendered",
+                    Message="Hello "+name+" Your image has been rendered",
                     Subject="Your Image is ready!"
                 )
 
