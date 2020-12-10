@@ -14,8 +14,10 @@ npm install -y express aws-sdk multer multer-s3 body-parser
 
 npm install uuid
 
+sudo npm install pm2@latest -g
+
 sudo runuser -l ubuntu -c 'git clone git@github.com:illinoistech-itm/djain14.git'
 
-sudo runuser -l ubuntu -c 'node djain14/ITMO-544/final/node-app/app.js'
+sudo runuser -l ubuntu -c 'sudo pm2 start djain14/ITMO-544/final/node-app/app.js'
 
 
