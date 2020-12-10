@@ -91,6 +91,23 @@ promise.then((value) => {
       res.sendFile(__dirname + '/index.html');
   });
 
+  app.get('/gallery', function(req, res){
+    var bucketParams = {
+        Bucket:d1,
+        Delimiter: '/'
+    };
+
+    s3.listObjects(bucketParams, function(err, data) {
+    if (err) {
+      return 'There was an error viewing your album: ' + err.message
+    }else{
+      console.log(data.Contents,"<<<all content");
+      data.Contents.forEach(function(obj,index){
+        res.write(obj.Key + " \n")
+    })
+}
+})
+
   app.post('/upload', upload.array('uploadFile',1), function (req, res, next) {
 
   // https://www.npmjs.com/package/multer
