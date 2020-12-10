@@ -65,7 +65,7 @@ echo \ =============================================================== \
 echo Deleting SQS Queue 
 echo \ =============================================================== \
 
-read queueURL < <(echo $(aws sqs get-queue-url --queue-name ${4} --query 'QueueUrl'))
+read queueURL < <(echo $(aws sqs get-queue-url --queue-name ${4} --output text --query 'QueueUrl'))
 
 aws sqs delete-queue --queue-url ${queueURL}
 
@@ -77,13 +77,6 @@ aws s3 rb s3://${5} --force
 
 aws s3 rb s3://${6} --force  
 
-echo Deleting SNS Topic
-
-echo \ =============================================================== \
-
-read topicARN < <(echo $(aws sns list-topics --query 'Topics[0].TopicArn'))
-
-aws sns delete-topic --topic-arn $topicARN
 
 echo Deleting Lambda
 
@@ -91,9 +84,21 @@ echo \ =============================================================== \
 
 aws lambda delete-function --function-name EditorFunction
 
-read UUID < <(echo $(aws lambda list-event-source-mappings --function-name EditorFunction --query 'EventSourceMappings[0].UUID'))
+echo Deleting Mapping
+
+echo \ =============================================================== \
+
+read UUID < <(echo $(aws lambda list-event-source-mappings --function-name EditorFunction --output text --query EventSourceMappings[0].UUID))
 
 aws lambda delete-event-source-mapping --uuid $UUID
+
+echo Deleting SNS Topic
+
+echo \ =============================================================== \
+
+read topicARN < <(echo $(aws sns list-topics --output text --query 'Topics[0].TopicArn'))
+
+aws sns delete-topic --topic-arn `$topicARN`
 
 echo Finished!!! All resources have been terminated/deleted
 echo \ =============================================================== \
