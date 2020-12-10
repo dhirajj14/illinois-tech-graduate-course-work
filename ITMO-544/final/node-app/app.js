@@ -106,6 +106,7 @@ promise.then((value) => {
       data.Contents.forEach(function(obj,index){
         res.write(obj.Key + " \n")
     })
+    res.end();
 }
 })
 });
