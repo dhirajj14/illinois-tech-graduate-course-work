@@ -40,6 +40,21 @@
 
 `./create-env.sh ami-0e7054d218c36ae8a 3 subnet-b4e11185 subnet-962b57db 1 sg-9abcd0a6 my-load-blc target-group-my windows-laptop-bionic-v2 auto-n launch-1 1 fall2020-dpj arn:aws:iam::355122276479:instance-profile/inclass-2020 dpj09 output-20 arn:aws:iam::355122276479:role/service-role/dpj-inclass2020-lambda`
 
+#
+
+### Publish SNS message 
+
+> #### Please enter the phone number includeing +country code
+> Example +11231231234
+
+#
+
+### To view list of raw objects
+
+`domain.com:3300/gallery`
+
+#
+
 ### Variables to run the destroy-env Script (Variables should be same as used for creating)
 
 ### ${1})	auto-scaling-group-name
