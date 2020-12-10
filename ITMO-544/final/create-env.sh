@@ -105,7 +105,7 @@ echo \ =============================================================== \
 echo Creating....Initializing...Starting you EC2 Instance
 echo \ =============================================================== \
 
-aws autoscaling create-launch-configuration --launch-configuration-name ${11} --image-id $1 --instance-type t2.micro --security-groups $6 --key-name $9 --user-data file://install-env.txt
+aws autoscaling create-launch-configuration --launch-configuration-name ${11} --image-id $1 --instance-type t2.micro --security-groups $6 --key-name $9 --user-data file://install-env.txt --iam-instance-profile Arn=${14}
 
 read vpcId < <(echo $(aws elbv2 create-load-balancer --name $7 --subnets $3 $4 --output text  --query 'LoadBalancers[0].VpcId'))
 
