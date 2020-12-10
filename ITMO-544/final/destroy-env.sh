@@ -20,7 +20,7 @@ echo \ =============================================================== \
 
 aws elbv2 deregister-targets --target-group-arn $targetGroupArn --targets Id=$instanceID1 Id=$instanceID2 Id=$instanceID3
 
-aws elbv2 wait target-deregistered --target-group-arn $targetGroupArn --targets Id=$instanceID1 Id=$instanceID2 Id=$instanceID3,Port=80
+aws elbv2 wait target-deregistered --target-group-arn $targetGroupArn --targets Id=$instanceID1 Id=$instanceID2 Id=$instanceID3,Port=3300
 
 
 echo Deleting listener
