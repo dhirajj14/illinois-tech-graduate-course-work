@@ -10,6 +10,8 @@
 
 #
 
+> #### EC2 Instance takes time to pass checkings after status changes to running - out of our control!!!
+
 ### Variables to run the Create-env Script
 
 ### $1    ImageID
