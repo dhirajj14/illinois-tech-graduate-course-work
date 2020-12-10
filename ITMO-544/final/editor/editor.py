@@ -13,6 +13,8 @@ import PIL.Image
 def handler(event, context):
     print("Hello")
     client = boto3.client('sns','us-east-1')
+    
+    dynamoclient = boto3.client('dynamodb', 'us-east-1')
 
     dynamodb = boto3.resource('dynamodb', endpoint_url="https://dynamodb.us-east-1.amazonaws.com", region_name="us-east-1")
 
@@ -29,11 +31,13 @@ def handler(event, context):
             outputBucketName = bucket.name
             break
         x =x+1
-    # https://boto3.amazonaws.com/v1/documentation/api/latest/guide/sqs.html#processing-messages
-    # Get the queue
-    queue = sqs.get_queue_by_name(QueueName='myqueue')
+ 
 
-    table = dynamodb.Table('dynomo-dpj')
+    response = dynamoclient.list_tables(
+    )
+
+    print(response)
+    table = dynamodb.Table(response['TableNames'][0])
 
     phone=""
     s3url=""
@@ -75,11 +79,14 @@ def handler(event, context):
                     },
                     ReturnValues="UPDATED_NEW"
                 )
-            response = client.publish(
-                    PhoneNumber=phone,
-                    Message=name,
-                    Subject="Your Image is ready!"
-                )
+            
         else:
             print("No Pending Item")
     
+        response = client.publish(
+                    PhoneNumber="+1"+phone,
+                    Message=name,
+                    Subject="Your Image is ready!"
+                )
+
+            

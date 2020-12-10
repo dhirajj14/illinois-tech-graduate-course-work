@@ -74,17 +74,19 @@ promise.then((value) => {
   // initialize an DynomoDB object
   var docClient = new aws.DynamoDB.DocumentClient();
   var table ="";
-  docClient.listTables(param, function (err, data) {
-
+  
+  var params = {
+  };
+  new aws.DynamoDB().listTables(params, function (err, data) {
     if (err){
       console.log(err, err.stack);
-     } // an error occurred
+    } // an error occurred
     else{
-      console.log(data); 
-      table = data[0];
+      table = data['TableNames'][0];
+      console.log(table)
     }          // successful response
   });
-  
+
   app.get('/', function (req, res) {
       res.sendFile(__dirname + '/index.html');
   });
