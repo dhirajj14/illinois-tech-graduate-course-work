@@ -102,6 +102,7 @@ promise.then((value) => {
       return 'There was an error viewing your album: ' + err.message
     }else{
       console.log(data.Contents,"<<<all content");
+      res.write("Gallery")
       data.Contents.forEach(function(obj,index){
         res.write(obj.Key + " \n")
     })
