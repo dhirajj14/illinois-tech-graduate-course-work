@@ -65,7 +65,7 @@ echo \ =============================================================== \
 echo Deleting SQS Queue 
 echo \ =============================================================== \
 
-read queueURL < <(echo $(aws sqs get-queue-url --queue-name ${4} --output text --query 'QueueUrl'))
+read queueURL < <(echo $(aws sqs get-queue-url --queue-name myqueue --output text --query 'QueueUrl'))
 
 aws sqs delete-queue --queue-url ${queueURL}
 
@@ -73,9 +73,9 @@ echo Deleting Bucket
 
 echo \ =============================================================== \
 
-aws s3 rb s3://${5} --force  
+aws s3 rb s3://${4} --force  
 
-aws s3 rb s3://${6} --force  
+aws s3 rb s3://${5} --force  
 
 
 echo Deleting Lambda
