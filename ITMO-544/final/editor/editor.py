@@ -67,7 +67,7 @@ def handler(event, context):
             )
             background.save("/tmp/thumbnail-"+components)
 
-            s3.Object(outputBucketName, "thumbnail-"+msg+".jpeg").upload_file("/tmp/thumbnail-"+components)
+            s3.Object(outputBucketName, "thumbnail-"+msg+".jpg").upload_file("/tmp/thumbnail-"+components)
             response = table.update_item(
                 Key={
                     'RecordNumber': msg,
@@ -84,8 +84,8 @@ def handler(event, context):
             print("No Pending Item")
     
         response = client.publish(
-                    PhoneNumber="+1"+phone,
-                    Message=name,
+                    PhoneNumber=phone,
+                    Message="Hello "+Insert Name+ " Your image has been rendered",
                     Subject="Your Image is ready!"
                 )
 
