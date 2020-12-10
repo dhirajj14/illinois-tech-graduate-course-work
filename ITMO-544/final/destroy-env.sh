@@ -98,7 +98,7 @@ echo \ =============================================================== \
 
 read topicARN < <(echo $(aws sns list-topics --output text --query 'Topics[0].TopicArn'))
 
-aws sns delete-topic --topic-arn `$topicARN`
+aws sns delete-topic --topic-arn $topicARN
 
 echo Finished!!! All resources have been terminated/deleted
 echo \ =============================================================== \
